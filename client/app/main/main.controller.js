@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('researchApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, projects) {
 
     // Carousel
     $scope.myInterval = 5000;
@@ -16,13 +16,7 @@ angular.module('researchApp')
       $scope.addSlide();
     }
 
-    // Tags
-    $scope.tags = [
-      {name: 'Tag 1', link: '/'},
-      {name: 'Tag 2', link: '/'},
-      {name: 'Tag 3', link: '/'},
-      {name: 'Tag 4', link: '/'}
-    ];
-
+    $scope.tags = projects.tags;
+    $scope.projects = projects.projectsList;
 
   });

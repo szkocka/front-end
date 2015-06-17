@@ -1,13 +1,34 @@
-.main-slider {
+.main-carousel {
     margin-top: -20px;
 }
 
-.tags-section {
+.tags {
     padding: 40px 20px;
     .tag {
         margin: 5px;
         .btn();
         .btn-primary();
         .btn-lg();
+    }
+}
+
+.projects {
+    .project-block {
+        margin-bottom: 20px;
+        .clearfix();
+        img {
+            .make-xs-column(6);
+            .make-sm-column(6);
+            .make-md-column(4);
+            .make-lg-column(4);
+            padding-left: 0;
+        }
+        .project-info {
+            .make-xs-column(6);
+            .make-sm-column(6);
+            .make-md-column(8);
+            .make-lg-column(8);
+        }
+
     }
 }
