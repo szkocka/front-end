@@ -2,11 +2,11 @@
 
 <section class="main-carousel container">
   <div class="row">
-    <carousel interval="myInterval">
-      <slide ng-repeat="slide in slides" active="slide.active">
-        <img ng-src="{{slide.image}}" style="margin:auto;">
+    <carousel interval="carouselInterval">
+      <slide ng-repeat="project in projects" active="slide.active">
+        <img ng-src="{{project.image}}" style="margin:auto;">
         <div class="carousel-caption">
-          <h4>Project {{$index + 1}}</h4>
+          <h4>{{project.name}}</h4>
         </div>
       </slide>
     </carousel>
