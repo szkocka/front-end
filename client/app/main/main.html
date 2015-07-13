@@ -3,8 +3,8 @@
 <section class="main-carousel container">
   <div class="row">
     <carousel interval="carouselInterval">
-      <slide ng-repeat="project in projects" active="slide.active">
-        <img ng-src="{{project.image}}" style="margin:auto;">
+      <slide ng-repeat="project in projectsList" active="slide.active">
+        <img ng-src="{{project.image}}">
         <div class="carousel-caption">
           <h4>{{project.title}}</h4>
         </div>
@@ -13,23 +13,23 @@
   </div>
 </section>
 
-<section class="tags container">
+<!-- <section class="tags container">
   <div class="row">
     <div class="col-lg-12">
       <a ng-repeat="tag in tags" href="{{tag.link}}" class="tag">{{tag.name}}</a>
     </div>
   </div>
-</section>
+</section> -->
 
 <section class="projects container">
   <div class="row">
     <ul class="list-unstyled">
-      <li class="project-block" ng-repeat="project in projects">
+      <li class="project-block" ng-repeat="project in projectsList">
         <img src="{{project.image}}" alt="{{project.title}}">
         <div class="project-info">
           <h2>{{project.title}}</h2>
           <p>{{project.description}}</p>
-          <a href="project/{{project.id}}">More info</a>
+          <a href="project/{{project._id}}">More info</a>
         </div>
       </li>
     </ul>

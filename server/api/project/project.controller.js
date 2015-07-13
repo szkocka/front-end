@@ -3,6 +3,48 @@
 var _ = require('lodash');
 var Project = require('./project.model');
 
+// for image upload
+var uuid = require('node-uuid'),
+    multiparty = require('multiparty'),
+    fs = require('fs');
+
+// image upload
+exports.postImage = function(req, res) {
+    var form = new multiparty.Form();
+    form.parse(req, function(err, fields, files) {
+        var file = files.file[0];
+        var contentType = file.headers['content-type'];
+        var tmpPath = file.path;
+        var extIndex = tmpPath.lastIndexOf('.');
+        var extension = (extIndex < 0) ? '' : tmpPath.substr(extIndex);
+        // uuid is for generating unique filenames. 
+        var fileName = uuid.v4() + extension;
+        var destPath = __dirname + '/upload/' + fileName;
+
+        var is = fs.createReadStream(tmpPath);
+        var os = fs.createWriteStream(destPath);
+
+        if(is.pipe(os)) {
+          fs.unlink(tmpPath, function (err) { //To unlink the file from temp path after copy
+              if (err) {
+                  console.log(err);
+              }
+          });
+          return res.json(fileName);
+        } else {
+          return res.json('File not uploaded');
+        }
+    });
+};
+
+// Get uploaded image
+exports.getImage = function(req, res) {
+  var file = req.params.file;
+  var img = fs.readFileSync(__dirname + "/upload/" + file);
+  res.writeHead(200, {'Content-Type': 'image/jpg' });
+  res.end(img, 'binary');
+};
+
 // Get list of projects
 exports.index = function(req, res) {
   Project.find(function (err, projects) {
