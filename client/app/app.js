@@ -7,7 +7,8 @@ angular.module('researchApp', [
   'ngRoute',
   'btford.socket-io',
   'ui.bootstrap',
-  'ngFileUpload'
+  'ngFileUpload',
+  'ngTagsInput'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

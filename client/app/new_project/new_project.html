@@ -21,7 +21,15 @@
           <span class="btn btn-default btn-file">
             Upload image <input type="file" class="btn btn-primary" custom-on-change="onFileSelect">
           </span>
-          <img class="preview" ng-src="{{uploadedImage}}"> 
+          <img class="preview" ng-src="{{newProject.image}}"> 
+        </div>
+        <div class="form-group">
+          <label class="control-label">Add Labels</label>
+          <tags-input class="bootstrap"
+                      ng-model="newProject.labels"
+                      placeholder="Add a movie"
+                      replace-spaces-with-dashes="false">
+          </tags-input>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-primary" ng-click="addProject()">Save Project</button>
@@ -34,12 +42,9 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">Projects:</h1>
+      <h1 class="page-header">All Projects:</h1>
       <ul class="nav nav-tabs nav-stacked" ng-repeat="project in projectsList">
         <li><a href="#">{{project.title}}<button type="button" class="close" ng-click="deleteProject(project)">&times;</button></a></li>
-        <li>{{project.description.brief}}</li>
-        <li>{{project.description.detailed}}</li>
-        <img class="preview" ng-src="{{project.image}}"> 
       </ul>
     </div>
   </div>

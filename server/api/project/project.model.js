@@ -9,7 +9,8 @@ var ProjectSchema = new Schema({
     brief: String,
     detailed: String
   },
-  image: String
+  image: String,
+  labels: Array
 });
 
 module.exports = mongoose.model('Project', ProjectSchema);

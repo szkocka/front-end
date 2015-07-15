@@ -3,6 +3,7 @@
 angular.module('researchApp')
   .controller('NewProjectCtrl', function ($scope, $http, socket, Upload) {
     $scope.projectsList = [];
+    $scope.newProject = {};
 
     $http.get('/api/projects').success(function(projectsList) {
       $scope.projectsList = projectsList;
@@ -16,7 +17,8 @@ angular.module('researchApp')
       $http.post('/api/projects',
         {
           title: $scope.newProject.title,
-          image: $scope.uploadedImage,
+          labels: $scope.newProject.labels,
+          image: $scope.newProject.image,
           description: {
             brief: $scope.newProject.description.brief,
             detailed: $scope.newProject.description.detailed
@@ -38,7 +40,7 @@ angular.module('researchApp')
           method: 'POST',
           file: image
       }).success(function(data, status, headers, config) {
-          $scope.uploadedImage = '/api/projects/upload/' + data;      
+          $scope.newProject.image = '/api/projects/upload/' + data;      
       }).error(function(err) {
           console.log('Error uploading file: ' + err.message || err);
       });

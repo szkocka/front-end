@@ -28,7 +28,8 @@
         <img src="{{project.image}}" alt="{{project.title}}">
         <div class="project-info">
           <h2>{{project.title}}</h2>
-          <p>{{project.description}}</p>
+          <span class="label label-primary" ng-repeat-start="label in project.labels">{{label.text}}</span> <span ng-repeat-end></span>
+          <p>{{project.description.brief}}</p>
           <a href="project/{{project._id}}">More info</a>
         </div>
       </li>
