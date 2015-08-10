@@ -2,7 +2,7 @@
 
 angular.module('researchApp')
   .factory('User', function ($resource) {
-    return $resource('/api/users/:id/:controller', {
+    return $resource(API_URL + 'users/:id/:controller', {
       id: '@_id'
     },
     {

@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('researchApp')
-  .controller('ProjectCtrl', function ($scope, $routeParams, $http, socket) {
-    $http.get('/api/projects').success(function(projectsList) {
+  .controller('ProjectCtrl', function ($scope, $routeParams, $http) {
+    $http.get(API_URL + 'researches').success(function(projectsList) {
       $scope.projectsList = projectsList;
-      socket.syncUpdates('project', $scope.projectsList);
 
       angular.forEach(projectsList, function(item) {
         if (item._id === $routeParams.id) {
@@ -12,6 +11,4 @@ angular.module('researchApp')
         }
       });
     });
-
-    
   });

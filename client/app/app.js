@@ -1,11 +1,12 @@
 'use strict';
 
+var API_URL = "http://ec2-52-28-120-4.eu-central-1.compute.amazonaws.com/";
+
 angular.module('researchApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'btford.socket-io',
   'ui.bootstrap',
   'ngFileUpload',
   'ngTagsInput'
@@ -17,6 +18,7 @@ angular.module('researchApp', [
       });
 
     $locationProvider.html5Mode(true);
+    /*$httpProvider.defaults.withCredentials = true;*/
     $httpProvider.interceptors.push('authInterceptor');
   })
 

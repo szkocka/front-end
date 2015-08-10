@@ -1,23 +1,22 @@
 'use strict';
 
 angular.module('researchApp')
-  .controller('NewProjectCtrl', function ($scope, $http, socket, Upload) {
+  .controller('NewProjectCtrl', function ($scope, $http, Upload) {
     $scope.projectsList = [];
     $scope.newProject = {};
 
-    $http.get('/api/projects').success(function(projectsList) {
+    $http.get(API_URL + 'researches').success(function(projectsList) {
       $scope.projectsList = projectsList;
-      socket.syncUpdates('project', $scope.projectsList);
     });
 
     $scope.addProject = function() {
       if ($scope.newProject.title === '') {
         return;
       }
-      $http.post('/api/projects',
+      $http.post(API_URL + 'researches',
         {
           title: $scope.newProject.title,
-          labels: $scope.newProject.labels,
+          tags: $scope.newProject.tags,
           image: $scope.newProject.image,
           description: {
             brief: $scope.newProject.description.brief,
@@ -36,21 +35,17 @@ angular.module('researchApp')
       }
 
       $scope.upload = Upload.upload({
-          url: '/api/projects/upload',
+          url: API_URL + 'researches/upload',
           method: 'POST',
           file: image
       }).success(function(data, status, headers, config) {
-          $scope.newProject.image = '/api/projects/upload/' + data;      
+          $scope.newProject.image = API_URL + 'researches/upload/' + data;      
       }).error(function(err) {
           console.log('Error uploading file: ' + err.message || err);
       });
     };
 
     $scope.deleteProject = function(project) {
-      $http.delete('/api/projects/' + project._id);
+      $http.delete(API_URL + 'researches/' + project._id);
     };
-
-    $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('project');
-    });
   });

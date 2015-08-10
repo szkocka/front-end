@@ -20,7 +20,7 @@ angular.module('researchApp')
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
-        $http.post('/auth/local', {
+        $http.post(API_URL + 'auth/local', {
           email: user.email,
           password: user.password
         }).
