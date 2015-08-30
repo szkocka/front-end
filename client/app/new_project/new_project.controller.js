@@ -16,8 +16,9 @@ angular.module('researchApp')
       $http.post(API_URL + 'researches',
         {
           title: $scope.newProject.title,
-          tags: $scope.newProject.tags,
-          image: $scope.newProject.image,
+          tags: _.map($scope.newProject.tags, function(t){return t.text}),
+          // image: $scope.newProject.image,
+          area: 'test area',
           description: {
             brief: $scope.newProject.description.brief,
             detailed: $scope.newProject.description.detailed

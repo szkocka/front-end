@@ -18,7 +18,7 @@ angular.module('researchApp', [
       });
 
     $locationProvider.html5Mode(true);
-    /*$httpProvider.defaults.withCredentials = true;*/
+    // $httpProvider.defaults.withCredentials = true;
     $httpProvider.interceptors.push('authInterceptor');
   })
 

@@ -98,7 +98,7 @@ angular.module('researchApp')
        * @return {Object} user
        */
       getCurrentUser: function() {
-        return currentUser;
+        return currentUser.user;
       },
 
       /**
@@ -107,7 +107,7 @@ angular.module('researchApp')
        * @return {Boolean}
        */
       isLoggedIn: function() {
-        return currentUser.hasOwnProperty('role');
+        return ('user' in currentUser && 'role' in currentUser.user);
       },
 
       /**
