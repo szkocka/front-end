@@ -24,7 +24,18 @@
                   </li>
                 </ul>
             </tab>
-            <tab heading="Forum">Forum tab content</tab>
+            <tab heading="Forum">
+              <div ng-if="forum.forum">
+                <div ng-repeat="message in forum.messages">
+                  <blockquote>
+                    <p>{{message.message}}</p>
+                    <footer>{{message.createBy}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
+                  </blockquote>
+                </div>
+                <textarea class="form-control" ng-model="newMessage"></textarea>
+                <button type="button" class="btn btn-primary" ng-click="postMessage(newMessage)">Post message</button>
+              </div>
+            </tab>
         </tabset>
       </div>
   </div>

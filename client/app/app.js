@@ -9,7 +9,8 @@ angular.module('researchApp', [
   'ngRoute',
   'ui.bootstrap',
   'ngFileUpload',
-  'ngTagsInput'
+  'ngTagsInput',
+  'angularMoment'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
