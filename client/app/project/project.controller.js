@@ -10,7 +10,10 @@ angular.module('researchApp')
     });
 
     $http.get(API_URL + 'researches/' + $routeParams.id + '/forums').success(function(forums) {
+      $scope.forumsAccessError = false;
       $scope.forums = forums.forums;
+    }).error(function(){
+      $scope.forumsAccessError = true;
     });
 
     $scope.setActiveForum = function(forum){

@@ -25,6 +25,8 @@
                 </ul>
             </tab>
             <tab heading="Forum">
+              <h3 ng-if="forumsAccessError">Sorry, you don't have access to this research formus</h3>
+
               <div ng-if="!activeForum">
                 <div ng-repeat="forum in forums">
                   <h3><a href="" ng-click="setActiveForum(forum)">{{forum.subject}}</a></h3>
