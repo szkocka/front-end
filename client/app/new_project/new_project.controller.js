@@ -17,7 +17,7 @@ angular.module('researchApp')
         {
           title: $scope.newProject.title,
           tags: _.map($scope.newProject.tags, function(t){return t.text}),
-          // image: $scope.newProject.image,
+          image_url: $scope.newProject.image,
           area: 'test area',
           description: {
             brief: $scope.newProject.description.brief,
@@ -45,11 +45,11 @@ angular.module('researchApp')
       }
 
       $scope.upload = Upload.upload({
-          url: API_URL + 'researches/upload',
+          url: API_URL + 'upload',
           method: 'POST',
           file: image
       }).success(function(data, status, headers, config) {
-          $scope.newProject.image = API_URL + 'researches/upload/' + data;      
+          $scope.newProject.image = data.url;
       }).error(function(err) {
           console.log('Error uploading file: ' + err.message || err);
       });

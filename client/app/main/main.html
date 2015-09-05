@@ -4,7 +4,7 @@
   <div class="row">
     <carousel interval="carouselInterval">
       <slide ng-repeat="project in projectsList" active="slide.active">
-        <img ng-src="{{project.image}}">
+        <img ng-src="{{project.image_url}}">
         <div class="carousel-caption">
           <h4>{{project.title}}</h4>
         </div>
@@ -25,7 +25,7 @@
   <div class="row">
     <ul class="list-unstyled">
       <li class="project-block" ng-repeat="project in projectsList">
-        <img src="{{project.image}}" alt="{{project.title}}">
+        <img src="{{project.image_url}}" alt="{{project.title}}">
         <div class="project-info">
           <h2>{{project.title}}</h2>
           <span class="label label-primary" ng-repeat-start="tag in project.tags">{{tag}}</span> <span ng-repeat-end></span>
