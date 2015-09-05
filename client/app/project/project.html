@@ -25,11 +25,21 @@
                 </ul>
             </tab>
             <tab heading="Forum">
-              <div ng-if="forum.forum">
-                <div ng-repeat="message in forum.messages">
+              <div ng-if="!activeForum">
+                <div ng-repeat="forum in forums">
+                  <h3><a href="" ng-click="setActiveForum(forum)">{{forum.subject}}</a></h3>
+                  <i>{{forum.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
+                </div>
+              </div>
+
+              <div ng-if="activeForum">
+                <p>
+                  <a href="" ng-click="disableActiveForum()">Back to forums</a>
+                </p>
+                <div ng-repeat="message in activeForum.messages">
                   <blockquote>
                     <p>{{message.message}}</p>
-                    <footer>{{message.createBy}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
+                    <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
                   </blockquote>
                 </div>
                 <textarea class="form-control" ng-model="newMessage"></textarea>
