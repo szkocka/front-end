@@ -5,12 +5,13 @@ angular.module('researchApp')
     $scope.forums = [];
     $scope.activeForum = null;
     $scope.forumsAccessError = true;
+    $scope.inviteSent = false;
 
     $http.get(API_URL + 'researches/' + $routeParams.id).success(function(project) {
       $scope.project = project;
       var user = Auth.getCurrentUser();
       if( user && user._id == project.supervisor.id ){
-        $scope.canCreateForum = true;
+        $scope.isSupervisor = true;
       }
     });
 
@@ -33,6 +34,16 @@ angular.module('researchApp')
       $scope.activeForum = null;
       getForums();
     };
+
+    $scope.inviteResearcher = function(email){
+      $http.post(API_URL + 'researches/' + $routeParams.id + '/invite', {
+        text: '',
+        email: email
+      }).success(function(){
+        $scope.newResearcher = '';
+        $scope.inviteSent = true;
+      });
+    }
 
     $scope.createForum = function(topic){
       $http.post(API_URL + 'researches/' + $routeParams.id + '/forums', {
