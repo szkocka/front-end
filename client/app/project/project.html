@@ -35,32 +35,34 @@
             <tab heading="Forum">
               <h3 ng-if="forumsAccessError">Sorry, you don't have access to this research formus</h3>
 
-              <div ng-if="!activeForum">
-                <div ng-repeat="forum in forums">
-                  <h3><a href="" ng-click="setActiveForum(forum)">{{forum.subject}}</a></h3>
-                  <i>{{forum.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
+              <div ng-if="!forumsAccessError">
+                <div ng-if="!activeForum">
+                  <div ng-repeat="forum in forums">
+                    <h3><a href="" ng-click="setActiveForum(forum)">{{forum.subject}}</a></h3>
+                    <i>{{forum.createdBy.name}} on {{forum.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
+                  </div>
+                  <div>
+                    <form>
+                      <h3>New topic</h3>
+                      <input class="form-control" ng-model="newForum" placeholder="topic"></input>
+                      <button type="button" class="btn btn-primary" ng-click="createForum(newForum)">Start topic</button>
+                    </form>
+                  </div>
                 </div>
-                <div ng-if="isSupervisor">
-                  <form>
-                    <h3>New topic</h3>
-                    <input class="form-control" ng-model="newForum" placeholder="topic"></input>
-                    <button type="button" class="btn btn-primary" ng-click="createForum(newForum)">Start topic</button>
-                  </form>
-                </div>
-              </div>
 
-              <div ng-if="activeForum">
-                <p>
-                  <a href="" ng-click="disableActiveForum()">Back to forums</a>
-                </p>
-                <div ng-repeat="message in activeForum.messages">
-                  <blockquote>
-                    <p>{{message.message}}</p>
-                    <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
-                  </blockquote>
+                <div ng-if="activeForum">
+                  <p>
+                    <a href="" ng-click="disableActiveForum()">Back to forums</a>
+                  </p>
+                  <div ng-repeat="message in activeForum.messages">
+                    <blockquote>
+                      <p>{{message.message}}</p>
+                      <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
+                    </blockquote>
+                  </div>
+                  <textarea class="form-control" ng-model="newMessage"></textarea>
+                  <button type="button" class="btn btn-primary" ng-click="postMessage(newMessage)">Post message</button>
                 </div>
-                <textarea class="form-control" ng-model="newMessage"></textarea>
-                <button type="button" class="btn btn-primary" ng-click="postMessage(newMessage)">Post message</button>
               </div>
             </tab>
         </tabset>
