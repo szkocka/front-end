@@ -13,19 +13,15 @@
   </div>
 </section>
 
-<!-- <section class="tags container">
-  <div class="row">
-    <div class="col-lg-12">
-      <a ng-repeat="tag in tags" href="{{tag.link}}" class="tag">{{tag.name}}</a>
-    </div>
-  </div>
-</section> -->
+<section class="tags container">
+  <a ng-repeat="tag in tags" class="tag" ng-click="activateTag(tag)" ng-class="{'selected': tag == activeTag}">{{tag}}</a>
+</section>
 
 <section class="projects container">
   <div class="row">
     <ul class="list-unstyled">
       <li class="project-block" ng-repeat="project in projectsList">
-        <img src="{{project.image_url}}" alt="{{project.title}}">
+        <img ng-src="{{project.image_url}}" alt="{{project.title}}">
         <div class="project-info">
           <h2>{{project.title}}</h2>
           <span class="label label-primary" ng-repeat-start="tag in project.tags">{{tag}}</span> <span ng-repeat-end></span>
