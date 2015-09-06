@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('researchApp')
-  .controller('ProjectCtrl', function ($scope, $routeParams, $http, Auth) {
+  .controller('ProjectCtrl', function ($scope, $stateParams, $http, Auth) {
     $scope.forums = [];
     $scope.activeForum = null;
     $scope.forumsAccessError = true;
     $scope.inviteSent = false;
 
-    $http.get(API_URL + 'researches/' + $routeParams.id).success(function(project) {
+    $http.get(API_URL + 'researches/' + $stateParams.id).success(function(project) {
       $scope.project = project;
       var user = Auth.getCurrentUser();
       if( user && user._id == project.supervisor.id ){
@@ -16,7 +16,7 @@ angular.module('researchApp')
     });
 
     function getForums(){
-      $http.get(API_URL + 'researches/' + $routeParams.id + '/forums').success(function(forums) {
+      $http.get(API_URL + 'researches/' + $stateParams.id + '/forums').success(function(forums) {
         $scope.forumsAccessError = false;
         $scope.forums = forums.forums;
       }).error(function(){
@@ -36,7 +36,7 @@ angular.module('researchApp')
     };
 
     $scope.inviteResearcher = function(email){
-      $http.post(API_URL + 'researches/' + $routeParams.id + '/invite', {
+      $http.post(API_URL + 'researches/' + $stateParams.id + '/invite', {
         text: '',
         email: email
       }).success(function(){
@@ -46,7 +46,7 @@ angular.module('researchApp')
     }
 
     $scope.createForum = function(topic){
-      $http.post(API_URL + 'researches/' + $routeParams.id + '/forums', {
+      $http.post(API_URL + 'researches/' + $stateParams.id + '/forums', {
         subject: topic
       }).success(function(forum){
         forum._id = forum.forum_id;

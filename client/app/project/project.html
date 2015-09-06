@@ -11,61 +11,18 @@
 <section class="container">
   <div class="row">
       <div class="col-lg-12">
-        <tabset justified="true">
-            <tab heading="Description">{{project.description.detailed}}</tab>
-            <tab heading="Participants">
-              <p>Research supervisor: {{project.supervisor.name}}</p>
-              <div ng-if="project.researchers.length > 0">
-                <p>Researchers:</p>
-                <ul>
-                  <li ng-repeat="user in project.researchers">{{user}}</li>
-                </ul>
-              </div>
-              <div ng-if="isSupervisor">
-                <div ng-if="inviteSent">
-                  <p>Invitation have been sent</p>
-                </div>
-                <form>
-                  <h3>Invite researcher</h3>
-                  <input class="form-control" ng-model="newResearcher" placeholder="email"></input>
-                  <button type="button" class="btn btn-primary" ng-click="inviteResearcher(newResearcher)">Invite</button>
-                </form>
-              </div>
-            </tab>
-            <tab heading="Forum">
-              <h3 ng-if="forumsAccessError">Sorry, you don't have access to this research formus</h3>
-
-              <div ng-if="!forumsAccessError">
-                <div ng-if="!activeForum">
-                  <div ng-repeat="forum in forums">
-                    <h3><a href="" ng-click="setActiveForum(forum)">{{forum.subject}}</a></h3>
-                    <i>{{forum.createdBy.name}} on {{forum.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
-                  </div>
-                  <div>
-                    <form>
-                      <h3>New topic</h3>
-                      <input class="form-control" ng-model="newForum" placeholder="topic"></input>
-                      <button type="button" class="btn btn-primary" ng-click="createForum(newForum)">Start topic</button>
-                    </form>
-                  </div>
-                </div>
-
-                <div ng-if="activeForum">
-                  <p>
-                    <a href="" ng-click="disableActiveForum()">Back to forums</a>
-                  </p>
-                  <div ng-repeat="message in activeForum.messages">
-                    <blockquote>
-                      <p>{{message.message}}</p>
-                      <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
-                    </blockquote>
-                  </div>
-                  <textarea class="form-control" ng-model="newMessage"></textarea>
-                  <button type="button" class="btn btn-primary" ng-click="postMessage(newMessage)">Post message</button>
-                </div>
-              </div>
-            </tab>
-        </tabset>
+        <ul class="nav nav-tabs">
+          <li role="presentation" ui-sref-active="active">
+            <a ui-sref=".about">Description</a>
+          </li>
+          <li role="presentation" ui-sref-active="active">
+            <a ui-sref=".participants">Participants</a>
+          </li>
+          <li role="presentation" ui-sref-active="active">
+            <a ui-sref=".forum">Forum</a>
+          </li>
+        </ul>
+        <ui-view/>
       </div>
   </div>
 </section>

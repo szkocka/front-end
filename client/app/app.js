@@ -6,18 +6,14 @@ angular.module('researchApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute',
   'ui.bootstrap',
   'ngFileUpload',
   'ngTagsInput',
-  'angularMoment'
+  'angularMoment',
+  'ui.router'
 ])
-  .config(function ($routeProvider, $locationProvider, $httpProvider) {
-    $routeProvider
-      .otherwise({
-        redirectTo: '/'
-      });
-
+  .config(function ($urlRouterProvider, $locationProvider, $httpProvider) {
+    $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
     // $httpProvider.defaults.withCredentials = true;
     $httpProvider.interceptors.push('authInterceptor');
@@ -50,12 +46,13 @@ angular.module('researchApp', [
   })
 
   .run(function ($rootScope, $location, Auth) {
+    // $location.path('/');
     // Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$routeChangeStart', function (event, next) {
-      Auth.isLoggedInAsync(function(loggedIn) {
-        if (next.authenticate && !loggedIn) {
-          $location.path('/login');
-        }
-      });
-    });
+    // $rootScope.$on('$routeChangeStart', function (event, next) {
+    //   Auth.isLoggedInAsync(function(loggedIn) {
+    //     if (next.authenticate && !loggedIn) {
+    //       $location.path('/login');
+    //     }
+    //   });
+    // });
   });

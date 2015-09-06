@@ -1,0 +1,17 @@
+<p>Research supervisor: {{project.supervisor.name}}</p>
+<div ng-if="project.researchers.length > 0">
+  <p>Researchers:</p>
+  <ul>
+    <li ng-repeat="user in project.researchers">{{user}}</li>
+  </ul>
+</div>
+<div ng-if="isSupervisor">
+  <div ng-if="inviteSent">
+    <p>Invitation have been sent</p>
+  </div>
+  <form>
+    <h3>Invite researcher</h3>
+    <input class="form-control" ng-model="newResearcher" placeholder="email"></input>
+    <button type="button" class="btn btn-primary" ng-click="inviteResearcher(newResearcher)">Invite</button>
+  </form>
+</div>
