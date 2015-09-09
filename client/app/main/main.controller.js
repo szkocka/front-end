@@ -9,8 +9,10 @@ angular.module('researchApp')
     $scope.projectsList = [];
 
     $http.get(API_URL + 'researches').success(function(projectsList) {
-      $scope.projectsList = projectsList.researches;
-      allProjects = _.clone($scope.projectsList);
+      allProjects = _(projectsList.researches).reverse().value();
+      $scope.projectsList = _.clone(allProjects);
+      $scope.latest5 = _.first(allProjects, 5);
+
       $scope.tags = _.chain(projectsList.researches)
         .map(function(r){
           return r.tags;
@@ -20,6 +22,11 @@ angular.module('researchApp')
         .sortBy()
         .value()
     });
+
+    $scope.clearTag = function(){
+      $scope.activeTag = null;
+      $scope.projectsList = _.clone(allProjects);
+    }
 
     $scope.activateTag = function(tag){
       $scope.projectsList = _.filter(allProjects, function(project){

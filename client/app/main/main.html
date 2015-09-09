@@ -3,7 +3,7 @@
 <section class="main-carousel container">
   <div class="row">
     <carousel interval="carouselInterval">
-      <slide ng-repeat="project in projectsList" active="slide.active">
+      <slide ng-repeat="project in latest5" active="slide.active">
         <img ng-src="{{project.image_url}}">
         <div class="carousel-caption">
           <h4>{{project.title}}</h4>
@@ -14,6 +14,7 @@
 </section>
 
 <section class="tags container">
+  <a ng-if="activeTag" class="tag" ng-click="clearTag()">All projects</a>
   <a ng-repeat="tag in tags" class="tag" ng-click="activateTag(tag)" ng-class="{'selected': tag == activeTag}">{{tag}}</a>
 </section>
 
