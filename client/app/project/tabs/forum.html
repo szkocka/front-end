@@ -21,7 +21,7 @@
     </p>
     <div ng-repeat="message in activeForum.messages">
       <blockquote>
-        <p>{{message.message}}</p>
+        <p mathjax-bind="message.message"></p>
         <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
       </blockquote>
     </div>
