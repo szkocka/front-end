@@ -1,0 +1,37 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">{{name}}</h1>
+        <div ng-if="supervising"> 
+          {{name}} is supervising: 
+          <ul>
+            <li ng-repeat="proj in supervising">
+            <a href="/project/{{proj.id}}">{{proj.title}}</a>
+            </li>
+          </ul>
+
+          <br>
+          Involved in: 
+          <ul>
+            <li ng-repeat="item in area">{{item}}</li>
+          </ul>
+          Contact info:<br>
+          Email: {{email}}
+        </div>
+        <div ng-if="researcher">
+          Researcher in:<br>
+          <ul>
+            <li ng-repeat="proj in researcher">
+              {{proj}}
+            </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+

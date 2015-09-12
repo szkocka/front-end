@@ -1,8 +1,13 @@
-<p>Research supervisor: {{project.supervisor.name}}</p>
+<p>Research supervisor: 
+  <a href="/profile/{{project.supervisor.name}}">{{project.supervisor.name}}</a>
+</p>
 <div ng-if="project.researchers.length > 0">
   <p>Researchers:</p>
   <ul>
-    <li ng-repeat="user in project.researchers">{{user}}</li>
+    <li ng-repeat="user in project.researchers">
+
+      <a href="/profile/{{user}}">{{user}}</a>
+    </li>
   </ul>
 </div>
 <div ng-if="isSupervisor">
