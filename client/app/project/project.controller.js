@@ -21,6 +21,4 @@ angular.module('researchApp')
         $scope.inviteSent = true;
       });
     }
-
-    $state.go('project.about');
   });

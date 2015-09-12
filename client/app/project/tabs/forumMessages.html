@@ -1,0 +1,11 @@
+<p>
+  <a ui-sref="project.forum.all">Back to forums</a>
+</p>
+<div ng-repeat="message in activeForum.messages">
+  <blockquote>
+    <p mathjax-bind="message.message"></p>
+    <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
+  </blockquote>
+</div>
+<textarea class="form-control" ng-model="newMessage"></textarea>
+<button type="button" class="btn btn-primary" ng-click="postMessage(newMessage)">Post message</button>
