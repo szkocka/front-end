@@ -1,6 +1,10 @@
-<p>
-  <a ui-sref="project.forum.all">Back to forums</a>
-</p>
+<ol class="breadcrumb">
+	<li>
+  	<a ui-sref="project.forum.all">All topics</a>
+  </li>
+  <li class="active">{{activeForum.forum.subject}}</li>
+</ol>
+
 <div ng-repeat="message in activeForum.messages">
   <blockquote>
     <p mathjax-bind="message.message"></p>

@@ -3,7 +3,7 @@
 angular.module('researchApp')
   .controller('ProjectForumCtrl', function ($scope, $stateParams, $http, Auth, $state) {
     $scope.forums = [];
-    $scope.forumsAccessError = true;
+    $scope.forumsAccessError = false;
 
     function getForums(){
       $http.get(API_URL + 'researches/' + $stateParams.id + '/forums').success(function(forums) {
