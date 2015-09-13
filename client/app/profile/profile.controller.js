@@ -3,31 +3,40 @@
 angular.module('researchApp')
   .controller('ProfileCtrl', function ($scope, $stateParams, $http) {
     $scope.name = $stateParams.id;
-    var supervising = [];
+    var allProjects;
+    var email;
+    var supervising;
+    var data;
     var area = [];
     var researcher = [];
 
     $http.get(API_URL + 'researches').success(function(projectsList) {
-      for (var i in projectsList.researches){
-          var proj = projectsList.researches[i];
-
-          if (proj.supervisor.name === $stateParams.id){
-              supervising.push({title: proj.title, id: proj._id});
-              $scope.email = proj.supervisor.email;
-              $scope.supervising = supervising;
-
-              if (area.indexOf(proj.area) >= 0){
-                  continue;
-              }
-              else{
-                  area.push(proj.area);
-                  $scope.area = area;
-              }
-          };
-          if (proj.researchers.indexOf($stateParams.id) >= 0){
-              researcher.push(proj.title)
-              $scope.researcher = researcher;
+      allProjects = _(projectsList.researches).value();
+      data = _.chain(allProjects)
+        .map(function(d){
+          if (_.contains(d.researchers, $scope.name)){
+            researcher.push(d.title)
           }
-      };
+          if (_.contains(d.supervisor.name, $scope.name)){
+            if (d.supervisor.email){
+              email = d.supervisor.email;     
+            };
+            area.push(d.area)
+            return {title: d.title, id: d._id}
+            }
+        })
+        .flatten()
+        .uniq()
+        .compact()
+        .value()
+
+      if (!_.isEmpty(data)){
+        $scope.area = _.uniq(area)
+        $scope.supervising = data;
+        $scope.email = email;
+        }
+      if (!_.isEmpty(researcher)){
+        $scope.researcher = _.uniq(researcher)
+      }
   });
 });
