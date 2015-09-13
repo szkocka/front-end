@@ -6,10 +6,8 @@
   <ul>
     <li ng-repeat="user in project.researchers">
       <section>
-        <div class="col-lg-12">
-          <a ui-sref="profile({id: user})">{{user}}</a>
-        </div>
-      </section>
+        <a ui-sref="profile({id: user})">{{user}}</a>
+      </section>  
       <!-- <a href="/profile/{{user}}">{{user}}</a> -->
     </li>
   </ul>
