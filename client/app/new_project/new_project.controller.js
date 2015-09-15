@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('researchApp')
-  .controller('NewProjectCtrl', function ($scope, $http, Upload, $window) {
+  .controller('NewProjectCtrl', function ($scope, $http, Upload, $state) {
     $scope.projectsList = [];
     $scope.newProject = {};
 
@@ -30,7 +30,7 @@ angular.module('researchApp')
           $http.post(API_URL + 'researches/' + research.research_id+ '/forums', {
             subject: 'Default forum'
           }).success(function(forum){
-            $window.location.href = '/project/' + research.research_id;
+            $state.go('project.about', {id: research.research_id});
           });
         });
       $scope.newProject = {};
