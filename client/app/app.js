@@ -1,6 +1,6 @@
 'use strict';
 
-var API_URL = "http://ec2-52-28-120-4.eu-central-1.compute.amazonaws.com/";
+var API_URL = "https://szkocka-1080.appspot.com/";
 
 angular.module('researchApp', [
   'ngCookies',
