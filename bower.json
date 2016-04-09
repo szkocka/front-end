@@ -12,7 +12,7 @@
     "angular-sanitize": ">=1.2.*",
     "angular-route": ">=1.2.*",
     "angular-bootstrap": "~0.11.0",
-    "angular-moment": "~0.10.3", 
+    "angular-moment": "~0.10.3",
     "font-awesome": ">=4.1.0",
     "lodash": "~2.4.1",
     "angular-socket-io": "~0.6.0",
@@ -20,10 +20,13 @@
     "ng-file-upload-shim": "~5.0.9",
     "ng-tags-input": "3.0.0",
     "angular-ui-router": "~0.2.15",
-    "angular-moment": "~0.10.3"
+    "kendo-ui": "https://bower.telerik.com/bower-kendo-ui.git#~2016.1.406"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
     "angular-scenario": ">=1.2.*"
+  },
+  "resolutions": {
+    "angular": ">=1.2.0 <1.5.0"
   }
 }

@@ -6,7 +6,7 @@ angular.module('researchApp')
     $scope.newProject = {};
 
     $http.get(API_URL + 'researches').success(function(projectsList) {
-      $scope.projectsList = projectsList;
+      $scope.projectsList = projectsList.researches;
     });
 
     $scope.addProject = function() {
