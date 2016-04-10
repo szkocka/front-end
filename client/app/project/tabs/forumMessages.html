@@ -11,5 +11,7 @@
     <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
   </blockquote>
 </div>
-<textarea class="form-control" ng-model="newMessage"></textarea>
+<div class="form-group">
+	<textarea kendo-editor k-ng-model="newMessage"></textarea>
+</div>
 <button type="button" class="btn btn-primary" ng-click="postMessage(newMessage)">Post message</button>

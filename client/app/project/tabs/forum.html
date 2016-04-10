@@ -7,9 +7,11 @@
   </div>
   <div>
     <form>
-      <h3>New topic</h3>
-      <input class="form-control" ng-model="newForum" placeholder="topic"></input>
-      <button type="button" class="btn btn-primary" ng-click="createForum(newForum)">Start topic</button>
+      <div class="form-group">
+        <h3>New topic</h3>
+        <input class="form-control" ng-model="newForum" placeholder="topic"></input>
+      </div>
     </form>
+    <button type="button" class="btn btn-primary" ng-click="createForum(newForum)">Start topic</button>
   </div>
 </div>

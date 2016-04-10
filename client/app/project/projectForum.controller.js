@@ -19,7 +19,8 @@ angular.module('researchApp')
         subject: topic
       }).success(function(forum){
         forum._id = forum.forum_id;
-        $scope.setActiveForum(forum);
+        //$scope.setActiveForum(forum);
+        $state.go('project.forum.one', {forumId: forum._id})
       });
     }
 
