@@ -3,6 +3,7 @@
 angular.module('researchApp')
   .controller('ProjectCtrl', function ($scope, $stateParams, $http, Auth, $state) {
     $scope.inviteSent = false;
+    $scope.project = {};
 
     $http.get(API_URL + 'researches/' + $stateParams.id).success(function(project) {
       $scope.project = project;
@@ -24,5 +25,15 @@ angular.module('researchApp')
 
     $scope.edit = function() {
       $state.go('add-update-project', {id: $stateParams.id});
+    };
+
+    $scope.detectStatus = function() {
+      if($scope.project.status == 'active') {
+        return 'ACTIVE';
+      } else if ($scope.project.status == 'closed') {
+        return 'CLOSED';
+      } else {
+        return 'ON HOLD';
+      }
     };
   });
