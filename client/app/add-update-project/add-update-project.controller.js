@@ -6,7 +6,10 @@ angular.module('researchApp')
     $scope.user = Auth.getCurrentUser();
     $scope.img = null;
     $scope.newProject = true;
-    $scope.project = {};
+    $scope.project = {
+      description: {}
+    };
+
     $scope.statuses = [
       {
         id: 'active',
@@ -21,30 +24,26 @@ angular.module('researchApp')
         name: 'On Hold'
       }
     ];
-    init();
+    $scope.titleError;
+    $scope.shortDescError;
+    $scope.longDescError;
+    $scope.tagsError;
+    _init();
 
-    function init() {
+    function _init() {
       if($scope.projectId === 'null') {
         return;
       } else {
         $scope.newProject = false;
         $http.get(API_URL + 'researches/' + $stateParams.id).success(function(project) {
           $scope.project = project;
-          var tags = [];
-          $scope.project.tags.forEach(function(tagItem) {
-            var tag = {};
-            tag.text = tagItem;
-            tags.push(tag);
-          });
-          $scope.project.tags = tags;
           $scope.img = $scope.project.image_url;
         });
       }
-      
     }
 
     $scope.addProject = function() {
-      if ($scope.project.title === '') {
+      if(!_projectIsValid()) {
         return;
       }
       $http.post(API_URL + 'researches',
@@ -71,12 +70,13 @@ angular.module('researchApp')
     };
 
     $scope.updateProject = function() {
+      if(!_projectIsValid()) {
+        return;
+      }
       $http.put(API_URL + 'researches/' + $stateParams.id,
         {
           title: $scope.project.title,
-          tags: _.map($scope.project.tags, function(t){return t.text}),
           image_url: $scope.img,
-          area: 'test area',
           status: $scope.project.status,
           description: {
             brief: $scope.project.description.brief,
@@ -109,4 +109,35 @@ angular.module('researchApp')
           console.log('Error uploading file: ' + err.message || err);
       });
     };
+
+    function _projectIsValid() {
+      if (!$scope.project.title || $scope.project.title === '') {
+        $scope.titleError = 'Title is required.';
+      } else {
+        $scope.titleError = '';
+      }
+      if (!$scope.project.description.brief || $scope.project.description.brief === '') {
+        $scope.shortDescError = 'Short Description is required.'
+      } else {
+        $scope.shortDescError = '';
+      }
+      if (!$scope.project.description.detailed || $scope.project.description.detailed  === '') {
+        $scope.longDescError = 'Detailed Description is required.'
+      } else {
+        $scope.longDescError = '';
+      }
+      if (! $scope.project.tags || $scope.project.tags.length === 0) {
+        $scope.tagsError = 'Required.';
+      } else {
+        $scope.tagsError = ''
+      }
+      if (!$scope.project.title || $scope.project.title === '' || 
+        !$scope.project.description.brief || $scope.project.description.brief === '' ||
+        !$scope.project.description.detailed || $scope.project.description.detailed === '' || 
+        !$scope.project.tags || $scope.project.tags.length === 0) {
+        return false;
+      } else {
+        return true;
+      }
+    }
   });
