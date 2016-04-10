@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('researchApp')
-  .controller('ProfileCtrl', function ($scope, $stateParams, $http) {
+  .controller('ProfileCtrl', function ($scope, $state, $stateParams, $http, Auth) {
     $scope.userId = $stateParams.id;
     $scope.user = {};
     $scope.area = [];
+    $scope.showEditButton = (Auth.getCurrentUser()._id == $scope.userId);
 
     $http.get(API_URL + '/users/' + $scope.userId).success(function(res) {
       $scope.user = res;
@@ -16,4 +17,8 @@ angular.module('researchApp')
         $scope.area = _.uniq(area)
       }
     });
+
+    $scope.edit = function() {
+      $state.go('edit-profile', {});
+    }
 });

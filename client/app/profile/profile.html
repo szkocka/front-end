@@ -4,7 +4,10 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">{{user.name}}</h1>
+        <h1 class="page-header">
+          <button class="btn btn-primary pull-right" ng-if="showEditButton" ng-click="edit()">Edit</button>
+          {{user.name}}
+        </h1>
         <div ng-if="user.supervisor_of.length > 0"> 
           <h5>{{user.name}} is supervising: </h5>
           <ul>
