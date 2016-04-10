@@ -18,7 +18,7 @@
                 <span class="label label-primary" ng-repeat-start="tag in project.tags">{{tag}}</span> <span ng-repeat-end></span>
               </div>
               <div class="project-info-brief-descr">
-                <p>{{project.description.brief}}</p>
+                <p ng-bind-html="project.description.brief"></p>
               </div>
               <a href="project/{{project._id}}">More info &rarr;</a>
             </div>
@@ -46,7 +46,7 @@
                 <span class="label label-primary" ng-repeat-start="tag in project.tags">{{tag}}</span> <span ng-repeat-end></span>
               </div>
               <div class="project-info-brief-descr">
-                <p>{{project.description.brief}}</p>
+                <p ng-bind-html="project.description.brief"></p>
               </div>
               <a href="project/{{project._id}}">More info &rarr;</a>
             </div>
