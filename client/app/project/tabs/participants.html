@@ -1,12 +1,12 @@
 <p>Research supervisor: 
-  <a href="/profile/{{project.supervisor.name}}">{{project.supervisor.name}}</a>
+  <a href="/profile/{{project.supervisor.id}}">{{project.supervisor.name}}</a>
 </p>
 <div ng-if="project.researchers.length > 0">
   <p>Researchers:</p>
   <ul>
     <li ng-repeat="user in project.researchers">
       <section>
-        <a ui-sref="profile({id: user.name})">{{user.name}}</a>
+        <a ui-sref="profile({id: user.id})">{{user.name}}</a>
       </section>  
       <!-- <a href="/profile/{{user}}">{{user}}</a> -->
     </li>
