@@ -1,11 +1,11 @@
 <ol class="breadcrumb">
 	<li>
-  	<a ui-sref="project.forum.all">All topics</a>
-  </li>
-  <li class="active">{{activeForum.forum.subject}}</li>
+	  	<a ui-sref="project.forum.all">All topics</a>
+	 </li>
+  	<li class="active">{{activeForum.forum.subject}}</li>
 </ol>
 
-<div ng-repeat="message in activeForum.messages">
+<div ng-repeat="message in activeForum.messages | orderBy: 'message.created'">
   <blockquote>
     <p mathjax-bind="message.message"></p>
     <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
