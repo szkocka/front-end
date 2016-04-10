@@ -3,8 +3,17 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
+      <button class="btn btn-primary pull-right" ng-if="showEditButton" ng-click="edit()">Edit</button>
       <h1 class="page-header">About</h1>
-      <p>
+      <p class="text-danger">{{errorMsg}}</p>
+      <p class="text-success">{{successMsg}}</p>
+      <p ng-if="!showEditableTexarea" ng-bind-html="aboutProject.currentDescription"></p>
+      <div ng-if="showEditableTexarea" class="add-margin-bottom">
+        <textarea kendo-editor k-ng-model="aboutProject.newDescription"></textarea>
+      </div>
+      <button ng-if="showEditableTexarea" class="btn btn-primary" ng-if="!showEditButton" ng-click="updateAbout()">Save</button>
+      <button ng-if="showEditableTexarea" class="btn btn-default" ng-if="!showEditButton" ng-click="cancel()">Cancel</button>
+      <p ng-if="!showEditableTexarea">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend nunc lacus, id accumsan diam dapibus sed. Mauris nec consequat nulla. Fusce venenatis metus vel gravida commodo. Donec finibus a turpis vitae porta. Nunc ipsum mauris, placerat et nulla nec, faucibus imperdiet urna. Pellentesque sodales, magna at hendrerit vestibulum, metus nunc aliquam nisl, quis bibendum nisl nibh ut nibh. Aliquam mi velit, gravida nec facilisis in, pretium at velit. Integer luctus leo eu ligula faucibus ultrices. Quisque ac eleifend velit. Curabitur metus elit, porttitor ut maximus dapibus, finibus vitae sem. Fusce maximus leo at ante gravida, vitae rutrum sem tristique.
 
       Aenean a ex at tortor elementum vulputate. Integer nec vehicula elit, egestas gravida lectus. Nullam at rutrum erat. Integer accumsan placerat velit, ac elementum arcu blandit sit amet. Vestibulum tempor efficitur augue ut malesuada. Sed tempor nisl ac ex tincidunt, vel accumsan odio aliquet. Donec porttitor lorem nec felis cursus, quis condimentum velit dictum.
