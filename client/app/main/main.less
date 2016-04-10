@@ -1,6 +1,5 @@
 .main-carousel {
-    margin: -20px auto 20px;
-
+    margin: 50px auto 20px;
     .carousel-inner {
         height: 500px;
         img {
@@ -25,21 +24,51 @@
 
 .projects {
     .project-block {
-        margin-bottom: 20px;
-        .clearfix();
-        img {
-            .make-xs-column(6);
-            .make-sm-column(6);
-            .make-md-column(4);
-            .make-lg-column(4);
-            padding-left: 0;
-            margin: auto;
+        margin-bottom: 40px;
+        .project-block-image {
+          //.make-xs-column(6);
+          //.make-sm-column(6);
+          //.make-md-column(4);
+          //.make-lg-column(4);
+          //padding-left: 0;
+          //margin: auto;
+          //margin-left: 15px;
+          height: 200px;
+          max-height: 200px;
+          width: 100%;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          /*
+          overflow-x: hidden;
+          img {
+              height: inherit;
+              width: auto;
+          }
+          */
+
         }
-        .project-info {
-            .make-xs-column(6);
-            .make-sm-column(6);
-            .make-md-column(8);
-            .make-lg-column(8);
+        .project-block-info {
+            //.make-xs-column(6);
+            //.make-sm-column(6);
+            //.make-md-column(8);
+            //.make-lg-column(8);
+            //margin-right: 15px;
+
+            h2 {
+              margin-top: 0;
+              margin-bottom: 3px;
+            }
+            .project-info-labels {
+              margin-bottom: 10px;
+            }
+            .project-info-brief-descr {
+              margin: 24px 0 24px;
+              p {
+                color: #555;
+              }
+            }
+
         }
 
     }
