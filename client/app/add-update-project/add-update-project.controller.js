@@ -88,8 +88,17 @@ angular.module('researchApp')
     };
 
     $scope.removeResearcher = function(researcher) {
-      console.log(researcher);
-    }
+      $http.delete(API_URL + 'researches/' + $scope.projectId + '/researchers/' + researcher.id)
+        .success(function(data) {
+            for (var i = 0; i < $scope.project.researchers.length; i++) {
+              if ($scope.project.researchers[i].id == researcher.id) {
+                $scope.project.researchers.splice(i, 1);
+              }
+            };
+        }).error(function(err) {
+            console.log('Error deleting researcer: ' + err.message || err);
+        });
+      };
 
     $scope.onFileSelect = function(event) {
       var image = event.target.files[0];
