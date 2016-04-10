@@ -20,5 +20,9 @@ angular.module('researchApp')
         $scope.newResearcher = '';
         $scope.inviteSent = true;
       });
-    }
+    };
+
+    $scope.edit = function() {
+      $state.go('add-update-project', {id: $stateParams.id});
+    };
   });
