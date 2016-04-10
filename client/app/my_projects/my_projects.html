@@ -1,0 +1,23 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<section class="projects container">
+  <div class="row">
+    <ul class="list-unstyled">
+      <li class="project-block" ng-repeat="project in myProjectsList">
+        <img ng-src="{{project.image_url}}" alt="{{project.title}}">
+        <div class="project-info">
+          <h2>{{project.title}}</h2>
+          <span class="label label-primary" ng-repeat-start="tag in project.tags">{{tag}}</span> <span ng-repeat-end></span>
+          <p>{{project.description.brief}}</p>
+          <a href="project/{{project._id}}">More info</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="projects container" ng-show="myProjectsList.length == 0">
+  <div class="row">
+    <a class="btn btn-primary" href="/new_project">Add my first project</a>
+  </div>
+</section>

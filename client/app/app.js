@@ -5,6 +5,7 @@ var API_URL = "https://szkocka-1080.appspot.com/";
 angular.module('researchApp', [
   'ngCookies',
   'ngResource',
+  'kendo.directives',
   'ngSanitize',
   'ui.bootstrap',
   'ngFileUpload',
