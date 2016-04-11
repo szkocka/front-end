@@ -8,23 +8,24 @@ angular.module('researchApp')
   	};
   	$scope.errorMsg = '';
   	$scope.successMsg = '';
-  	$scope.showEditButton = (Auth.getCurrentUser().role === 'admin');
+  	$scope.showEditButton = false;
   	$scope.showEditableTexarea = false;
 
   	$http.get(API_URL + 'pages/about').success(function(about) {
-      	$scope.aboutProject.currentDescription = about.content;
-      	$scope.aboutProject.newDescription = about.content;
+      $scope.showEditButton = Auth.isAdmin();
+    	$scope.aboutProject.currentDescription = about.content;
+    	$scope.aboutProject.newDescription = about.content;
     }).error(function(error){});
 
     $scope.updateAbout = function() {
     	$http.post(API_URL + 'pages/about', {content: $scope.aboutProject.newDescription})
     		.success(function(about){
-          		$scope.aboutProject.currentDescription = about.content;
-          		$scope.showEditableTexarea = false;
-          		$scope.successMsg = 'Information was saved successfully';
+      		$scope.aboutProject.currentDescription = $scope.aboutProject.newDescription;
+      		$scope.showEditableTexarea = false;
+      		$scope.successMsg = 'Information was saved successfully';
         }).error(function(error){
-        		$scope.errorMsg = 'Error: Information was not updated';
-          		$scope.showEditableTexarea = false;
+      		$scope.errorMsg = 'Error: Information was not updated';
+        	$scope.showEditableTexarea = false;
         });
     };
 

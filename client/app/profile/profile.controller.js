@@ -5,9 +5,10 @@ angular.module('researchApp')
     $scope.userId = $stateParams.id;
     $scope.user = {};
     $scope.area = [];
-    $scope.showEditButton = (Auth.getCurrentUser()._id == $scope.userId);
+    $scope.showEditButton = false;
 
     $http.get(API_URL + '/users/' + $scope.userId).success(function(res) {
+      $scope.showEditButton = (Auth.getCurrentUser()._id == $scope.userId);
       $scope.user = res;
       if (!_.isEmpty($scope.user.supervisor_of)){
         var area = []; 
@@ -19,6 +20,6 @@ angular.module('researchApp')
     });
 
     $scope.edit = function() {
-      $state.go('edit-profile', {});
+      $state.go('edit-profile', {id: $scope.userId});
     }
 });

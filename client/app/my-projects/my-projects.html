@@ -20,7 +20,7 @@
               <div class="project-info-brief-descr">
                 <p ng-bind-html="project.description.brief"></p>
               </div>
-              <a href="project/{{project._id}}">More info &rarr;</a>
+              <a href="#project/{{project._id}}">More info &rarr;</a>
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@
               <div class="project-info-brief-descr">
                 <p ng-bind-html="project.description.brief"></p>
               </div>
-              <a href="project/{{project._id}}">More info &rarr;</a>
+              <a href="#project/{{project._id}}">More info &rarr;</a>
             </div>
           </div>
         </div>
@@ -58,6 +58,6 @@
 
 <section class="projects container" ng-show="user.supervisor_of.length == 0 && user.researcher_in.length == 0">
   <div class="row">
-    <a class="btn btn-primary" href="/add-update-project/null">Add my first project</a>
+    <a class="btn btn-primary" href="#/add-update-project/null">Add my first project</a>
   </div>
 </section>

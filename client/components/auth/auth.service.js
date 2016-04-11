@@ -133,7 +133,10 @@ angular.module('researchApp')
        * @return {Boolean}
        */
       isAdmin: function() {
-        return currentUser.role === 'admin';
+        if (!currentUser.user) {
+          return false;
+        }
+        return currentUser.user.role === 'admin';
       },
 
       /**

@@ -15,7 +15,7 @@ angular.module('researchApp', [
 ])
   .config(function ($urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');
-    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true);
     // $httpProvider.defaults.withCredentials = true;
     $httpProvider.interceptors.push('authInterceptor');
   })

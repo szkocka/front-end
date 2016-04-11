@@ -3,7 +3,6 @@
 angular.module('researchApp')
   .controller('AddUpdateProjectCtrl', function ($scope, $http, Upload, $state, $stateParams,Auth) {
     $scope.projectId = $stateParams.id;
-    $scope.user = Auth.getCurrentUser();
     $scope.img = null;
     $scope.newProject = true;
     $scope.project = {
