@@ -3,6 +3,8 @@
 angular.module('researchApp')
   .controller('ProjectCtrl', function ($scope, $stateParams, $http, Auth, $state) {
     $scope.inviteSent = false;
+    $scope.isSupervisor = false;
+    $scope.canJoinProject = true;
     $scope.project = {};
 
     $http.get(API_URL + 'researches/' + $stateParams.id).success(function(project) {
@@ -10,6 +12,12 @@ angular.module('researchApp')
       var user = Auth.getCurrentUser();
       if( user && user._id == project.supervisor.id ){
         $scope.isSupervisor = true;
+      }
+      if( !user || user && user._id == project.supervisor.id ||
+          _.any(project.researchers, function(researcher) {
+            return researcher.id == user._id;
+      })){
+        $scope.canJoinProject = false;
       }
     });
 
@@ -25,6 +33,15 @@ angular.module('researchApp')
 
     $scope.edit = function() {
       $state.go('add-update-project', {id: $stateParams.id});
+    };
+
+    $scope.join = function() {
+      $http.post(API_URL + 'researches/' + $stateParams.id + '/join', {
+        text: "DEF"
+      }).success(function(data){
+        console.log(data.message);
+        $scope.canJoinProject = false;
+      });
     };
 
     $scope.detectStatus = function() {
