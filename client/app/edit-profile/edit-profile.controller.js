@@ -5,10 +5,13 @@ angular.module('researchApp')
 
     $scope.userId = $stateParams.id;
     $scope.user = {};
-    
-    $http.get(API_URL + 'users/' + $scope.userId).success(function(user) {
-      $scope.user = user;
-    });
+    _init();
+
+    function _init() {
+      $http.get(API_URL + 'users/' + $scope.userId).success(function(user) {
+        $scope.user = user;
+      });
+    }
 
     $scope.save = function() {
       $http.put(API_URL + 'users',

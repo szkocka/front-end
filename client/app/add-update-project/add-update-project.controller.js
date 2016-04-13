@@ -3,7 +3,6 @@
 angular.module('researchApp')
   .controller('AddUpdateProjectCtrl', function ($scope, $http, Upload, $state, $stateParams,Auth) {
     $scope.projectId = $stateParams.id;
-    $scope.img = null;
     $scope.newProject = true;
     $scope.project = {
       description: {}
@@ -23,10 +22,11 @@ angular.module('researchApp')
         name: 'On Hold'
       }
     ];
-    $scope.titleError;
-    $scope.shortDescError;
-    $scope.longDescError;
-    $scope.tagsError;
+    $scope.titleError = '';
+    $scope.shortDescError = '';
+    $scope.longDescError = '';
+    $scope.tagsError = '';
+    $scope.errorMsg = '';
     _init();
 
     function _init() {
@@ -34,9 +34,8 @@ angular.module('researchApp')
         return;
       } else {
         $scope.newProject = false;
-        $http.get(API_URL + 'researches/' + $stateParams.id).success(function(project) {
-          $scope.project = project;
-          $scope.img = $scope.project.image_url;
+        $http.get(API_URL + 'researches/' + $stateParams.id).success(function(proj) {
+          $scope.project = proj;
         });
       }
     }
@@ -49,7 +48,7 @@ angular.module('researchApp')
         {
           title: $scope.project.title,
           tags: _.map($scope.project.tags, function(t){return t.text}),
-          image_url: $scope.img,
+          image_url: $scope.project.image_url,
           area: 'test area',
           description: {
             brief: $scope.project.description.brief,
@@ -64,6 +63,8 @@ angular.module('researchApp')
           }).success(function(forum){
             $state.go('project.about', {id: research.research_id});
           });
+        }).error(function(error) {
+          $scope.errorMsg = 'Project was not created';
         });
       $scope.project = {};
     };
@@ -75,7 +76,7 @@ angular.module('researchApp')
       $http.put(API_URL + 'researches/' + $stateParams.id,
         {
           title: $scope.project.title,
-          image_url: $scope.img,
+          image_url: $scope.project.image_url,
           status: $scope.project.status,
           description: {
             brief: $scope.project.description.brief,
@@ -83,6 +84,8 @@ angular.module('researchApp')
           }
         }).success(function(research){
           $state.go('project.about', {id: $scope.projectId});
+        }).error(function(error) {
+          $scope.errorMsg = 'Error: Project was not updated';
         });
     };
 
@@ -95,7 +98,7 @@ angular.module('researchApp')
               }
             };
         }).error(function(err) {
-            console.log('Error deleting researcer: ' + err.message || err);
+          $scope.errorMsg = 'Error: Researcher was not deleted';
         });
       };
 
@@ -114,7 +117,7 @@ angular.module('researchApp')
       }).success(function(data, status, headers, config) {
           $scope.img = data.url;
       }).error(function(err) {
-          console.log('Error uploading file: ' + err.message || err);
+        $scope.errorMsg = 'Error: File was not uploaded';
       });
     };
 

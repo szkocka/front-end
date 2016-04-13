@@ -8,22 +8,26 @@ angular.module('researchApp')
     $scope.errorMsg = '';
     $scope.project = {};
     $scope.newResearcher = {};
+    _init();
 
-    $http.get(API_URL + 'researches/' + $stateParams.id).success(function(project) {
-      $scope.project = project;
-      var user = Auth.getCurrentUser();
-      if( user && user._id == project.supervisor.id ){
-        $scope.isSupervisor = true;
-      }
-      if( !user || $scope.isSupervisor ||
-          _.any(project.researchers, function(researcher) {
-            return researcher.id == user._id;
-      }) || _.any(project.pending_join_requests, function(researcher) {
-            return researcher.id == user._id;
-      })){
-        $scope.canJoinProject = false;
-      }
-    });
+    function _init() {
+      $scope.error = '';
+      $http.get(API_URL + 'researches/' + $stateParams.id).success(function(project) {
+        $scope.project = project;
+        var user = Auth.getCurrentUser();
+        if( user && user._id == project.supervisor.id ){
+          $scope.isSupervisor = true;
+        }
+        if( !user || $scope.isSupervisor ||
+            _.any(project.researchers, function(researcher) {
+              return researcher.id == user._id;
+        }) || _.any(project.pending_join_requests, function(researcher) {
+              return researcher.id == user._id;
+        })){
+          $scope.canJoinProject = false;
+        }
+      });
+    }
 
     $scope.inviteResearcher = function(){
       if(!$scope.newResearcher.email || $scope.newResearcher.email == '' ||
@@ -33,7 +37,7 @@ angular.module('researchApp')
       }
       $http.post(API_URL + 'researches/' + $stateParams.id + '/researchers', {
         text: $scope.newResearcher.message ? $scope.newResearcher.message : '',
-        email: $scope.newResearcher.email, 
+        email: $scope.newResearcher.email,
         name: $scope.newResearcher.name ? $scope.newResearcher.name : ''
       }).success(function(){
         $scope.newResearcher = {};
@@ -52,6 +56,28 @@ angular.module('researchApp')
       }).success(function(data){
         console.log(data.message);
         $scope.canJoinProject = false;
+      });
+    };
+
+    $scope.accept = function(user) {
+      console.log('accept');
+      return;
+      $http.post(API_URL + 'researches/' + $stateParams.id + '/accept/' + user.id, {
+      }).success(function(){
+        _init();
+      }).error(function(error) {
+        console.log(error);
+      });
+    };
+
+    $scope.ignore = function(user) {
+      console.log('ignore');
+      return;
+      $http.post(API_URL + 'researches/' + $stateParams.id + '/ignore/' + user.id, {
+      }).success(function(){
+        _init();
+      }).error(function(error) {
+        console.log(error);
       });
     };
 

@@ -10,7 +10,6 @@
 
         <div class="form-group">
           <label>Current Password</label>
-
           <input type="password" name="password" class="form-control" ng-model="user.oldPassword"
                  mongoose-error/>
           <p class="help-block" ng-show="form.password.$error.mongoose">
@@ -20,7 +19,6 @@
 
         <div class="form-group">
           <label>New Password</label>
-
           <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword"
                  ng-minlength="3"
                  required/>
@@ -29,9 +27,7 @@
             Password must be at least 3 characters.
           </p>
         </div>
-
         <p class="help-block"> {{ message }} </p>
-
         <button class="btn btn-lg btn-primary" type="submit">Save changes</button>
       </form>
     </div>

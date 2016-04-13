@@ -1,3 +1,14 @@
+<div ng-if="isSupervisor && project.pending_join_requests && project.pending_join_requests.lengtn > 0"> 
+    <h4>Join Requests: </h4>
+    <ul class="list-unstyled join-requests">
+    <li ng-repeat="user in project.pending_join_requests">
+          <button type="button" class="btn btn-primary btn-xs" ng-click="accept(user)">Accept</button>
+          <button type="button" class="btn btn-default btn-xs"  ng-click="ignore(user)">Ignore</button>
+          <a href="#/users/{{user.id}}">{{user.name}}Some person</a>
+        </li>
+    </ul>
+</div>
+
 <h4>Status: {{detectStatus()}} </h4>
 <h2>{{project.title}}</h2>
 <p ng-bind-html="project.description.detailed"></p>

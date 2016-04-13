@@ -10,12 +10,17 @@ angular.module('researchApp')
   	$scope.successMsg = '';
   	$scope.showEditButton = false;
   	$scope.showEditableTexarea = false;
+    _init();
 
-  	$http.get(API_URL + 'pages/about').success(function(about) {
-      $scope.showEditButton = Auth.isAdmin();
-    	$scope.aboutProject.currentDescription = about.content;
-    	$scope.aboutProject.newDescription = about.content;
-    }).error(function(error){});
+    function _init() {
+      $http.get(API_URL + 'pages/about').success(function(about) {
+        $scope.showEditButton = Auth.isAdmin();
+        $scope.aboutProject.currentDescription = about.content;
+        $scope.aboutProject.newDescription = about.content;
+      }).error(function(error){
+        $scope.errorMsg = 'Error: Page was not loaded';
+      });
+    }
 
     $scope.updateAbout = function() {
     	$http.post(API_URL + 'pages/about', {content: $scope.aboutProject.newDescription})

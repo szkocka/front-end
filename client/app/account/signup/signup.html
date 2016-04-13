@@ -11,7 +11,6 @@
         <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                             'has-error': form.name.$invalid && submitted }">
           <label>Name</label>
-
           <input type="text" name="name" class="form-control" ng-model="user.name"
                  required/>
           <p class="help-block" ng-show="form.name.$error.required && submitted">
@@ -22,7 +21,6 @@
         <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
                                             'has-error': form.email.$invalid && submitted }">
           <label>Email</label>
-
           <input type="email" name="email" class="form-control" ng-model="user.email"
                  required
                  mongoose-error/>
@@ -40,7 +38,6 @@
         <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
                                             'has-error': form.password.$invalid && submitted }">
           <label>Password</label>
-
           <input type="password" name="password" class="form-control" ng-model="user.password"
                  ng-minlength="3"
                  required
