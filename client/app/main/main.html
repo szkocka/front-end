@@ -13,32 +13,58 @@
   </div>
 </section>
 
-<section class="tags container">
+<!--<section class="tags container">
   <a ng-if="activeTag" class="tag" ng-click="clearTag()">All projects</a>
   <a ng-repeat="tag in tags" class="tag" ng-click="activateTag(tag)" ng-class="{'selected': tag == activeTag}">{{tag}}</a>
-</section>
+</section>-->
 
 <section class="projects container">
-    <ul class="list-unstyled">
-      <li class="project-block" ng-repeat="project in projectsList">
-        <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-            <div class="project-block-image" style="background-image: url('{{project.image_url}}');">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+      <ul class="list-unstyled">
+        <li class="project-block" ng-repeat="project in projectsList">
+          <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <div class="project-block-image" style="background-image: url('{{project.image_url}}');">
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+              <div class="project-block-info">
+                <h2>{{project.title}}</h2>
+                <div class="project-info-labels">
+                  <span class="label label-primary" ng-repeat-start="tag in project.tags">{{tag}}</span> <span ng-repeat-end></span>
+                </div>
+                <div class="project-info-brief-descr">
+                  <p ng-bind-html="project.description.brief"></p>
+                </div>
+                <a href="#project/{{project._id}}">More info &rarr;</a>
+              </div>
             </div>
           </div>
-          <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
-            <div class="project-block-info">
-              <h2>{{project.title}}</h2>
-              <div class="project-info-labels">
-                <span class="label label-primary" ng-repeat-start="tag in project.tags">{{tag}}</span> <span ng-repeat-end></span>
-              </div>
-              <div class="project-info-brief-descr">
-                <p ng-bind-html="project.description.brief"></p>
-              </div>
-              <a href="#project/{{project._id}}">More info &rarr;</a>
-            </div>
-          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 search-area">
+      <h4>Search Criterias: </h4>
+      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <button type="button" class="btn btn-default">Active</button>
+        <button type="button" class="btn btn-default">All</button>
+      </div>
+      <form class="form-inline">
+        <div class="form-group">
+          <input type="password" class="form-control" id="inputPassword2" placeholder="Search">
+          <button type="submit" class="btn btn-default">Search</button>
         </div>
-      </li>
-    </ul>
+      </form>
+      <section class="tags">
+        <a ng-if="activeTag" class="tag" ng-click="clearTag()">All projects</a>
+        <a ng-repeat="tag in tags" class="tag" ng-click="activateTag(tag)" ng-class="{'selected': tag == activeTag}">{{tag}}</a>
+        <div></div>
+        <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 9" ng-click="showAllTags()">Show All Tags</a>
+        <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 15" ng-click="showLessTags()">Show Less...</a>
+      </section>
+    </div>
+  </div>
+
+  
 </section>

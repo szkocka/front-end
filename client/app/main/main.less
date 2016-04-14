@@ -1,5 +1,5 @@
 .main-carousel {
-    margin: 50px auto 20px;
+    margin: 50px auto;
     .carousel-inner {
         height: 500px;
         img {
@@ -10,12 +10,12 @@
 }
 
 .tags {
-    padding: 40px 20px;
     .tag {
-        margin: 5px;
+        margin-top: 10px;
+        margin-right: 10px;
         .btn();
         .btn-default();
-        .btn-lg();
+        .btn-xs();
     }
     .tag.selected {
         .btn-primary();
@@ -68,8 +68,14 @@
                 color: #555;
               }
             }
-
         }
-
     }
+    .search-area {
+      .form-inline {
+        margin-top: 10px;
+      }
+    }
+}
+.btn-group-justified > .btn {
+  width: 50%;
 }
