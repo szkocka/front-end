@@ -11,33 +11,115 @@ angular.module('researchApp')
     $scope.viewTags = [];
     $scope.tagsShortListQty = 15;
     $scope.showTagsShortList = true;
+    $scope.loadMoreAvailable = true;
+    $scope.limit = 3;
 
-    $http.get(API_URL + 'researches').success(function(projectsList) {
-      allProjects = _(projectsList.researches).reverse().value();
-      $scope.projectsList = _.clone(allProjects);
-      $scope.latest5 = _.first(allProjects, 5);
-
-      $http.get(API_URL + 'researches/tags').success(function(res) {
-        $scope.tags = res.tags;
-
-        if ($scope.tags.length > $scope.tagsShortListQty) {
-          getTagsToShow();
-        } else {
-          $scope.viewTags = $scope.tags;
-        }
-      });
-    });
-
-    $scope.clearTag = function(){
-      $scope.activeTag = null;
-      $scope.projectsList = _.clone(allProjects);
+    $scope.searchParams = {
+      keyword: '',
+      status: 'active',
+      tag: '',
+      cursor: ''
     };
 
-    $scope.activateTag = function(tag){
-      $scope.projectsList = _.filter(allProjects, function(project){
-        return _.indexOf(project.tags, tag) > -1;
+    $http.get(API_URL + 'researches/tags').success(function(res) {
+      $scope.tags = res.tags;
+
+      if ($scope.tags.length > $scope.tagsShortListQty) {
+        getTagsToShow();
+      } else {
+        $scope.viewTags = $scope.tags;
+      }
+    });
+
+    $scope.loadMore = function() {
+      if($scope.loadMoreAvailable) {
+        _init();
+      }
+    };
+
+    function _init() {
+      var query = createQuery();
+      $http.get(API_URL + 'queries/researches?'+ query).success(function(response) {
+        if ($scope.searchParams.cursor === response.cursor) {
+          return;
+        }
+        if (response.researches.length < $scope.limit) {
+          $scope.loadMoreAvailable = false;
+        }
+        allProjects = _(response.researches).reverse().value();
+        allProjects.forEach(function(proj){
+          $scope.projectsList.push(proj);
+        });
+
+        $scope.latest5 = _.first(allProjects, 2);
+        $scope.searchParams.cursor = response.cursor;
+
+      }).error(function(){
+        $scope.loadMoreAvailable = false;
       });
-      $scope.activeTag = tag;
+    }
+
+    function createQuery() {
+      var params = [];
+      if ($scope.searchParams.keyword != '') {
+        var keyword = 'keyword=' + $scope.searchParams.keyword;
+        params.push(keyword);
+      }
+
+      if ($scope.searchParams.status != '') {
+        var status = 'status=' + $scope.searchParams.status;
+        params.push(status);
+      }
+
+      if ($scope.searchParams.tag != '') {
+        var tag = 'tag=' + $scope.searchParams.tag;
+        params.push(tag);
+      }
+
+      if ($scope.searchParams.cursor != '') {
+        var cursor = 'cursor=' + $scope.searchParams.cursor;
+        params.push(cursor);
+      }
+      return params.join('&');
+    }
+
+    $scope.showActiveProjects = function() {
+      $scope.projectsList = [];
+      $scope.searchParams.cursor = '';
+      $scope.searchParams.keyword = '';
+      $scope.searchParams.status = 'active';
+      _init();
+    };
+
+    $scope.showAllProjects = function() {
+      $scope.projectsList = [];
+      $scope.searchParams.cursor = '';
+      $scope.searchParams.keyword = '';
+      $scope.searchParams.status = '';
+      _init();
+    };
+
+    $scope.search = function() {
+      $scope.projectsList = [];
+      $scope.searchParams.cursor = '';
+      $scope.searchParams.tag = '';
+      _init();
+    };
+
+    $scope.clearTag = function() {
+      $scope.projectsList = [];
+      $scope.searchParams.cursor = '';
+      $scope.searchParams.keyword = '';
+      $scope.searchParams.tag = '';
+      _init();
+    };
+
+    $scope.activateTag = function(tag) {
+      $scope.projectsList = [];
+      $scope.searchParams.cursor = '';
+      $scope.searchParams.keyword = '';
+      $scope.searchParams.tag = tag;
+      _init();
     };
 
     $scope.showAllTags = function () {

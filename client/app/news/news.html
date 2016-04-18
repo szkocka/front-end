@@ -44,6 +44,7 @@
 </section>
 
 <section class="projects container" ng-if="!addNewsSection">
+  <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
     <ul class="list-unstyled">
       <li class="project-block" ng-repeat="item in news">
         <div class="row">
@@ -53,8 +54,8 @@
           </div>
           <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
             <div class="project-block-info">
-              <h2>{{item.title[0]}}</h2>
-              <i>{{item.createdBy[0].name}} on {{item.created[0] | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
+              <h2>{{item.title}}</h2>
+              <i>{{item.createdBy[0].name}} on {{item.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
               <div class="news-descr">
                 <p ng-bind-html="item.body" ng-if="!item.showMore"></p>
               </div>
@@ -65,10 +66,10 @@
               <button class="btn btn-default" ng-if="!item.showMore" ng-click="showLess(item)">
                 Hide...
               </button>
-
             </div>
           </div>
         </div>
       </li>
     </ul>
+  </div>
 </section>

@@ -11,7 +11,8 @@ angular.module('researchApp', [
   'ngFileUpload',
   'ngTagsInput',
   'angularMoment',
-  'ui.router'
+  'ui.router',
+  'lazy-scroll'
 ])
   .config(function ($urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');

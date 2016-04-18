@@ -5,20 +5,45 @@ angular.module('researchApp')
   	$scope.showAddButton = false;
   	$scope.showMore = true;
   	$scope.addNewsSection = false;
-    $scope.news = {};
+    $scope.news = [];
     $scope.newsToAdd = {};
+    $scope.cursor = '';
+    $scope.loadMoreAvailable = true;
+    $scope.limit = 3;
     _init();
+
+    $scope.loadMore = function() {
+      if($scope.loadMoreAvailable) {
+        _init();
+      }
+    };
 
     function _init() {
     	$scope.errorMsg = '';
+      var query;
+      if ($scope.cursor == '') {
+        query = 'news';
+      } else {
+        query = 'news?cursor=' + $scope.cursor;
+      }
 
-    	$http.get(API_URL + 'news').success(function(res){
+    	$http.get(API_URL + query).success(function(res){
+        if ($scope.cursor == res.cursor) {
+          return;
+        }
+        if (res.news.length < $scope.limit) {
+          $scope.loadMoreAvailable = false;
+        }
+        $scope.cursor = res.cursor;
 	    	$scope.showAddButton = Auth.isAdmin();
-	      	$scope.news = res.news;
-	      	$scope.news.forEach(function(el) {
-	      		el.showMore = true;
-	      	});
-	    });
+
+      	res.news.forEach(function(el) {
+      		el.showMore = true;
+          $scope.news.push(el);
+      	});
+	    }).error(function(){
+        $scope.loadMoreAvailable = false;
+      });
     }
 
     $scope.showMore = function(el) {
@@ -48,6 +73,9 @@ angular.module('researchApp')
     		$scope.showAddButton = true;
     		$scope.addNewsSection = false;
     		$scope.newsToAdd = {};
+        $scope.news = [];
+        $scope.cursor = '';
+        $scope.loadMoreAvailable = true;
 	    	_init();
 	    });
     };
