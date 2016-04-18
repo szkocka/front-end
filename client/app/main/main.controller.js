@@ -21,6 +21,8 @@ angular.module('researchApp')
       cursor: ''
     };
 
+    _init();
+
     $http.get(API_URL + 'researches/tags').success(function(res) {
       $scope.tags = res.tags;
 
@@ -39,7 +41,7 @@ angular.module('researchApp')
 
     function _init() {
       var query = createQuery();
-      $http.get(API_URL + 'queries/researches?'+ query).success(function(response) {
+      $http.get(API_URL + 'researches?'+ query).success(function(response) {
         if ($scope.searchParams.cursor === response.cursor) {
           return;
         }
