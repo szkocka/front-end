@@ -27,9 +27,9 @@ angular.module('researchApp')
     		.success(function(about){
       		$scope.aboutProject.currentDescription = $scope.aboutProject.newDescription;
       		$scope.showEditableTexarea = false;
-      		$scope.successMsg = 'Information was saved successfully';
+      		$scope.successMsg = 'Saved';
         }).error(function(error){
-      		$scope.errorMsg = 'Error: Information was not updated';
+      		$scope.errorMsg = 'Error';
         	$scope.showEditableTexarea = false;
         });
     };
