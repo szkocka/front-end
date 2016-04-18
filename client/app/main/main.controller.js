@@ -24,7 +24,7 @@ angular.module('researchApp')
     _init();
 
     $http.get(API_URL + 'researches/tags').success(function(res) {
-      $scope.tags = res.tags;
+      $scope.tags = _.uniq(res.tags);
 
       if ($scope.tags.length > $scope.tagsShortListQty) {
         getTagsToShow();

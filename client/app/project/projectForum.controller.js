@@ -27,11 +27,11 @@ angular.module('researchApp')
         if ($scope.cursor == res.cursor) {
           return;
         }
-        if (res.researches.length < $scope.limit) {
+        if (res.forums.length < $scope.limit) {
           $scope.loadMoreAvailable = false;
         }
         $scope.cursor = res.cursor;
-        res.researches.forEach(function(forum) {
+        res.forums.forEach(function(forum) {
           $scope.forums.push(forum);
         });
       }).error(function(){
