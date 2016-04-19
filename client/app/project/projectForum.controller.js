@@ -43,9 +43,8 @@ angular.module('researchApp')
       $http.post(API_URL + 'researches/' + $stateParams.id + '/forums', {
         subject: topic
       }).success(function(forum){
-        forum._id = forum.forum_id;
-        //$scope.setActiveForum(forum);
-        $state.go('project.forum.one', {forumId: forum._id})
+        forum.id = forum.forum_id;
+        $state.go('project.forum.one', {forumId: forum.id})
       });
     }
 

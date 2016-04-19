@@ -11,7 +11,7 @@
   <button type="button" class="btn btn-primary" ng-click="createForum(newForum)">Start topic</button>
   <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
     <div ng-repeat="forum in forums | orderBy: 'forum.created'">
-      <h3><a ui-sref="project.forum.one({forumId: forum._id})">{{forum.subject}}</a></h3>
+      <h3><a ui-sref="project.forum.one({forumId: forum.id})">{{forum.subject}}</a></h3>
       <i>{{forum.createdBy.name}} on {{forum.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
     </div>
   </div>

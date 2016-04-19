@@ -2,14 +2,15 @@
 	<li>
 	  	<a ui-sref="project.forum.all">All topics</a>
 	 </li>
-  	<li class="active">{{activeForum.forum.subject}}</li>
+  	<li class="active">{{activeForum.subject}}</li>
 </ol>
-
-<div ng-repeat="message in activeForum.messages | orderBy: 'message.created'">
-  <blockquote>
-    <p mathjax-bind="message.message"></p>
-    <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
-  </blockquote>
+<div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
+    <div ng-repeat="message in activeForumMessages | orderBy: 'message.created'">
+      <blockquote>
+        <p mathjax-bind="message.message"></p>
+        <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
+      </blockquote>
+    </div>
 </div>
 <div class="form-group">
 	<textarea kendo-editor k-ng-model="newMessage"></textarea>
