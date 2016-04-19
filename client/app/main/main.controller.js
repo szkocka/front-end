@@ -3,8 +3,6 @@
 angular.module('researchApp')
   .controller('MainCtrl', function ($scope, $http) {
 
-    var allProjects;
-
     $scope.carouselInterval = 5000;
     $scope.projectsList = [];
     $scope.tags = [];
@@ -18,7 +16,7 @@ angular.module('researchApp')
       keyword: '',
       status: 'active',
       tag: '',
-      cursor: ''
+      page: 1
     };
 
     _init();
@@ -41,20 +39,22 @@ angular.module('researchApp')
 
     function _init() {
       var query = createQuery();
-      $http.get(API_URL + 'researches?'+ query).success(function(response) {
-        if ($scope.searchParams.cursor === response.cursor) {
+      $http.get(API_URL + 'queries/researches?'+ query).success(function(response) {
+        if(_.find($scope.projectsList, function(proj) { 
+          return proj.id == response.researches[0].id; })
+          ) {
           return;
         }
         if (response.researches.length < $scope.limit) {
           $scope.loadMoreAvailable = false;
         }
-        allProjects = _(response.researches).reverse().value();
-        allProjects.forEach(function(proj){
+        
+        response.researches.forEach(function(proj){
           $scope.projectsList.push(proj);
         });
 
-        $scope.latest5 = _.first(allProjects, 2);
-        $scope.searchParams.cursor = response.cursor;
+        $scope.latest5 = _.first($scope.projectsList, 2);
+        $scope.searchParams.page = $scope.searchParams.page + 1;
 
       }).error(function(){
         $scope.loadMoreAvailable = false;
@@ -78,49 +78,54 @@ angular.module('researchApp')
         params.push(tag);
       }
 
-      if ($scope.searchParams.cursor != '') {
-        var cursor = 'cursor=' + $scope.searchParams.cursor;
-        params.push(cursor);
+      if ($scope.searchParams.page != '') {
+        var page = 'page=' + $scope.searchParams.page;
+        params.push(page);
       }
       return params.join('&');
     }
 
     $scope.showActiveProjects = function() {
       $scope.projectsList = [];
-      $scope.searchParams.cursor = '';
+      $scope.searchParams.page = 1;
       $scope.searchParams.keyword = '';
       $scope.searchParams.status = 'active';
+      $scope.loadMoreAvailable = true;
       _init();
     };
 
     $scope.showAllProjects = function() {
       $scope.projectsList = [];
-      $scope.searchParams.cursor = '';
+      $scope.searchParams.page = 1;
       $scope.searchParams.keyword = '';
       $scope.searchParams.status = '';
+      $scope.loadMoreAvailable = true;
       _init();
     };
 
     $scope.search = function() {
       $scope.projectsList = [];
-      $scope.searchParams.cursor = '';
+      $scope.searchParams.page = 1;
       $scope.searchParams.tag = '';
+      $scope.loadMoreAvailable = true;
       _init();
     };
 
     $scope.clearTag = function() {
       $scope.projectsList = [];
-      $scope.searchParams.cursor = '';
+      $scope.searchParams.page = 1;
       $scope.searchParams.keyword = '';
       $scope.searchParams.tag = '';
+      $scope.loadMoreAvailable = true;
       _init();
     };
 
     $scope.activateTag = function(tag) {
       $scope.projectsList = [];
-      $scope.searchParams.cursor = '';
+      $scope.searchParams.page = 1;
       $scope.searchParams.keyword = '';
       $scope.searchParams.tag = tag;
+      $scope.loadMoreAvailable = true;
       _init();
     };
 
