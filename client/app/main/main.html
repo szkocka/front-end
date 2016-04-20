@@ -59,8 +59,8 @@
         <a ng-if="searchParams.tag" class="tag" ng-click="clearTag()">All projects</a>
         <a ng-repeat="tag in viewTags" class="tag" ng-click="activateTag(tag)" ng-class="{'selected': tag == searchParams.tag}">{{tag}}</a>
         <div></div>
-        <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 15 && showTagsShortList" ng-click="showAllTags()">Show All Tags</a>
-        <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 15 && !showTagsShortList" ng-click="showLessTags()">Show Less...</a>
+        <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 15 && showTagsShortList" ng-click="showAllTags()">See all tags</a>
+        <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 15 && !showTagsShortList" ng-click="showLessTags()">Hide all tags</a>
       </section>
     </div>
   </div>

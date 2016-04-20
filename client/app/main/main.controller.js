@@ -10,7 +10,7 @@ angular.module('researchApp')
     $scope.tagsShortListQty = 15;
     $scope.showTagsShortList = true;
     $scope.loadMoreAvailable = true;
-    $scope.limit = 3;
+    $scope.limit = 20;
 
     $scope.searchParams = {
       keyword: '',

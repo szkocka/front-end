@@ -7,7 +7,7 @@ angular.module('researchApp')
     $scope.activeForumMessages = [];
     $scope.cursor = '';
     $scope.loadMoreAvailable = true;
-    $scope.limit = 3;
+    $scope.limit = 20;
     _init();
 
     $http.get(API_URL + 'forums/' + $stateParams.forumId).success(function(forum) {

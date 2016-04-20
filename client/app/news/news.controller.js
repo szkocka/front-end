@@ -9,7 +9,7 @@ angular.module('researchApp')
     $scope.newsToAdd = {};
     $scope.cursor = '';
     $scope.loadMoreAvailable = true;
-    $scope.limit = 3;
+    $scope.limit = 20;
     _init();
 
     $scope.loadMore = function() {
