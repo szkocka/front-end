@@ -16,7 +16,7 @@ angular.module('researchApp')
       keyword: '',
       status: 'active',
       tag: '',
-      page: 1
+      page: 0
     };
 
     _init();
@@ -87,7 +87,7 @@ angular.module('researchApp')
 
     $scope.showActiveProjects = function() {
       $scope.projectsList = [];
-      $scope.searchParams.page = 1;
+      $scope.searchParams.page = 0;
       $scope.searchParams.keyword = '';
       $scope.searchParams.status = 'active';
       $scope.loadMoreAvailable = true;
@@ -96,7 +96,7 @@ angular.module('researchApp')
 
     $scope.showAllProjects = function() {
       $scope.projectsList = [];
-      $scope.searchParams.page = 1;
+      $scope.searchParams.page = 0;
       $scope.searchParams.keyword = '';
       $scope.searchParams.status = '';
       $scope.loadMoreAvailable = true;
@@ -105,7 +105,7 @@ angular.module('researchApp')
 
     $scope.search = function() {
       $scope.projectsList = [];
-      $scope.searchParams.page = 1;
+      $scope.searchParams.page = 0;
       $scope.searchParams.tag = '';
       $scope.loadMoreAvailable = true;
       _init();
@@ -113,7 +113,7 @@ angular.module('researchApp')
 
     $scope.clearTag = function() {
       $scope.projectsList = [];
-      $scope.searchParams.page = 1;
+      $scope.searchParams.page = 0;
       $scope.searchParams.keyword = '';
       $scope.searchParams.tag = '';
       $scope.loadMoreAvailable = true;
@@ -122,7 +122,7 @@ angular.module('researchApp')
 
     $scope.activateTag = function(tag) {
       $scope.projectsList = [];
-      $scope.searchParams.page = 1;
+      $scope.searchParams.page = 0;
       $scope.searchParams.keyword = '';
       $scope.searchParams.tag = tag;
       $scope.loadMoreAvailable = true;
