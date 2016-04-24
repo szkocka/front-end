@@ -8,3 +8,5 @@ angular.module('researchApp').config(function($stateProvider) {
       controller: 'MainCtrl'
     })
 });
+
+
