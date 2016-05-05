@@ -7,13 +7,13 @@
           <button class="btn btn-primary pull-right" ng-if="isSupervisor" ng-click="edit()">Edit</button>
           {{user.name}}
         </h1>
-        <div ng-if="isSupervisor && user.pending_requests && project.pending_requests.lengtn > 0"> 
+        <div ng-if="isSupervisor && invitations.length > 0">
           <h5>Invitations: </h5>
           <ul class="list-unstyled join-requests">
-            <li ng-repeat="inv in user.pending_invitations">
+            <li ng-repeat="inv in invitations">
               <button type="button" class="btn btn-primary btn-xs" ng-click="accept(inv)">Accept</button>
               <button type="button" class="btn btn-default btn-xs"  ng-click="ignore(inv)">Ignore</button>
-              <a href="#/project/{{inv._id}}">{{inv.title}}Some Project</a>
+              <a href="#/project/{{inv.id}}">{{inv.research_name}}</a>
             </li>
           </ul>
         </div>

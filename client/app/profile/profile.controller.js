@@ -5,7 +5,16 @@ angular.module('researchApp')
     $scope.userId = $stateParams.id;
     $scope.user = {};
     $scope.area = [];
+    $scope.invitations = [];
     $scope.isSupervisor = false;
+    $scope.errorMsg = '';
+    _init();
+
+    function _init() {
+      $http.get(API_URL + 'users/me/invites').success(function(res) {
+        $scope.invitations = res.invitations;
+      });
+    }
 
     $http.get(API_URL + '/users/' + $scope.userId).success(function(res) {
       $scope.isSupervisor = (Auth.getCurrentUser()._id == $scope.userId);
@@ -24,10 +33,16 @@ angular.module('researchApp')
     };
 
     $scope.accept = function(proj) {
-      console.log('accept');
+      $http.post(API_URL + 'users/me/invites/' + proj.id + '/accepted', {})
+      .success(function(){
+        _init();
+      });
     };
 
     $scope.ignore = function(proj) {
-      console.log('ignore');
+      $http.post(API_URL + 'users/me/invites/' + proj.id + '/rejected', {})
+      .success(function(){
+        _init();
+      });
     };
 });

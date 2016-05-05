@@ -35,7 +35,7 @@ angular.module('researchApp')
         $scope.errorMsg = 'Required';
         return;
       }
-      $http.post(API_URL + 'researches/' + $stateParams.id + '/researchers', {
+      $http.post(API_URL + 'researches/' + $stateParams.id + '/invites', {
         text: $scope.newResearcher.message ? $scope.newResearcher.message : '',
         email: $scope.newResearcher.email,
         name: $scope.newResearcher.name ? $scope.newResearcher.name : ''
