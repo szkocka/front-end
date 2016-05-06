@@ -8,22 +8,33 @@ angular.module('researchApp')
     $scope.errorMsg = '';
     $scope.project = {};
     $scope.newResearcher = {};
+    $scope.joinRequests = [];
+    $scope.user = null;
     _init();
 
     function _init() {
       $scope.error = '';
       $http.get(API_URL + 'researches/' + $stateParams.id).success(function(project) {
         $scope.project = project;
-        var user = Auth.getCurrentUser();
-        if( user && user._id == project.supervisor.id ){
+        $scope.user = Auth.getCurrentUser();
+        if( $scope.user && $scope.user._id == project.supervisor.id ){
           $scope.isSupervisor = true;
         }
-        if( !user || $scope.isSupervisor ||
+        if( !$scope.user || $scope.isSupervisor ||
             _.any(project.researchers, function(researcher) {
-              return researcher.id == user._id;
+              return researcher.id == $scope.user._id;
         }) || _.any(project.pending_join_requests, function(researcher) {
-              return researcher.id == user._id;
+              return researcher.id == $scope.user._id;
         })){
+          $scope.canJoinProject = false;
+        }
+      });
+
+      $http.get(API_URL + 'researches/' + $stateParams.id + '/requests').success(function(res) {
+        $scope.joinRequests = res.users;
+        if (_.any($scope.joinRequests, function(request) {
+              return request.id == $scope.user._id;
+        })) {
           $scope.canJoinProject = false;
         }
       });
@@ -51,8 +62,8 @@ angular.module('researchApp')
     };
 
     $scope.join = function() {
-      $http.post(API_URL + 'researches/' + $stateParams.id + '/join', {
-        text: "DEF"
+      $http.post(API_URL + 'researches/' + $stateParams.id + '/requests', {
+        text: ""
       }).success(function(data){
         console.log(data.message);
         $scope.canJoinProject = false;
@@ -60,9 +71,7 @@ angular.module('researchApp')
     };
 
     $scope.accept = function(user) {
-      console.log('accept');
-      return;
-      $http.post(API_URL + 'researches/' + $stateParams.id + '/accept/' + user.id, {
+      $http.post(API_URL + 'researches/' + $stateParams.id + '/researchers/' + user.id + '/approved', {
       }).success(function(){
         _init();
       }).error(function(error) {
@@ -71,9 +80,7 @@ angular.module('researchApp')
     };
 
     $scope.ignore = function(user) {
-      console.log('ignore');
-      return;
-      $http.post(API_URL + 'researches/' + $stateParams.id + '/ignore/' + user.id, {
+      $http.post(API_URL + 'researches/' + $stateParams.id + '/researchers/' + user.id + '/rejected', {
       }).success(function(){
         _init();
       }).error(function(error) {

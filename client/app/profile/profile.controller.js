@@ -12,7 +12,7 @@ angular.module('researchApp')
 
     function _init() {
       $http.get(API_URL + 'users/me/invites').success(function(res) {
-        $scope.invitations = res.invitations;
+        $scope.invitations = _.uniq(res.invitations);
       });
     }
 
