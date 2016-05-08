@@ -115,7 +115,7 @@ angular.module('researchApp')
           method: 'POST',
           file: image
       }).success(function(data, status, headers, config) {
-          $scope.img = data.url;
+          $scope.project.image_url = data.url;
       }).error(function(err) {
         $scope.errorMsg = 'Error: File was not uploaded';
       });
