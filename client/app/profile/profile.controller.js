@@ -1,42 +1,48 @@
 'use strict';
 
 angular.module('researchApp')
-  .controller('ProfileCtrl', function ($scope, $stateParams, $http) {
-    $scope.name = $stateParams.id;
-    var allProjects;
-    var email;
-    var supervising;
-    var data;
-    var area = [];
-    var researcher = [];
+  .controller('ProfileCtrl', function ($scope, $state, $stateParams, $http, Auth) {
+    $scope.userId = $stateParams.id;
+    $scope.user = {};
+    $scope.area = [];
+    $scope.invitations = [];
+    $scope.isSupervisor = false;
+    $scope.errorMsg = '';
+    _init();
 
-    $http.get(API_URL + 'researches').success(function(projectsList) {
-      allProjects = _(projectsList.researches).value();
-      data = _.chain(allProjects)
-        .map(function(d){
-          if (_.contains(d.researchers, $scope.name)){
-            researcher.push(d.title)
-          }
-          if (_.contains(d.supervisor.name, $scope.name)){
-            if (d.supervisor.email){
-              email = d.supervisor.email;     
-            };
-            area.push(d.area)
-            return {title: d.title, id: d._id}
-            }
-        })
-        .flatten()
-        .uniq()
-        .compact()
-        .value()
+    function _init() {
+      $http.get(API_URL + 'users/me/invites/researches').success(function(res) {
+        $scope.invitations = _.uniq(res.researches);
+      });
+    }
 
-      if (!_.isEmpty(data)){
+    $http.get(API_URL + 'users/' + $scope.userId).success(function(res) {
+      $scope.isSupervisor = (Auth.getCurrentUser()._id == $scope.userId);
+      $scope.user = res;
+      if (!_.isEmpty($scope.user.supervisor_of)){
+        var area = []; 
+        $scope.user.supervisor_of.forEach(function(proj) {
+          area.push(proj.area);
+        });
         $scope.area = _.uniq(area)
-        $scope.supervising = data;
-        $scope.email = email;
-        }
-      if (!_.isEmpty(researcher)){
-        $scope.researcher = _.uniq(researcher)
       }
-  });
+    });
+
+    $scope.edit = function() {
+      $state.go('edit-profile', {id: $scope.userId});
+    };
+
+    $scope.accept = function(proj) {
+      $http.post(API_URL + 'users/me/invites/researches/' + proj.id + '/accepted', {})
+      .success(function(){
+        _init();
+      });
+    };
+
+    $scope.ignore = function(proj) {
+      $http.post(API_URL + 'users/me/invites/researches/' + proj.id + '/declined', {})
+      .success(function(){
+        _init();
+      });
+    };
 });

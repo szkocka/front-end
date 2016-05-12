@@ -18,12 +18,12 @@
 }
 
 .tags {
-    padding: 40px 20px;
     .tag {
-        margin: 5px;
+        margin-top: 10px;
+        margin-right: 10px;
         .btn();
         .btn-default();
-        .btn-lg();
+        .btn-xs();
     }
     .tag.selected {
         .btn-primary();
@@ -76,8 +76,17 @@
                 color: #555;
               }
             }
-
         }
-
     }
+    .search-area {
+      .form-inline {
+        margin-top: 10px;
+      }
+      .active {
+        .btn-primary();
+      }
+    }
+}
+.btn-group-justified > .btn {
+  width: 50%;
 }

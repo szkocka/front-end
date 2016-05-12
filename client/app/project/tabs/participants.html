@@ -1,24 +1,50 @@
 <p>Research supervisor: 
-  <a href="/profile/{{project.supervisor.name}}">{{project.supervisor.name}}</a>
+  <a href="#/profile/{{project.supervisor.id}}">{{project.supervisor.name}}</a>
 </p>
 <div ng-if="project.researchers.length > 0">
   <p>Researchers:</p>
   <ul>
     <li ng-repeat="user in project.researchers">
       <section>
-        <a ui-sref="profile({id: user.name})">{{user.name}}</a>
+        <a href="#/profile/{{user.id}}">{{user.name}}</a>
       </section>  
       <!-- <a href="/profile/{{user}}">{{user}}</a> -->
     </li>
   </ul>
 </div>
-<div ng-if="isSupervisor">
-  <div ng-if="inviteSent">
-    <p>Invitation have been sent</p>
+<div class="container"ng-if="isSupervisor">
+  <div class="row" ng-if="inviteSent">
+    <p class="text-success">Invitation have been sent</p>
   </div>
-  <form>
-    <h3>Invite researcher</h3>
-    <input class="form-control" ng-model="newResearcher" placeholder="email"></input>
-    <button type="button" class="btn btn-primary" ng-click="inviteResearcher(newResearcher)">Invite</button>
-  </form>
+  <div class="row">
+    <p class="text-danger">{{errorMsg}}</p>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Invite researcher</h3>
+    </div>
+    <div class="col-sm-12">
+      <form class="form">
+
+        <div class="form-group">
+          <label>Name<span class="text-danger">*</span></label>
+          <input type="text" name="name" class="form-control" ng-model="newResearcher.name"/>
+          <small class="text-danger">{{validationMsg}}</small>
+        </div>
+
+        <div class="form-group">
+          <label>Email<span class="text-danger">*</span></label>
+          <input type="email" name="email" class="form-control" ng-model="newResearcher.email"/>
+          <small class="text-danger">{{validationMsg}}</small>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Message</label>
+          <textarea class="form-control" rows="5" ng-model="newResearcher.message"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="inviteResearcher()">Invite</button>
+      </form>
+    </div>
+  </div>
 </div>

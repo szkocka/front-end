@@ -14,8 +14,9 @@
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
       <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
-      <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.1.406/styles/kendo.common.min.css" />
-      <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.1.406/styles/kendo.default.min.css" />
+      <link rel="stylesheet" href="libs/kendo/css/kendo.common.min.css" />
+      <link rel="stylesheet" href="libs/kendo/css/kendo.default.min.css" />
+
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -67,14 +68,15 @@
       <script src="bower_components/moment/moment.js"></script>
       <script src="bower_components/angular-moment/angular-moment.js"></script>
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
-      <script src="bower_components/angular-socket-io/socket.js"></script>
+      <!--<script src="bower_components/angular-socket-io/socket.js"></script>-->
       <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
       <script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.js"></script>
       <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-      <script src="http://kendo.cdn.telerik.com/2016.1.406/js/kendo.all.min.js"></script>
+      <script src="libs/kendo/js/kendo.all.min.js"></script>
+      <script src="libs/lazy-scroll/lazy-scroll.js"></script>
       <!-- endbower -->
-      <script src="socket.io-client/socket.io.js"></script>
+      <!--<script src="socket.io-client/socket.io.js"></script>-->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,client}) app/app.js -->
@@ -90,24 +92,28 @@
           <script src="app/admin/admin.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
-          <script src="app/new_project/customOnChangeDirective.js"></script>
-          <script src="app/new_project/new_project.controller.js"></script>
-          <script src="app/new_project/new_project.js"></script>
+          <script src="app/add-update-project/customOnChangeDirective.js"></script>
+          <script src="app/add-update-project/add-update-project.controller.js"></script>
+          <script src="app/add-update-project/add-update-project.js"></script>
           <script src="app/profile/profile.controller.js"></script>
           <script src="app/profile/profile.js"></script>
           <script src="app/project/project.controller.js"></script>
           <script src="app/project/project.js"></script>
           <script src="app/project/projectForum.controller.js"></script>
           <script src="app/project/projectForumMessages.js"></script>
-          <script src="app/my_projects/my_projects.controller.js"></script>
-          <script src="app/my_projects/my_projects.js"></script>
+          <script src="app/my-projects/my-projects.controller.js"></script>
+          <script src="app/my-projects/my-projects.js"></script>
+          <script src="app/edit-profile/edit-profile.controller.js"></script>
+          <script src="app/edit-profile/edit-profile.js"></script>
+          <script src="app/news/news.controller.js"></script>
+          <script src="app/news/news.js"></script>
           <script src="components/auth/auth.service.js"></script>
           <script src="components/auth/user.service.js"></script>
           <script src="components/mathjaxBind.directive.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/mongoose-error/mongoose-error.directive.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
-          <script src="components/socket/socket.service.js"></script>
+          <!--<script src="components/socket/socket.service.js"></script>-->
           <!-- endinjector -->
         <!-- endbuild -->
 </body>

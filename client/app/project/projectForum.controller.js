@@ -3,14 +3,39 @@
 angular.module('researchApp')
   .controller('ProjectForumCtrl', function ($scope, $stateParams, $http, Auth, $state) {
     $scope.forums = [];
-    $scope.forumsAccessError = false;
+    $scope.forumsAccessError = true;
+    $scope.cursor = '';
+    $scope.loadMoreAvailable = true;
+    $scope.limit = 20;
+    _init();
+
+    $scope.loadMore = function() {
+      if($scope.loadMoreAvailable) {
+        _init();
+      }
+    };
 
     function getForums(){
-      $http.get(API_URL + 'researches/' + $stateParams.id + '/forums').success(function(forums) {
+      var query;
+      if ($scope.cursor == '') {
+        query = '/forums';
+      } else {
+        query = '/forums?cursor=' + $scope.cursor;
+      }
+      $http.get(API_URL + 'researches/' + $stateParams.id + query).success(function(res) {
         $scope.forumsAccessError = false;
-        $scope.forums = forums.forums;
+        if ($scope.cursor == res.cursor) {
+          return;
+        }
+        if (res.forums.length < $scope.limit) {
+          $scope.loadMoreAvailable = false;
+        }
+        $scope.cursor = res.cursor;
+        res.forums.forEach(function(forum) {
+          $scope.forums.push(forum);
+        });
       }).error(function(){
-        $scope.forumsAccessError = true;
+        $scope.loadMoreAvailable = false;
       });
     }
 
@@ -18,13 +43,18 @@ angular.module('researchApp')
       $http.post(API_URL + 'researches/' + $stateParams.id + '/forums', {
         subject: topic
       }).success(function(forum){
-        forum._id = forum.forum_id;
-        $scope.setActiveForum(forum);
+        forum.id = forum.forum_id;
+        $state.go('project.forum.one', {forumId: forum.id})
       });
     }
 
-    Auth.isLoggedInAsync(function(login){
-      if(login)
-        getForums();
-    });
+    function _init() {
+      Auth.isLoggedInAsync(function(login){
+        if(login) {
+          getForums();
+        } else {
+          $scope.forumsAccessError = true;
+        }
+      });
+    }
   });

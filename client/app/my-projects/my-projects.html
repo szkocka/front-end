@@ -1,0 +1,65 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="my-projects-title container" ng-if="user.supervisor_of.length > 0">
+  <h3>Supervising:</h3>
+</div>
+<section class="projects container" ng-if="user.supervisor_of.length > 0">
+    <ul class="list-unstyled">
+      <li class="project-block" ng-repeat="project in user.supervisor_of">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+            <a href="#project/{{project.id}}">
+              <div class="project-block-image" style="background-image: url('{{project.image_url}}');">
+              </div>
+            </a>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+            <div class="project-block-info">
+              <h2><a href="#project/{{project.id}}">{{project.title}}</a></h2>
+              <div class="project-info-labels">
+                <span class="label label-primary" ng-repeat-start="tag in project.tags">{{tag}}</span> <span ng-repeat-end></span>
+              </div>
+              <div class="project-info-brief-descr">
+                <p ng-bind-html="project.description.brief"></p>
+              </div>
+              <a href="#project/{{project.id}}">More info &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+</section>
+
+<div class="my-projects-title container" ng-if="user.researcher_in.length > 0">
+  <h3>Researcher In:</h3>
+</div>
+<section class="projects container" ng-if="user.researcher_in.length > 0">
+    <ul class="list-unstyled">
+      <li class="project-block" ng-repeat="project in user.researcher_in">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+            <div class="project-block-image" style="background-image: url('{{project.image_url}}');">
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+            <div class="project-block-info">
+              <h2>{{project.title}}</h2>
+              <div class="project-info-labels">
+                <span class="label label-primary" ng-repeat-start="tag in project.tags">{{tag}}</span> <span ng-repeat-end></span>
+              </div>
+              <div class="project-info-brief-descr">
+                <p ng-bind-html="project.description.brief"></p>
+              </div>
+              <a href="#project/{{project._id}}">More info &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+</section>
+
+<section class="projects container" ng-show="user.supervisor_of.length == 0 && user.researcher_in.length == 0">
+  <div class="row">
+    <a class="btn btn-primary" href="#/add-update-project/null">Add my first project</a>
+  </div>
+</section>
