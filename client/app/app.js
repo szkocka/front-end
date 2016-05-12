@@ -26,7 +26,8 @@ angular.module('researchApp', [
       // Add authorization token to headers
       request: function (config) {
         config.headers = config.headers || {};
-        if ($cookieStore.get('token')) {
+
+        if (config.url && config.url.indexOf('http') !== -1 && $cookieStore.get('token')) {
           config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
         }
         return config;
