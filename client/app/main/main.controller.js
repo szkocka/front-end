@@ -40,7 +40,7 @@ angular.module('researchApp')
     function _init() {
       var query = createQuery();
       $http.get(API_URL + 'queries/researches?'+ query).success(function(response) {
-        if(_.find($scope.projectsList, function(proj) { 
+        if(_.find($scope.projectsList, function(proj) {
           return proj.id == response.researches[0].id; })
           ) {
           return;
@@ -48,12 +48,12 @@ angular.module('researchApp')
         if (response.researches.length < $scope.limit) {
           $scope.loadMoreAvailable = false;
         }
-        
+
         response.researches.forEach(function(proj){
           $scope.projectsList.push(proj);
         });
 
-        $scope.latest5 = _.first($scope.projectsList, 2);
+        $scope.latest5 = _.first($scope.projectsList, 5);
         $scope.searchParams.page = $scope.searchParams.page + 1;
 
       }).error(function(){

@@ -2,19 +2,22 @@
 
 <section class="main-carousel container">
   <div class="row">
-    <carousel interval="carouselInterval">
-      <slide ng-repeat="project in latest5" active="slide.active">
-        <img ng-src="{{project.image_url}}"/>
-        <div class="carousel-caption">
-          <h4>{{project.title}}</h4>
-        </div>
-      </slide>
-    </carousel>
+    <div id="carousel-wrapper" ng-carousel-wrapper>
+      <carousel interval="carouselInterval">
+        <slide ng-repeat="project in latest5" active="slide.active">
+          <img ng-src="{{project.image_url}}"/>
+          <div class="carousel-caption">
+            <h4>{{project.title}}</h4>
+          </div>
+        </slide>
+      </carousel>
+    </div>
   </div>
 </section>
 
 <section class="projects container">
   <div class="row">
+    <h2>Projects</h2>
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
       <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
         <ul class="list-unstyled">
@@ -46,9 +49,9 @@
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 search-area">
       <h4>Search Criterias: </h4>
       <div class="btn-group btn-group-justified" role="group" aria-label="...">
-        <button type="button" class="btn btn-default" ng-class="{'active': searchParams.status == 'active'}" 
+        <button type="button" class="btn btn-default" ng-class="{'active': searchParams.status == 'active'}"
                 ng-click="showActiveProjects()">Active</button>
-        <button type="button" class="btn btn-default" ng-class="{'active': searchParams.status == ''}" 
+        <button type="button" class="btn btn-default" ng-class="{'active': searchParams.status == ''}"
                 ng-click="showAllProjects()">All</button>
       </div>
       <form class="form-inline">
@@ -67,5 +70,5 @@
     </div>
   </div>
 
-  
+
 </section>
