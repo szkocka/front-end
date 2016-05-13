@@ -6,8 +6,10 @@
       <carousel interval="carouselInterval">
         <slide ng-repeat="project in latest5" active="slide.active">
           <img ng-src="{{project.image_url}}"/>
+          <div class="overlay"></div>
           <div class="carousel-caption">
             <h4>{{project.title}}</h4>
+            <a href="#project/{{project.id}}" class="btn btn-primary">Read more</a>
           </div>
         </slide>
       </carousel>
