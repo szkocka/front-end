@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('researchApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $rootScope, $timeout, $http) {
 
     $scope.carouselInterval = 5000;
     $scope.projectsList = [];
@@ -11,6 +11,7 @@ angular.module('researchApp')
     $scope.showTagsShortList = true;
     $scope.loadMoreAvailable = true;
     $scope.limit = 20;
+    $scope.filterEventName = 'projectsFilter';
 
     $scope.searchParams = {
       keyword: '',
@@ -55,6 +56,10 @@ angular.module('researchApp')
 
         $scope.latest5 = _.first($scope.projectsList, 5);
         $scope.searchParams.page = $scope.searchParams.page + 1;
+
+//        $timeout(function() {
+          $rootScope.$broadcast($scope.filterEventName);  // fire event to redraw main image slider carousel
+//        });
 
       }).error(function(){
         $scope.loadMoreAvailable = false;

@@ -17,7 +17,7 @@
 
 <section class="projects container">
   <div class="row">
-    <h2>Projects</h2>
+    <h2 class="projects-list-title">Projects</h2>
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
       <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
         <ul class="list-unstyled">
@@ -61,11 +61,16 @@
         </div>
       </form>
       <section class="tags">
-        <a ng-if="searchParams.tag" class="tag" ng-click="clearTag()">All projects</a>
-        <a ng-repeat="tag in viewTags" class="tag" ng-click="activateTag(tag)" ng-class="{'selected': tag == searchParams.tag}">{{tag}}</a>
-        <div></div>
-        <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 15 && showTagsShortList" ng-click="showAllTags()">See all tags</a>
-        <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 15 && !showTagsShortList" ng-click="showLessTags()">Hide all tags</a>
+        <div class="tags-title">
+          <h4>Tags:</h4>
+        </div>
+        <div class="tags-list">
+          <a ng-if="searchParams.tag" class="tag tag-show-all" ng-click="clearTag()">Show All</a>
+          <a ng-repeat="tag in viewTags" class="tag" ng-click="activateTag(tag)" ng-class="{'selected': tag == searchParams.tag}">{{tag}}</a>
+          <div></div>
+          <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 15 && showTagsShortList" ng-click="showAllTags()">See all tags</a>
+          <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 15 && !showTagsShortList" ng-click="showLessTags()">Hide all tags</a>
+        </div>
       </section>
     </div>
   </div>
