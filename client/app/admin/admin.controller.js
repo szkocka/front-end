@@ -4,14 +4,80 @@ angular.module('researchApp')
   .controller('AdminCtrl', function ($scope, $http, Auth, User) {
 
     // Use the User $resource to fetch all users
-    $scope.users = User.query();
-
-    $scope.delete = function(user) {
-      User.remove({ id: user._id });
-      angular.forEach($scope.users, function(u, i) {
-        if (u === user) {
-          $scope.users.splice(i, 1);
+    $scope.users = [];
+    $scope.params = {
+        selectedAction: null,
+        selectedRole: null
+    }
+    $scope.actions = [
+        {
+          id: '1',
+          name: 'Delete user'
+        },
+        {
+          id: '2',
+          name: 'Delete user and posts'
+        },
+        {
+          id: '3',
+          name: 'Ban user'
+        },
+        {
+          id: '4',
+          name: 'Ban user and delete posts'
         }
-      });
+    ];
+
+    $scope.roles = [
+        {
+          id: 'admin',
+          name: 'Admin'
+        },
+        {
+          id: 'user',
+          name: 'User'
+        }
+    ];
+
+    _init();
+
+    function _init() {
+      $scope.users = User.query();
+    }
+
+    $scope.apply = function() {
+      switch($scope.params.selectedAction) {
+        case '1':
+          console.log('Delete user');
+          break;
+        case '2':
+          console.log('Delete user and posts');
+          break;
+        case '3':
+          console.log('Ban user');
+          break;
+        case '4':
+          console.log('Ban user and posts');
+          break;
+        default:
+          return;
+      }
+    };
+
+    $scope.changeRole = function() {
+      switch($scope.params.selectedRole) {
+        case 'admin':
+          console.log('Admin');
+          break;
+        case 'user':
+          console.log('User');
+          break;
+        default:
+          return;
+      }
+    };
+
+    $scope.search = function() {
+      console.log('Search');
     };
   });
