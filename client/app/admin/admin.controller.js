@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('researchApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User) {
+  .controller('AdminCtrl', function ($scope, $http) {
 
     // Use the User $resource to fetch all users
     $scope.users = [];
     $scope.params = {
         selectedAction: null,
-        selectedRole: null
+        selectedRole: null,
+        selectedUsers: []
     }
     $scope.actions = [
         {
@@ -42,7 +43,7 @@ angular.module('researchApp')
     _init();
 
     function _init() {
-      $scope.users = User.query();
+      //$scope.users = User.query();
     }
 
     $scope.apply = function() {
@@ -79,5 +80,24 @@ angular.module('researchApp')
 
     $scope.search = function() {
       console.log('Search');
+    };
+
+    $scope.restore = function() {
+      console.log('restore');
+    };
+
+    /**
+     * @public
+     * @param {Object} wo
+     * @param {Boolean} checked
+     */
+    $scope.setChecked = function(user) {
+        if (user.checked) {
+          $scope.params.selectedUsers.push(user.id)
+        } else {
+          _.remove($scope.params.selectedUsers, function(userId) {
+            return userId == user.id;
+          });
+        }
     };
   });

@@ -19,6 +19,7 @@
 	    <button type="button" class="btn btn-default" ng-click="search()">Search</button>
 	</div>
 </form>
+
 <div class="table-responsive">
 	<table class="table table-bordered">
 		<tr>
@@ -31,9 +32,9 @@
 		</tr>
 		<tr ng-repeat="user in users">
 			<td>
-				<div class="checkbox" ng-click="select(user)">
-				    <label>
-				      	<input type="checkbox">
+				<div class="checkbox">
+				    <label ng-click="setChecked(user)">
+				      	<input type="checkbox" ng-model="user.checked">
 				    </label>
 			  	</div>
 			</td>
@@ -46,7 +47,7 @@
 			<td><a href="#posts/{{user.id}}">{{user.posts}}</a></td>
 			<td>
 				<div>{{user.status}}</div>
-				<button ng-if="user.status === 'banned'" type="button" class="btn btn-link">restore</button>
+				<button ng-if="user.status === 'banned'" type="button" class="btn btn-link" ng-click="restore(user)">restore</button>
 			</td>
 		</tr>
 	</table>
