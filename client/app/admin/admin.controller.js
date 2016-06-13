@@ -9,7 +9,8 @@ angular.module('researchApp')
         selectedAction: null,
         selectedRole: null,
         selectedUsers: []
-    }
+    };
+
     $scope.actions = [
         {
           id: '1',
@@ -43,7 +44,19 @@ angular.module('researchApp')
     _init();
 
     function _init() {
+
       //$scope.users = User.query();
+      $http.get(API_URL + 'users').success(function(response) {
+
+        console.log(response);
+
+        response.users.forEach(function(user){
+          $scope.users.push(user);
+        });
+
+
+      });
+
     }
 
     $scope.apply = function() {
