@@ -11,6 +11,12 @@ angular.module('researchApp')
         selectedUsers: []
     };
 
+    $scope.cursor = '';
+    $scope.loadMoreAvailable = true;
+    $scope.limit = 20;
+
+    $scope.errorMsg = '';
+
     $scope.actions = [
         {
           id: '1',
@@ -44,20 +50,36 @@ angular.module('researchApp')
     _init();
 
     function _init() {
+      $scope.errorMsg = '';
+      var query;
+      if ($scope.cursor == '') {
+        query = 'users';
+      } else {
+        query = 'news?cursor=' + $scope.cursor;
+      }
 
-      //$scope.users = User.query();
-      $http.get(API_URL + 'users').success(function(response) {
+      $http.get(API_URL + query).success(function(res){
+        if ($scope.cursor == res.cursor) {
+          return;
+        }
+        if (res.users.length < $scope.limit) {
+          $scope.loadMoreAvailable = false;
+        }
+        $scope.cursor = res.cursor;
 
-        console.log(response);
-
-        response.users.forEach(function(user){
+        res.users.forEach(function(user) {
           $scope.users.push(user);
         });
-
-
+      }).error(function(){
+        $scope.loadMoreAvailable = false;
       });
-
     }
+
+    $scope.loadMore = function() {
+      if($scope.loadMoreAvailable) {
+        _init();
+      }
+    };
 
     $scope.apply = function() {
       switch($scope.params.selectedAction) {
