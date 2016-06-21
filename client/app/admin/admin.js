@@ -15,7 +15,7 @@ angular.module('researchApp').config(function($stateProvider, $urlRouterProvider
   		templateUrl: "app/admin/tabs/users.html",
   	})
     .state('admin.posts', {
-        url: "/posts/:userId",
+        url: "/posts/:userId/:userName",
         templateUrl: "app/admin/tabs/posts.html",
         controller: 'PostsCtrl',
     })
