@@ -1,5 +1,5 @@
 <form class="form-inline admin-users">
-    <h2>User: {{userName}}</div>
+    <h2>User: {{userName}}</h2>
     <div class="form-group pull-right">
         <input type="text" class="form-control" placeholder="search">
         <button type="button" class="btn btn-default" ng-click="search()">Search</button>
@@ -16,7 +16,7 @@
         <tr ng-repeat="post in posts">
             <td>
                 <div>{{post.title}}</div>
-                <a ng-click="editPost(post)">Edit</a>
+                <button type="button" class="btn btn-link" ng-click="editPost(post)">Edit</button>
                 <button type="button" class="btn btn-link" ng-click="deletePost(post)">Delete</button>
             </td>
             <td>{{post.type}}</td>
