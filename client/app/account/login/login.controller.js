@@ -1,29 +1,33 @@
 'use strict';
 
-angular.module('researchApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location, $window) {
-    $scope.user = {};
-    $scope.errors = {};
+define(['angular'], function (angular) {
 
-    $scope.login = function(form) {
-      $scope.submitted = true;
+    angular.module('researchApp.Controllers')
+        .controller('LoginCtrl', ['$scope', 'Auth', '$location', '$window',
+        function ($scope, Auth, $location, $window) {
+          $scope.user = {};
+          $scope.errors = {};
 
-      if(form.$valid) {
-        Auth.login({
-          email: $scope.user.email,
-          password: $scope.user.password
-        })
-        .then( function() {
-          // Logged in, redirect to home
-          $location.path('#/');
-        })
-        .catch( function(err) {
-          $scope.errors.other = err.message;
-        });
-      }
-    };
+          $scope.login = function(form) {
+            $scope.submitted = true;
 
-    $scope.loginOauth = function(provider) {
-      $window.location.href = '#/auth/' + provider;
-    };
-  });
+            if(form.$valid) {
+              Auth.login({
+                email: $scope.user.email,
+                password: $scope.user.password
+              })
+              .then( function() {
+                // Logged in, redirect to home
+                $location.path('#/');
+              })
+              .catch( function(err) {
+                $scope.errors.other = err.message;
+              });
+            }
+          };
+
+          $scope.loginOauth = function(provider) {
+            $window.location.href = '#/auth/' + provider;
+          };
+    }]);
+});

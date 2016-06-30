@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module('researchApp')
-  .factory('RestService', function RestService($http) {
+define(['angular'], function (angular) {
 
-    return {};
-  });
+    angular.module('researchApp.Services')
+        .factory('RestService', ['User', '$http',
+        function (User, $http) {
+          return {};
+    }]);
+});

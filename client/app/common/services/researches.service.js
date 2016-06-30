@@ -3,7 +3,7 @@
 define(['angular'], function (angular) {
 
     angular.module('researchApp.Services')
-        .factory('NewsService', ['User',
+        .factory('ResearchesService', ['User',
         function (User) {
           return {};
     }]);

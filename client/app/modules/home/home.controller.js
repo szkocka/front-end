@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('researchApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $timeout, $http, user) {
+  .controller('HomeCtrl', function ($scope, $rootScope, $timeout, $http, user) {
     $scope.user = user;
     $scope.carouselInterval = 5000;
     $scope.projectsList = [];

@@ -1,38 +1,42 @@
 'use strict';
 
-angular.module('researchApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location, $window) {
-    $scope.user = {};
-    $scope.errors = {};
+define(['angular'], function (angular) {
 
-    $scope.register = function(form) {
-      $scope.submitted = true;
-
-      if(form.$valid) {
-        Auth.createUser({
-          name: $scope.user.name,
-          email: $scope.user.email,
-          password: $scope.user.password,
-          cv: $scope.user.cv
-        })
-        .then( function() {
-          // Account created, redirect to home
-          $location.path('/');
-        })
-        .catch( function(err) {
-          err = err.data;
+    angular.module('researchApp.Controllers')
+        .controller('SignupCtrl', ['$scope', 'Auth', '$location', '$window',
+        function ($scope, Auth, $location, $window) {
+          $scope.user = {};
           $scope.errors = {};
 
-          // Update validity of form fields that match the mongoose errors
-          angular.forEach(err.errors, function(error, field) {
-            form[field].$setValidity('mongoose', false);
-            $scope.errors[field] = error.message;
-          });
-        });
-      }
-    };
+          $scope.register = function(form) {
+            $scope.submitted = true;
 
-    $scope.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
-    };
-  });
+            if(form.$valid) {
+              Auth.createUser({
+                name: $scope.user.name,
+                email: $scope.user.email,
+                password: $scope.user.password,
+                cv: $scope.user.cv
+              })
+              .then( function() {
+                // Account created, redirect to home
+                $location.path('/');
+              })
+              .catch( function(err) {
+                err = err.data;
+                $scope.errors = {};
+
+                // Update validity of form fields that match the mongoose errors
+                angular.forEach(err.errors, function(error, field) {
+                  form[field].$setValidity('mongoose', false);
+                  $scope.errors[field] = error.message;
+                });
+              });
+            }
+          };
+
+          $scope.loginOauth = function(provider) {
+            $window.location.href = '/auth/' + provider;
+          };
+    }]);
+});

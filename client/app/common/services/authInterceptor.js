@@ -1,33 +1,37 @@
 'use strict';
 
-angular.module('researchApp')
-  .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
-    return {
-      // Add authorization token to headers
-      request: function (config) {
-        config.headers = config.headers || {};
+define(['angular'], function (angular) {
 
-        if (config.url && config.url.indexOf('http') !== -1 && $cookieStore.get('token')) {
-          config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
-        }
-        return config;
-      },
+    angular.module('researchApp.Services')
+        .factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', '$location',
+        function ($rootScope, $q, $cookieStore, $location) {
+          return {
+            // Add authorization token to headers
+            request: function (config) {
+              config.headers = config.headers || {};
 
-      // Intercept 401s and redirect you to login
-      responseError: function(response) {
-        if(response.status === 401) {
-          $location.path('/login');
-          // remove any stale tokens
-          $cookieStore.remove('token');
-          return $q.reject(response);
-        }
-        else {
-          return $q.reject(response);
-        }
-      }
-    };
-  });
+              if (config.url && config.url.indexOf('http') !== -1 && $cookieStore.get('token')) {
+                config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
+              }
+              return config;
+            },
 
-angular.module('researchApp').config(['$httpProvider', function($httpProvider) {
-    $httpProvider.interceptors.push('authInterceptor');
-}]);
+            // Intercept 401s and redirect you to login
+            responseError: function(response) {
+              if(response.status === 401) {
+                $location.path('/login');
+                // remove any stale tokens
+                $cookieStore.remove('token');
+                return $q.reject(response);
+              }
+              else {
+                return $q.reject(response);
+              }
+            }
+          };
+    }]);
+
+    angular.module('researchApp').config(['$httpProvider', function($httpProvider) {
+        $httpProvider.interceptors.push('authInterceptor');
+    }]);
+});
