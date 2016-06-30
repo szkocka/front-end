@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
       <!-- endinjector -->
+    <script type="text/javascript" data-main="app/main" src="libs/requirejs/require.js"></script>
     <!-- endbuild -->
   </head>
   <body ng-app="researchApp">
@@ -58,7 +59,7 @@
     <![endif]-->
     <!-- build:js({client,node_modules}) app/vendor.js -->
       <!-- bower:js -->
-      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <!--<script src="bower_components/jquery/dist/jquery.js"></script>
       <script src="bower_components/angular/angular.js"></script>
       <script src="bower_components/angular-resource/angular-resource.js"></script>
       <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -78,10 +79,10 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,client}) app/app.js -->
-        <script src="app/init.js"></script>
+        <!--<script src="app/init.js"></script>
         <script src="app/app.js"></script>
           <!-- injector:js -->
-          <script src="app/common/components/navbar/navbar.controller.js"></script>
+          <!--<script src="app/common/components/navbar/navbar.controller.js"></script>
           <script src="app/common/components/modal/modal.service.js"></script>
           <script src="app/common/directives/carousel.directive.js"></script>
           <script src="app/common/directives/mathjaxBind.directive.js"></script>
