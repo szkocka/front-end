@@ -25,28 +25,24 @@ define(['angular',
   'modules/home/home',
   ], function (angular) {
 
-  return angular.module('researchApp', [
+  var app = angular.module('researchApp', [
     'researchApp.Services',
     'researchApp.Controllers',
     'researchApp.Directives',
-    'researchApp.Utils',
+    'researchApp.Utils'
+  ]);
 
-    'ngResource',
-    'uiRouter',
-    'ngSanitize',
-    'ngMoment',
-    'ngFileUpload',
-    'ngTagsInput',
-    'ngFileUploadShim',
-    'uiBootstrapTpls',
-    'moment',
-    'lodash', 
-    'jquery',
-    'kendo.directives',
-    'lazyScroll'
-  ])
+  app.init = function () {
+      angular.bootstrap(document, ['researchApp']);
+  };
 
-  .config(function ($urlRouterProvider) {
+  app.config(function ($urlRouterProvider) {
       $urlRouterProvider.otherwise('/');
   });
+
+  app.run(function () {
+      
+  });
+
+  return app;
 });

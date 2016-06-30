@@ -36,10 +36,7 @@ require.config({
         'ngFileUploadShim': ['angular'],
         'uiBootstrapTpls': ['angular'],
         'lazyScroll': ['angular']
-    },
-    priority: [
-        "angular"
-    ]
+    }
 });
 
 require(['init']);
@@ -49,17 +46,6 @@ require(['directives/carousel.directive']);
 require(['directives/mathjaxBind.directive']);
 require(['modules/add-update-project/customOnChangeDirective']);
 
-require(['angular','app', 'ngCookies', 'ngSanitize', 'uiRouter', 'ngResource',
-    'ngMoment', 'ngFileUpload', 'ngTagsInput', 'ngFileUploadShim', 'uiBootstrapTpls',
-    'moment', 'lodash', 'jquery', 'kendo', 'lazyScroll'],
- function(angular, app, ngCookies, ngSanitize, uiRouter, ngResource, ngMoment, lodash,
-    ngFileUpload, ngTagsInput, ngFileUploadShim, uiBootstrapTpls, moment, lodash, jquery,
-    kendo, lazyScroll){
-    
-    var start = function(){
-        angular.bootstrap(document, ['app']);
-    };
-    if (document.body) {
-        start();
-    }
+require(['app'], function (app) {
+  app.init();
 });

@@ -5,7 +5,7 @@ define(['angular',
   'modules/home/home.controller'
   ], function (angular) {
 
-  return angular.module('researchApp')
+  return angular.module('researchApp.Services')
 
   .config(function ($stateProvider) {
     $stateProvider

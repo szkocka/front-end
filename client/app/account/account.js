@@ -2,7 +2,7 @@
 
 define(['angular'], function (angular) {
 
-    angular.module('researchApp').config(function($stateProvider) {
+    angular.module('researchApp.Services').config(function($stateProvider) {
       $stateProvider
         .state('login', {
           url: "/login",
