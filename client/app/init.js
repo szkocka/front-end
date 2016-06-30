@@ -1,0 +1,5 @@
+angular.module('researchApp.Services', []);
+angular.module('researchApp.Controllers', []);
+angular.module('researchApp.Directives', []);
+angular.module('researchApp.Utils', []);
+angular.module('researchApp.Libs', []);

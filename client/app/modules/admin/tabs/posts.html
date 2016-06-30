@@ -1,0 +1,26 @@
+<form class="form-inline admin-users">
+    <h2  class="form-group pull-left">User: {{userName}}</h2>
+    <div class="form-group pull-right">
+        <input type="text" class="form-control" placeholder="search">
+        <button type="button" class="btn btn-default" ng-click="search()">Search</button>
+    </div>
+</form>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>Title</th>
+            <th>Label</th>
+            <th>Date</th>
+        </tr>
+        <tr ng-repeat="post in posts">
+            <td>
+                <div>{{post.title}}</div>
+                <button type="button" class="btn btn-link" ng-click="editPost(post)">Edit</button>
+                <button type="button" class="btn btn-link" ng-click="deletePost(post)">Delete</button>
+            </td>
+            <td>{{post.type}}</td>
+            <td>{{post.created}}</td>
+        </tr>
+    </table>
+</div>

@@ -78,41 +78,45 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,client}) app/app.js -->
+        <script src="app/init.js"></script>
         <script src="app/app.js"></script>
           <!-- injector:js -->
-          <script src="app/about/about.controller.js"></script>
-          <script src="app/about/about.js"></script>
+          <script src="app/common/components/navbar/navbar.controller.js"></script>
+          <script src="app/common/components/modal/modal.service.js"></script>
+          <script src="app/common/directives/carousel.directive.js"></script>
+          <script src="app/common/directives/mathjaxBind.directive.js"></script>
+          <script src="app/common/services/auth.service.js"></script>
+          <script src="app/common/services/user.service.js"></script>
+          <script src="app/common/services/authInterceptor.js"></script>
+
           <script src="app/account/account.js"></script>
           <script src="app/account/login/login.controller.js"></script>
           <script src="app/account/settings/settings.controller.js"></script>
           <script src="app/account/signup/signup.controller.js"></script>
-          <script src="app/admin/admin.controller.js"></script>
-          <script src="app/admin/researches.controller.js"></script>
-          <script src="app/admin/posts.controller.js"></script>
-          <script src="app/admin/admin.js"></script>
-          <script src="app/main/main.controller.js"></script>
-          <script src="app/main/main.js"></script>
-          <script src="app/add-update-project/customOnChangeDirective.js"></script>
-          <script src="app/add-update-project/add-update-project.controller.js"></script>
-          <script src="app/add-update-project/add-update-project.js"></script>
-          <script src="app/profile/profile.controller.js"></script>
-          <script src="app/profile/profile.js"></script>
-          <script src="app/project/project.controller.js"></script>
-          <script src="app/project/project.js"></script>
-          <script src="app/project/projectForum.controller.js"></script>
-          <script src="app/project/projectForumMessages.js"></script>
-          <script src="app/my-projects/my-projects.controller.js"></script>
-          <script src="app/my-projects/my-projects.js"></script>
-          <script src="app/edit-profile/edit-profile.controller.js"></script>
-          <script src="app/edit-profile/edit-profile.js"></script>
-          <script src="app/news/news.controller.js"></script>
-          <script src="app/news/news.js"></script>
-          <script src="components/auth/auth.service.js"></script>
-          <script src="components/auth/user.service.js"></script>
-          <script src="components/mathjaxBind.directive.js"></script>
-          <script src="components/modal/modal.service.js"></script>
-          <script src="components/mongoose-error/mongoose-error.directive.js"></script>
-          <script src="components/navbar/navbar.controller.js"></script>
+
+          <script src="app/modules/about/about.controller.js"></script>
+          <script src="app/modules/about/about.js"></script>
+          <script src="app/modules/admin/admin.controller.js"></script>
+          <script src="app/modules/admin/researches.controller.js"></script>
+          <script src="app/modules/admin/posts.controller.js"></script>
+          <script src="app/modules/admin/admin.js"></script>
+          <script src="app/modules/main/main.controller.js"></script>
+          <script src="app/modules/main/main.js"></script>
+          <script src="app/modules/add-update-project/customOnChangeDirective.js"></script>
+          <script src="app/modules/add-update-project/add-update-project.controller.js"></script>
+          <script src="app/modules/add-update-project/add-update-project.js"></script>
+          <script src="app/modules/profile/profile.controller.js"></script>
+          <script src="app/modules/profile/profile.js"></script>
+          <script src="app/modules/project/project.controller.js"></script>
+          <script src="app/modules/project/project.js"></script>
+          <script src="app/modules/project/projectForum.controller.js"></script>
+          <script src="app/modules/project/projectForumMessages.js"></script>
+          <script src="app/modules/my-projects/my-projects.controller.js"></script>
+          <script src="app/modules/my-projects/my-projects.js"></script>
+          <script src="app/modules/edit-profile/edit-profile.controller.js"></script>
+          <script src="app/modules/edit-profile/edit-profile.js"></script>
+          <script src="app/modules/news/news.controller.js"></script>
+          <script src="app/modules/news/news.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
 </body>

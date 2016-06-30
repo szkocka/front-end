@@ -1,0 +1,66 @@
+<div ng-include="'app/common/components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 ng-if="newProject" class="page-header">Add Project:</h1>
+      <h1 ng-if="!newProject" class="page-header">Update Project:</h1>
+      <p class="text-danger">{{errorMsg}}</p>
+      <form class="project-form">
+        <div class="form-group">
+          <label class="control-label">Project Title<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" ng-model="project.title">
+          <small class="text-danger">{{titleError}}</small>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Short Description<span class="text-danger">*</span></label>
+          <textarea class="form-control" rows="2" style="resize:none" ng-model="project.description.brief"></textarea>
+          <small class="text-danger">{{shortDescError}}</small>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Detailed Description<span class="text-danger">*</span></label>
+          <textarea kendo-editor k-ng-model="project.description.detailed"></textarea>
+          <small class="text-danger">{{longDescError}}</small>
+        </div>
+        <div class="form-group" ng-if="newProject">
+          <span class="btn btn-default btn-file">
+            Upload image <input type="file" class="btn btn-primary" custom-on-change="onFileSelect">
+          </span>
+          <img class="preview" ng-src="{{project.image_url}}"> 
+        </div>
+        <div class="form-group" ng-if="newProject">
+          <label class="control-label">Add Labels<span class="text-danger">*</span></label>
+          <tags-input class="bootstrap"
+                      ng-model="project.tags"
+                      placeholder="Add a movie"
+                      replace-spaces-with-dashes="false">
+          </tags-input>
+          <small class="text-danger">{{tagsError}}</small>
+        </div>
+        <div class="form-group" ng-if="!newProject">
+          <label for="changeStatus"> Change status: </label>
+          <select class="form-control" id="changeStatus" ng-model="project.status">
+            <option ng-repeat="status in statuses" value="{{status.id}}" 
+                    ng-selected="status.id === project.status">{{status.name}}</option>
+          </select>
+        </div>
+        <div class="form-group" ng-if="!newProject && project.researchers.length > 0">
+          <label for="changeStatus">Researchers:</label>
+          <ul class="list-unstyled researchers-list">
+            <li ng-repeat="researcher in project.researchers">
+              {{researcher.name}}
+              <button type="button" class="close" ng-click="removeResearcher(researcher)">&times;</button>
+            </li>
+          </ul>
+        </div>
+        
+        <div ng-if="newProject" class="form-group">
+          <button type="submit" class="btn btn-primary" ng-click="addProject()">Save Project</button>
+        </div>
+        <div ng-if="!newProject" class="form-group">
+          <button type="submit" class="btn btn-primary" ng-click="updateProject()">Update Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
