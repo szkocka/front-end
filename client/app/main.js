@@ -26,6 +26,8 @@ require.config({
         app: 'app'
     },
     shim: {
+        'jquery' : {'exports' : 'jquery'},
+        'angular': ['jquery'],
         'angular' : {'exports' : 'angular'},
         'ngCookies': ['angular'],
         'ngSanitize' : ['angular'],
@@ -36,7 +38,8 @@ require.config({
         'ngTagsInput': ['angular'],
         'ngFileUploadShim': ['angular'],
         'uiBootstrapTpls': ['angular'],
-        'lazyScroll': ['angular']
+        'lazyScroll': ['angular'],
+        'kendo':  ['angular']
     }
 });
 require(['init'], function() {
@@ -45,8 +48,8 @@ require(['init'], function() {
     require(['directives/mathjaxBind.directive']);
     require(['modules/add-update-project/customOnChangeDirective']);
 
-    require(['angular', 'app'],
-    function(angular) {
+    require(['angular', 'app', 'jquery', 'kendo'],
+    function(angular, app, jquery, kendo) {
 
         var start = function() {
             angular.bootstrap(window.document, ['researchApp']);

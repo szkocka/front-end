@@ -3,6 +3,7 @@
  */
 define([
     'angular',
+    'app',
     'services/auth.service',
     'services/authInterceptor',
     'services/news.service',
