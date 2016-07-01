@@ -22,13 +22,14 @@ require.config({
         account: "account",
         commonComponents: "common/components",
         utils: "common/utils",
-        configuration : 'common/configuration/configuration'
+        configuration : 'common/configuration/configuration',
+        app: 'app'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
         'ngCookies': ['angular'],
         'ngSanitize' : ['angular'],
-        'uiRouter' : ['angular'],
+        'uiRouter': ['angular'],
         'ngResource' : ['angular'],
         'ngMoment': ['angular'],
         'ngFileUpload': ['angular'],
@@ -38,14 +39,21 @@ require.config({
         'lazyScroll': ['angular']
     }
 });
+require(['init'], function() {
+    // directives initialization must occur BEFORE angular bootstrap
+    require(['directives/carousel.directive']);
+    require(['directives/mathjaxBind.directive']);
+    require(['modules/add-update-project/customOnChangeDirective']);
 
-require(['init']);
+    require(['angular', 'app'],
+    function(angular) {
 
-//directives initialization should occure BEFORE angular bootstrap
-require(['directives/carousel.directive']);
-require(['directives/mathjaxBind.directive']);
-require(['modules/add-update-project/customOnChangeDirective']);
+        var start = function() {
+            angular.bootstrap(window.document, ['researchApp']);
+        };
 
-require(['app'], function (app) {
-  app.init();
+        if (window.document.body) {
+            start();
+        }
+    });
 });

@@ -1,7 +1,7 @@
 'use strict';
 define(['angular'], function (angular) {
 
-    angular.module('researchApp.Controllers')
+    angular.module('researchApp.Controller')
         .controller('HomeCtrl', ['$scope', '$rootScope', '$timeout', '$http',
         function ($scope, $rootScope, $timeout, $http) {
           $scope.carouselInterval = 5000;
