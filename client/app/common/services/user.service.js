@@ -2,7 +2,7 @@
 
 define(['angular'], function (angular) {
 
-    angular.module('researchApp')
+    angular.module('researchApp.Services')
         .factory('User', ['$resource',
         function ($resource) {
           return $resource(API_URL + 'users/:id/:controller', {

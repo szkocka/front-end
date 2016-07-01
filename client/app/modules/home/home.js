@@ -1,18 +1,16 @@
 'use strict';
 
 define(['angular',
-  //========== HOME ===========//
   'modules/home/home.controller'
   ], function (angular) {
 
-  return angular.module('researchApp.Services')
-
-  .config(function ($stateProvider) {
-    $stateProvider
-      .state('homepage', {
-        url: "/",
-        templateUrl: 'app/modules/home/home.html',
-        controller: 'HomeCtrl'
-      })
-  });
+  return angular.module('researchApp.Routers')
+    .config(function ($stateProvider) {
+      $stateProvider
+        .state('homepage', {
+          url: "/",
+          templateUrl: 'app/modules/home/home.html',
+          controller: 'HomeCtrl'
+        })
+    });
 });

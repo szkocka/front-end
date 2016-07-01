@@ -1,7 +1,7 @@
 'use strict';
 define(['angular'], function (angular) {
 
-    angular.module('researchApp.Services')
+    angular.module('researchApp.Services', [])
         .factory('Auth', ['$location', '$rootScope', '$http', 'User', '$cookieStore', '$q',
         function ($location, $rootScope, $http, User, $cookieStore, $q) {
           var currentUser = {};

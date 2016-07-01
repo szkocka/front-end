@@ -26,8 +26,6 @@ require.config({
         app: 'app'
     },
     shim: {
-        'jquery' : {'exports' : 'jquery'},
-        'angular': ['jquery'],
         'angular' : {'exports' : 'angular'},
         'ngCookies': ['angular'],
         'ngSanitize' : ['angular'],
@@ -38,8 +36,7 @@ require.config({
         'ngTagsInput': ['angular'],
         'ngFileUploadShim': ['angular'],
         'uiBootstrapTpls': ['angular'],
-        'lazyScroll': ['angular'],
-        'kendo':  ['angular']
+        'lazyScroll': ['angular']
     }
 });
 require(['init'], function() {
@@ -48,9 +45,11 @@ require(['init'], function() {
     require(['directives/mathjaxBind.directive']);
     require(['modules/add-update-project/customOnChangeDirective']);
 
-    require(['angular', 'app', 'jquery', 'kendo'],
-    function(angular, app, jquery, kendo) {
-
+    require(['angular', 'app'],
+    function(angular, app) {
+        /* bootstraps angular onto the window.document node
+         * NOTE: the ng-app attribute should not be on the index.html when using ng.bootstrap
+         */
         var start = function() {
             angular.bootstrap(window.document, ['researchApp']);
         };

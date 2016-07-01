@@ -1,11 +1,9 @@
 'use strict';
 
-define(['angular'], function (angular) {
+define(['angular'], function(angular) {
 
-    angular.module('researchApp.Services')
-        .factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', '$location',
-        function ($rootScope, $q, $cookieStore, $location) {
-          return {
+    function authInterceptor($rootScope, $q, $cookieStore, $location) {
+        return {
             // Add authorization token to headers
             request: function (config) {
               config.headers = config.headers || {};
@@ -28,10 +26,15 @@ define(['angular'], function (angular) {
                 return $q.reject(response);
               }
             }
-          };
-    }]);
+        };
+    }
 
-    angular.module('researchApp').config(['$httpProvider', function($httpProvider) {
+    angular.module('researchApp.Routers')
+        .factory('authInterceptor', authInterceptor);
+
+    authInterceptor.$inject = ['$rootScope', '$q', '$cookieStore', '$location'];
+
+    angular.module('researchApp.Routers').config(function($httpProvider) {
         $httpProvider.interceptors.push('authInterceptor');
-    }]);
+    });
 });

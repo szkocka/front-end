@@ -1,7 +1,7 @@
 /*
  Make carousel consume all free space like background:cover does
  */
-define(['angular'], function (angular) {
+define(['angular', 'jquery'], function (angular) {
 
     angular.module('researchApp.Directives')
         .directive('ngCarouselWrapper', ['$timeout', '$rootScope', function ($timeout, $rootScope) {

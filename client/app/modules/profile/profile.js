@@ -1,10 +1,16 @@
 'use strict';
 
-angular.module('researchApp').config(function($stateProvider) {
-  $stateProvider
-    .state('profile', {
-      url: "/profile/:id",
-      templateUrl: "app/modules/profile/profile.html",
-      controller: 'ProfileCtrl'
-    })
+define(['angular',
+  'modules/profile/profile.controller'
+  ], function (angular) {
+
+  return angular.module('researchApp.Routers')
+    .config(function ($stateProvider) {
+      $stateProvider
+	    .state('profile', {
+	      url: "/profile/:id",
+	      templateUrl: "app/modules/profile/profile.html",
+	      controller: 'ProfileCtrl'
+	    })
+    });
 });

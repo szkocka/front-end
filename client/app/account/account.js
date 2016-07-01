@@ -1,8 +1,13 @@
 'use strict';
 
-define(['angular'], function (angular) {
+define(['angular',
+    'account/login/login.controller',
+    'account/settings/settings.controller',
+    'account/signup/signup.controller'
+    ], function (angular) {
 
-    angular.module('researchApp.Services').config(function($stateProvider) {
+    angular.module('researchApp.Routers', ['ui.router'])
+    .config(function($stateProvider) {
       $stateProvider
         .state('login', {
           url: "/login",

@@ -1,58 +1,61 @@
 'use strict';
 
-angular.module('researchApp')
-  .controller('ProjectForumMessagesCtrl', function ($scope, $stateParams, $http) {
-    $scope.newMessage = null;
-    $scope.activeForum = {};
-    $scope.activeForumMessages = [];
-    $scope.cursor = '';
-    $scope.loadMoreAvailable = true;
-    $scope.limit = 20;
-    _init();
+define(['angular'], function (angular) {
+    angular.module('researchApp.Controllers')
+        .controller('ProjectForumMessagesCtrl', ['$scope', '$stateParams', '$http',
+        function ($scope, $stateParams, $http) {
+          $scope.newMessage = null;
+          $scope.activeForum = {};
+          $scope.activeForumMessages = [];
+          $scope.cursor = '';
+          $scope.loadMoreAvailable = true;
+          $scope.limit = 20;
+          _init();
 
-    $http.get(API_URL + 'forums/' + $stateParams.forumId).success(function(forum) {
-      $scope.activeForum = forum;
-    });
+          $http.get(API_URL + 'forums/' + $stateParams.forumId).success(function(forum) {
+            $scope.activeForum = forum;
+          });
 
-    $scope.loadMore = function() {
-      if($scope.loadMoreAvailable) {
-        _init();
-      }
-    };
+          $scope.loadMore = function() {
+            if($scope.loadMoreAvailable) {
+              _init();
+            }
+          };
 
-    function _init() {
-      var query;
-      if (!$scope.cursor || $scope.cursor == '') {
-        query = 'forums/' + $stateParams.forumId + '/messages';
-      } else {
-        query = 'forums/' + $stateParams.forumId + '/messages?cursor=' + $scope.cursor;
-      }
-      $http.get(API_URL + query).success(function(res) {
-        if ($scope.cursor == res.cursor) {
-          return;
-        }
-        if (res.messages.length < $scope.limit) {
-          $scope.loadMoreAvailable = false;
-        }
-        $scope.cursor = res.cursor;
-        res.messages.forEach(function(msg) {
-          $scope.activeForumMessages.push(msg);
-        });
-      }).error(function(){
-        $scope.loadMoreAvailable = false;
-      });
-    }
+          function _init() {
+            var query;
+            if (!$scope.cursor || $scope.cursor == '') {
+              query = 'forums/' + $stateParams.forumId + '/messages';
+            } else {
+              query = 'forums/' + $stateParams.forumId + '/messages?cursor=' + $scope.cursor;
+            }
+            $http.get(API_URL + query).success(function(res) {
+              if ($scope.cursor == res.cursor) {
+                return;
+              }
+              if (res.messages.length < $scope.limit) {
+                $scope.loadMoreAvailable = false;
+              }
+              $scope.cursor = res.cursor;
+              res.messages.forEach(function(msg) {
+                $scope.activeForumMessages.push(msg);
+              });
+            }).error(function(){
+              $scope.loadMoreAvailable = false;
+            });
+          }
 
-    $scope.postMessage = function(text){
-      $scope.newMessage = null;
-      $http.post(API_URL + 'forums/' + $stateParams.forumId + '/messages', {
-        'message': text
-      }).success(function(response){
-        $scope.activeForumMessages.push({
-          message: text,
-          createdBy: {name:'You'},
-          created: new Date()
-        })
-      })
-    }
-  });
+          $scope.postMessage = function(text){
+            $scope.newMessage = null;
+            $http.post(API_URL + 'forums/' + $stateParams.forumId + '/messages', {
+              'message': text
+            }).success(function(response){
+              $scope.activeForumMessages.push({
+                message: text,
+                createdBy: {name:'You'},
+                created: new Date()
+              })
+            })
+          }
+    }]);
+});
