@@ -71,6 +71,5 @@ define(['angular',
       }
     };
   });
-
   return app;
 });

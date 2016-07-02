@@ -22,7 +22,7 @@ require.config({
         account: "account",
         commonComponents: "common/components",
         utils: "common/utils",
-        configuration : 'common/configuration/configuration',
+        configuration : 'common/configuration',
         app: 'app'
     },
     shim: {

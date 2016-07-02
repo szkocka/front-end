@@ -1,6 +1,8 @@
 define([
     'angular',
     'app',
+    //========== CONFIGURATION ===========//
+    'configuration/configuration',
 
     //========== SERVICES ===========//
     //'services/authInterceptor',
@@ -9,10 +11,7 @@ define([
     'services/news.service',
     'services/researches.service',
     'services/rest.service',
-
-    //========== COMMON COMPONENTS ===========//
-    'commonComponents/modal/modal.service',
-    'commonComponents/navbar/navbar.controller',
+    'services/appSettings',
 
     //========== ROUTERS ===========//
     'account/account',
@@ -25,5 +24,14 @@ define([
     'modules/profile/profile',
     'modules/project/project',
     'modules/home/home',
+
+    //========== COMMON COMPONENTS ===========//
+    'commonComponents/modal/modal.service',
+    'commonComponents/navbar/navbar.controller',
+
+    //========== UTILS ===========//
+    'utils/assert',
+    'utils/type',
+    'utils/cacheStore'
     
 ], function() {});
