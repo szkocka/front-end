@@ -1,48 +1,73 @@
 'use strict';
 define(['angular'], function (angular) {
-    angular.module('researchApp.Controllers')
-        .controller('AboutCtrl', ['$scope', '$http', 'Auth',
-        function ($scope, $http, Auth) {
+    angular.module('researchApp.Controllers').controller('AboutCtrl', 
+        ['$scope', 'AboutService', 'Assert', 'Type', 'isAdmin',
+        function ($scope, AboutService, Assert, Type, isAdmin) {
+            /** @public {Boolean} */
+            $scope.showEditButton = isAdmin;
+            /** @public {Object} */
         	$scope.aboutProject = {
         		currentDescription: '',
         		newDescription: ''
         	};
+            /** @public {String} */
         	$scope.errorMsg = '';
+            /** @public {String} */
         	$scope.successMsg = '';
-        	$scope.showEditButton = false;
+            /** @public {Boolean} */
         	$scope.showEditableTexarea = false;
-          _init();
+            
 
-          function _init() {
-            $http.get(API_URL + 'pages/about').success(function(about) {
-              $scope.showEditButton = Auth.isAdmin();
-              $scope.aboutProject.currentDescription = about.content;
-              $scope.aboutProject.newDescription = about.content;
-            }).error(function(error){
-              $scope.errorMsg = 'Error: Page was not loaded';
-            });
-          }
+            /**
+            * @private
+            */
+            $scope._init = function() {
+                AboutService.getAboutInfo(function(err, res) {
+                    if (Type.isNull(res)) {
+                        $scope.errorMsg = 'Error: Page was not loaded';
+                    } else {
+                        $scope.aboutProject.currentDescription = res.data.content;
+                        $scope.aboutProject.newDescription = res.data.content;
+                    }
+                });
+            }
 
-          $scope.updateAbout = function() {
-          	$http.post(API_URL + 'pages/about', {content: $scope.aboutProject.newDescription})
-          		.success(function(about){
-            		$scope.aboutProject.currentDescription = $scope.aboutProject.newDescription;
-            		$scope.showEditableTexarea = false;
-            		$scope.successMsg = 'Saved';
-              }).error(function(error){
-            		$scope.errorMsg = 'Error';
-              	$scope.showEditableTexarea = false;
-              });
-          };
 
-          $scope.edit = function() {
-          	$scope.errorMsg = '';
-          	$scope.successMsg = '';
-          	$scope.showEditableTexarea = true;
-          };
+            /**
+            * @public
+            */
+            $scope.updateAbout = function() {
+                var params = {
+                    content: $scope.aboutProject.newDescription
+                };
 
-          $scope.cancel = function() {
-          	$scope.showEditableTexarea = false;
-          };
+                AboutService.updateAboutInfo(params, function(err, res) {
+                    if (Type.isNull(res)) {
+                        $scope.errorMsg = 'Error';
+                    } else {
+                        $scope.aboutProject.currentDescription = $scope.aboutProject.newDescription;
+                        $scope.successMsg = 'Saved';
+                    }
+                    $scope.showEditableTexarea = false;
+                });
+            };
+
+            /**
+            * @public
+            */
+            $scope.edit = function() {
+              	$scope.errorMsg = '';
+              	$scope.successMsg = '';
+              	$scope.showEditableTexarea = true;
+            };
+
+            /**
+            * @public
+            */
+            $scope.cancel = function() {
+                $scope.showEditableTexarea = false;
+            };
+
+            $scope._init();
     }]);
 });

@@ -2,41 +2,45 @@
 
 define(['angular'], function (angular) {
 
-    angular.module('researchApp.Controllers')
-        .controller('SignupCtrl', ['$scope', 'Auth', '$location', '$window',
+    angular.module('researchApp.Controllers').controller('SignupCtrl', 
+        ['$scope', 'Auth', '$location', '$window',
         function ($scope, Auth, $location, $window) {
-          $scope.user = {};
-          $scope.errors = {};
+            /** @private {Object} */
+            $scope.user = {};
+            /** @private {Object} */
+            $scope.errors = {};
 
-          $scope.register = function(form) {
-            $scope.submitted = true;
+            /**
+             * @public
+             * @param {Object} form
+             */
+            $scope.register = function(form) {
+                Assert.isObject(form, 'Invalid "form" type');
+                $scope.submitted = true;
 
-            if(form.$valid) {
-              Auth.createUser({
-                name: $scope.user.name,
-                email: $scope.user.email,
-                password: $scope.user.password,
-                cv: $scope.user.cv
-              })
-              .then( function() {
-                // Account created, redirect to home
-                $location.path('/');
-              })
-              .catch( function(err) {
-                err = err.data;
-                $scope.errors = {};
+                if(form.$valid) {
+                    Auth.createUser({
+                        name: $scope.user.name,
+                        email: $scope.user.email,
+                        password: $scope.user.password,
+                        cv: $scope.user.cv
+                    })
+                    .then( function() {
+                        // Account created, redirect to home
+                        $location.path('/');
+                    })
+                    .catch( function(err) {
+                        $scope.errors.other = err.message;
+                    });
+                }
+            };
 
-                // Update validity of form fields that match the mongoose errors
-                angular.forEach(err.errors, function(error, field) {
-                  form[field].$setValidity('mongoose', false);
-                  $scope.errors[field] = error.message;
-                });
-              });
-            }
-          };
-
-          $scope.loginOauth = function(provider) {
-            $window.location.href = '/auth/' + provider;
-          };
+            /**
+             * @public
+             * @param {String} provider
+             */
+            $scope.loginOauth = function(provider) {
+                $window.location.href = '/auth/' + provider;
+            };
     }]);
 });

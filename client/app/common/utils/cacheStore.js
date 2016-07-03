@@ -1,6 +1,7 @@
 define(['angular'], function(angular) {
 
-	angular.module('researchApp.Utils').factory('CacheStore', function() {
+	angular.module('researchApp.Utils').factory('CacheStore', ['$window',
+    function ($window) {
 
         var cacheStore = {};
 
@@ -10,7 +11,7 @@ define(['angular'], function(angular) {
          * @param {*} value
          */
         cacheStore.cacheItem = function(key, value) {
-            window.localStorage[key] = JSON.stringify(value);
+            $window.localStorage[key] = JSON.stringify(value);
         };
 
         /**
@@ -20,7 +21,7 @@ define(['angular'], function(angular) {
          */
         cacheStore.getItem = function(key) {
             if (this.itemExist(key)) {
-                return JSON.parse(window.localStorage[key]);
+                return JSON.parse($window.localStorage[key]);
             }
             return null;
         };
@@ -31,7 +32,7 @@ define(['angular'], function(angular) {
          * @return {Boolean}
          */
         cacheStore.itemExist = function(key) {
-            return (window.localStorage[key] !== undefined);
+            return ($window.localStorage[key] !== undefined);
         };
 
         /**
@@ -39,14 +40,14 @@ define(['angular'], function(angular) {
          * @param {String} key
          */
         cacheStore.removeItem = function(key) {
-            window.localStorage.removeItem(key);
+            $window.localStorage.removeItem(key);
         };
 
         /**
          * @public
          */
         cacheStore.clear = function() {
-            window.localStorage.clear();
+            $window.localStorage.clear();
         };
 
         /**
@@ -55,10 +56,10 @@ define(['angular'], function(angular) {
          */
         cacheStore.forEach = function(callback) {
             var resultingArray = [];
-            var length = window.localStorage.length;
+            var length = $window.localStorage.length;
             for (var i = 0; i < length; i++) {
-                var key = window.localStorage.key(i);
-                var value = window.localStorage.getItem(key);
+                var key = $window.localStorage.key(i);
+                var value = $window.localStorage.getItem(key);
 
                 resultingArray.push({key: key, value: value});
             }
@@ -69,5 +70,5 @@ define(['angular'], function(angular) {
         };
 
         return cacheStore;
-    });
+    }]);
 });

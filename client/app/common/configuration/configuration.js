@@ -5,6 +5,8 @@ define([], function() {
     var baseConfiguration = {
         'API_URL': 'https://szkocka-1080.appspot.com/',
         'loadLimit': 20,
+        'tagsShortListQty': 15,
+        'carouselInterval': 5000,
         'appVersion': '1.0'
     };
 

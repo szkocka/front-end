@@ -24,7 +24,9 @@ define(['angular'], function(angular) {
                 if (Type.isString(settings)) {
                     return JSON.parse(settings);
                 } else {
-                    return {};
+                    settings = window.CONFIGURATION.getOptions();
+                    this.saveSettings(settings);
+                    return settings;
                 }
             };
 
@@ -54,6 +56,30 @@ define(['angular'], function(angular) {
              */
             this.getLoadLimit = function() {
                 return this._settings.loadLimit;
+            };
+
+            /**
+             * @public
+             * @return {Number}
+             */
+            this.getCarouselInterval = function() {
+                return this._settings.carouselInterval;
+            };
+
+            /**
+             * @public
+             * @return {Number}
+             */
+            this.getTagsShortListQty = function() {
+                return this._settings.tagsShortListQty;
+            };
+
+            /**
+             * @public
+             * @return {Object}
+             */
+            this.getAppSettings = function() {
+                return this._settings;
             };
 
             this._settings = this._getSettingsData();
