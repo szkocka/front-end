@@ -15,7 +15,7 @@ define(['angular'], function (angular) {
              * @param {Object} form
              */
             $scope.register = function(form) {
-                Assert.isObject(form, 'Invalid "form" type');
+                //Assert.isObject(form, 'Invalid "form" type');
                 $scope.submitted = true;
 
                 if(form.$valid) {

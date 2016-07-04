@@ -12,7 +12,7 @@ define(['angular'], function (angular) {
              * @param {Object} form
              */
             $scope.changePassword = function(form) {
-                Assert.isObject(form, 'Invalid "form" type');
+                //Assert.isObject(form, 'Invalid "form" type');
 
                 $scope.submitted = true;
 
