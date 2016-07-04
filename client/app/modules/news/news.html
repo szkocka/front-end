@@ -1,74 +1,74 @@
 <div ng-include="'app/common/components/navbar/navbar.html'"></div>
 <div class="container" ng-if="!addNewsSection">
-  <h1 class="page-header">
-    <button class="btn btn-primary pull-right" ng-if="showAddButton" ng-click="addNews()">
-      Add News
-    </button>
-    News:
-  </h1>
+    <h1 class="page-header">
+        <button class="btn btn-primary pull-right" ng-if="showAddButton" ng-click="addNews()">
+            Add News
+        </button>
+        News:
+    </h1>
 </div>
 
 <section class="container" ng-if="addNewsSection">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1 class="page-header">Add News:</h1>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="page-header">Add News:</h1>
+        </div>
+        <div class="col-sm-12">
+            <form class="form">
+
+                <div class="form-group">
+                    <label>Title<span class="text-danger">*</span></label>
+                    <input type="text" name="name" class="form-control" ng-model="newsToAdd.title"/>
+                    <small class="text-danger">{{errorMsg}}</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Body<span class="text-danger">*</span></label>
+                    <textarea kendo-editor k-ng-model="newsToAdd.body"></textarea>
+                    <small class="text-danger">{{errorMsg}}</small>
+                </div>
+
+                <div class="form-group">
+                    <span class="btn btn-default btn-file">
+                        Upload image <input type="file" class="btn btn-primary" custom-on-change="onFileSelect">
+                    </span>
+                    <img class="preview" ng-src="{{newsToAdd.image_url}}"> 
+                </div>
+
+                <button class="btn btn-primary" ng-click="save()">Save</button>
+                <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+            </form>
+        </div>
     </div>
-    <div class="col-sm-12">
-      <form class="form">
-
-        <div class="form-group">
-          <label>Title<span class="text-danger">*</span></label>
-          <input type="text" name="name" class="form-control" ng-model="newsToAdd.title"/>
-          <small class="text-danger">{{errorMsg}}</small>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">Body<span class="text-danger">*</span></label>
-          <textarea kendo-editor k-ng-model="newsToAdd.body"></textarea>
-          <small class="text-danger">{{errorMsg}}</small>
-        </div>
-
-        <div class="form-group">
-          <span class="btn btn-default btn-file">
-            Upload image <input type="file" class="btn btn-primary" custom-on-change="onFileSelect">
-          </span>
-          <img class="preview" ng-src="{{newsToAdd.image}}"> 
-        </div>
-
-        <button class="btn btn-primary" ng-click="save()">Save</button>
-        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
-      </form>
-    </div>
-  </div>
 </section>
 
 <section class="projects container" ng-if="!addNewsSection">
-  <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
-    <ul class="list-unstyled">
-      <li class="project-block" ng-repeat="item in news">
-        <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-            <div class="project-block-image" style="background-image: url('{{item.image_url}}');">
-            </div>
-          </div>
-          <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
-            <div class="project-block-info">
-              <h2>{{item.title}}</h2>
-              <i>{{item.createdBy[0].name}} on {{item.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
-              <div class="news-descr">
-                <p ng-bind-html="item.body" ng-if="!item.showMore"></p>
-              </div>
+    <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
+        <ul class="list-unstyled">
+            <li class="project-block" ng-repeat="item in news">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="project-block-image" style="background-image: url('{{item.viewNews.image_url}}');">
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                        <div class="project-block-info">
+                            <h2>{{item.viewNews.title}}</h2>
+                            <i>{{item.viewNews.createdBy[0].name}} on {{item.viewNews.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
+                            <div class="news-descr">
+                                <p ng-bind-html="item.viewNews.body" ng-if="!item.showMore"></p>
+                            </div>
 
-              <button class="btn btn-default" ng-if="item.showMore" ng-click="showMore(item)">
-                More info...
-              </button>
-              <button class="btn btn-default" ng-if="!item.showMore" ng-click="showLess(item)">
-                Hide...
-              </button>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
+                            <button class="btn btn-default" ng-if="item.showMore" ng-click="showMore(item)">
+                                More info...
+                            </button>
+                            <button class="btn btn-default" ng-if="!item.showMore" ng-click="showLess(item)">
+                                Hide...
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </section>

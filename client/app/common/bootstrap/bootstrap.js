@@ -8,10 +8,10 @@ define([
     //'services/authInterceptor',
     'services/auth.service',
     'services/user.service',
-    'services/news.service',
-    'services/researches.service',
     'services/rest.service',
     'services/appSettings',
+    'modules/common/services/researches.service',
+    'modules/common/services/profile.service',
 
     //========== ROUTERS ===========//
     'account/account',

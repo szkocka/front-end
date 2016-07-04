@@ -1,117 +1,180 @@
 'use strict';
 define(['angular'], function (angular) {
     angular.module('researchApp.Controllers')
-        .controller('NewsCtrl', ['$scope', '$http', '$stateParams', 'Auth', 'Upload',
-        function ($scope, $http, $stateParams, Auth, Upload) {
-          $scope.showAddButton = false;
-          $scope.showMore = true;
-          $scope.addNewsSection = false;
-          $scope.news = [];
-          $scope.newsToAdd = {};
-          $scope.cursor = '';
-          $scope.loadMoreAvailable = true;
-          $scope.limit = 20;
-          _init();
+        .controller('NewsCtrl', ['$scope', 'Upload', 'AppSettings', 'isAdmin', 'NewsService', 'Assert', 'Type',
+        function ($scope, Upload, AppSettings, isAdmin, NewsService, Assert, Type) {
 
-          $scope.loadMore = function() {
-            if($scope.loadMoreAvailable) {
-              _init();
-            }
-          };
+            /** @public {Boolean} */
+            $scope.showAddButton = isAdmin;
 
-          function _init() {
-            $scope.errorMsg = '';
-            var query;
-            if ($scope.cursor == '') {
-              query = 'news';
-            } else {
-              query = 'news?cursor=' + $scope.cursor;
-            }
+            /** @public {Array<Object>} */
+            $scope.news = [];
 
-            $http.get(API_URL + query).success(function(res){
-              if ($scope.cursor == res.cursor) {
-                return;
-              }
-              if (res.news.length < $scope.limit) {
-                $scope.loadMoreAvailable = false;
-              }
-              $scope.cursor = res.cursor;
-              $scope.showAddButton = Auth.isAdmin();
+            /** @public {Object} */
+            $scope.newsToAdd = {};
 
-              res.news.forEach(function(el) {
-                el.showMore = true;
-                $scope.news.push(el);
-              });
-            }).error(function(){
-              $scope.loadMoreAvailable = false;
-            });
-          }
+            /** @public {Boolean} */
+            $scope.showMore = true;
 
-          $scope.showMore = function(el) {
-            el.showMore = false;
-          };
-          $scope.showLess = function(el) {
-            el.showMore = true;
-          };
-
-          $scope.addNews = function() {
-            $scope.showAddButton = false;
-            $scope.addNewsSection = true;
-          };
-
-          $scope.save = function() {
-            if (!$scope.newsToAdd.title || $scope.newsToAdd.title == '' ||
-              !$scope.newsToAdd.body || $scope.newsToAdd.body == '') {
-              $scope.errorMsg = 'Required field';
-              return;
-            }
-            $http.post(API_URL + 'news', {
-              title: $scope.newsToAdd.title,
-              body: $scope.newsToAdd.body,
-              image_url: $scope.newsToAdd.image
-
-            }).success(function(res){
-              $scope.showAddButton = true;
-              $scope.addNewsSection = false;
-              $scope.newsToAdd = {};
-              $scope.news = [];
-              $scope.cursor = '';
-              $scope.loadMoreAvailable = true;
-              _init();
-            });
-          };
-
-          $scope.cancel = function() {
-            $scope.showAddButton = true;
+            /** @public {Boolean} */
             $scope.addNewsSection = false;
-            $scope.errorMsg = '';
-          };
 
-          $scope.onFileSelect = function(event) {
-            var image = event.target.files[0];
-            
-            if (image.type !== 'image/png' && image.type !== 'image/jpeg') {
-                alert('Only PNG and JPEG are accepted.');
-                return;
+            /** @private {Boolean} */
+            $scope.loadMoreAvailable = true;
+
+            /** @private {String} */
+            $scope.cursor = null;
+
+            /** @public {String} */
+            $scope.errorMsg = null;
+
+            /** @private {Boolean} */
+            $scope.loadMoreAvailable = true;
+
+            /** @private {Number} */
+            $scope.appSettings = AppSettings.getAppSettings();
+
+            /**
+             * @public
+             */
+            $scope.loadMore = function() {
+                if($scope.loadMoreAvailable) {
+                    $scope._init();
+                }
+            };
+
+            /**
+             * @private
+             */
+            $scope._init = function() {
+
+                $scope.errorMsg = null;
+
+                NewsService.getNews($scope.cursor, function(err, res) {
+                    if (Type.isNull(res)) {
+                        $scope.errorMsg = 'Error: Page was not loaded';
+                        $scope.loadMoreAvailable = false;
+                    } else {
+                        if ($scope.cursor == res.data.cursor) {
+                            return;
+                        }
+                        if (res.data.news.length < $scope.appSettings.loadLimit) {
+                            $scope.loadMoreAvailable = false;
+                        }
+                        $scope.cursor = res.data.cursor;
+
+                        res.data.news.forEach(function(el) {
+                            // create view object
+                            var tmpObj = {};
+                            tmpObj.viewNews = el;
+                            tmpObj.showMore = true;
+
+                            $scope.news.push(tmpObj);
+                        });
+                    }
+                });
             }
 
-            $scope.upload = Upload.upload({
-                url: API_URL + 'upload',
-                method: 'POST',
-                file: image
-            }).success(function(data, status, headers, config) {
-                $scope.newsToAdd.image = data.url;
-            }).error(function(err) {
-                console.log('Error uploading file: ' + err.message || err);
-            });
-          };
+            /**
+             * @public
+             * @param {Object} el
+             */
+            $scope.showMore = function(el) {
+                Assert.isObject(el, 'Invalid "el" type');
+                el.showMore = false;
+            };
 
-          $scope.detectClass = function(el) {
-            if(el.showMore) {
-              return 'short-decsr';
-            } else {
-              return 'long-decsr';
-            }
-          };
+            /**
+             * @public
+             * @param {Object} el
+             */
+            $scope.showLess = function(el) {
+                Assert.isObject(el, 'Invalid "el" type');
+                el.showMore = true;
+            };
+
+            /**
+             * @public
+             */
+            $scope.addNews = function() {
+                $scope.showAddButton = false;
+                $scope.addNewsSection = true;
+            };
+
+            /**
+             * @public
+             */
+            $scope.save = function() {
+
+                if (Type.isUndefined($scope.newsToAdd.title) || $scope.newsToAdd.title == '' ||
+                    Type.isUndefined($scope.newsToAdd.body) || $scope.newsToAdd.body == '') {
+                    $scope.errorMsg = 'Required field';
+                    return;
+                }
+
+                NewsService.createNews($scope.newsToAdd, function(err, res) {
+                    if (Type.isNull(res)) {
+                        $scope.errorMsg = 'Failed to create';
+                    } else {
+                        $scope.showAddButton = true;
+                        $scope.addNewsSection = false;
+                        $scope.newsToAdd = {};
+                        $scope.news = [];
+                        $scope.cursor = null;
+                        $scope.loadMoreAvailable = true;
+                        $scope._init();
+                    }
+                });
+            };
+
+            /**
+             * @public
+             */
+            $scope.cancel = function() {
+                $scope.showAddButton = true;
+                $scope.addNewsSection = false;
+                $scope.errorMsg = null;
+            };
+
+            /**
+             * @public
+             * @param {Object} event
+             */
+            $scope.onFileSelect = function(event) {
+                Assert.isObject(event, 'Invalid "event" type');
+
+                var image = event.target.files[0];
+                
+                if (image.type !== 'image/png' && image.type !== 'image/jpeg') {
+                        alert('Only PNG and JPEG are accepted.');
+                        return;
+                }
+
+                $scope.upload = Upload.upload({
+                        url: $scope.appSettings.API_URL + 'upload',
+                        method: 'POST',
+                        file: image
+                }).success(function(data, status, headers, config) {
+                        $scope.newsToAdd.image_url = data.url;
+                }).error(function(err) {
+                        console.log('Error uploading file: ' + err.message || err);
+                });
+            };
+
+            /**
+             * @public
+             * @param {Object} el
+             * @return {String}
+             */
+            $scope.detectClass = function(el) {
+                Assert.isObject(el, 'Invalid "el" type');
+                if(el.showMore) {
+                    return 'short-decsr';
+                } else {
+                    return 'long-decsr';
+                }
+            };
+
+            $scope._init();
     }]);
 });

@@ -1,6 +1,6 @@
 define(['angular'], function(angular) {
 
-	angular.module('researchApp.Utils').factory('CacheStore', ['$window',
+    angular.module('researchApp.Utils').factory('CacheStore', ['$window',
     function ($window) {
 
         var cacheStore = {};

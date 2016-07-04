@@ -8,7 +8,7 @@ define(['angular',
     return angular.module('researchApp.Routers')
     .config(function ($stateProvider) {
         $stateProvider
-	       .state('about', {
+           .state('about', {
                 url: "/about",
                 templateUrl: 'app/modules/about/about.html',
                 controller: 'AboutCtrl',
@@ -17,6 +17,6 @@ define(['angular',
                         return Auth.isAdmin();
                     }
                 }
-	       });
+           });
     });
 });

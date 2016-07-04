@@ -6,16 +6,16 @@ define(['angular'], function (angular) {
             /** @public {Boolean} */
             $scope.showEditButton = isAdmin;
             /** @public {Object} */
-        	$scope.aboutProject = {
-        		currentDescription: '',
-        		newDescription: ''
-        	};
+            $scope.aboutProject = {
+                currentDescription: '',
+                newDescription: ''
+            };
             /** @public {String} */
-        	$scope.errorMsg = '';
+            $scope.errorMsg = '';
             /** @public {String} */
-        	$scope.successMsg = '';
+            $scope.successMsg = '';
             /** @public {Boolean} */
-        	$scope.showEditableTexarea = false;
+            $scope.showEditableTexarea = false;
             
 
             /**
@@ -56,9 +56,9 @@ define(['angular'], function (angular) {
             * @public
             */
             $scope.edit = function() {
-              	$scope.errorMsg = '';
-              	$scope.successMsg = '';
-              	$scope.showEditableTexarea = true;
+                  $scope.errorMsg = '';
+                  $scope.successMsg = '';
+                  $scope.showEditableTexarea = true;
             };
 
             /**

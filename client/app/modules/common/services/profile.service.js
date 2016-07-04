@@ -2,7 +2,7 @@
 
 define(['angular'], function (angular) {
 
-    angular.module('researchApp.Services').factory('AboutService', ['RestService', 'Assert',
+    angular.module('researchApp.Services').factory('ProfileService', ['RestService', 'Assert',
         function (RestService, Assert) {
 
             /** @private {String} */
@@ -35,8 +35,8 @@ define(['angular'], function (angular) {
 
                     var url = _baseUrl;
                     RestService.postRequest(url, params, function(err, res) {
-                          callback(err, res);
-                    })
+                        callback(err, res);
+                    });
                 }
             };
     }]);
