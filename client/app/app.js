@@ -75,7 +75,7 @@ define(['angular',
         };
     });
 
-    app.run(function(Auth, $location) {
+    app.run(function(Auth) {
         Auth.init().then( function() {});
     });
     

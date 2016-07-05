@@ -1,21 +1,21 @@
 'use strict';
 
 define(['angular'], function (angular) {
-    angular.module('researchApp.Controllers')
-        .controller('ProjectCtrl', ['$scope', '$stateParams', '$http', 'Auth', '$state',
+    angular.module('researchApp.Controllers').controller('ProjectCtrl',
+        ['$scope', '$stateParams', '$http', 'Auth', '$state',
         function ($scope, $stateParams, $http, Auth, $state) {
-          $scope.inviteSent = false;
-          $scope.isSupervisor = false;
-          $scope.canJoinProject = false;
-          $scope.project = {};
-          $scope.newResearcher = {};
-          $scope.joinRequests = [];
-          $scope.user = null;
-          $scope.errorMsg = '';
-          $scope.validationMsg = '';
-          _init();
+            $scope.inviteSent = false;
+            $scope.isSupervisor = false;
+            $scope.canJoinProject = false;
+            $scope.project = {};
+            $scope.newResearcher = {};
+            $scope.joinRequests = [];
+            $scope.user = null;
+            $scope.errorMsg = '';
+            $scope.validationMsg = '';
+            _init();
 
-          function _init() {
+            function _init() {
             $scope.error = '';
             $http.get(API_URL + 'researches/' + $stateParams.id).success(function(project) {
               $scope.project = project;
