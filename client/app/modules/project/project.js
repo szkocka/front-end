@@ -4,7 +4,7 @@ define(['angular',
     'modules/project/project.controller',
     'modules/project/projectForum.controller',
     'modules/project/projectForumMessages',
-    'modules/project/forum.service',
+    'modules/project/forums.service',
     'modules/project/messages.service'
     ], function (angular) {
 

@@ -1,63 +1,96 @@
 'use strict';
 
 define(['angular'], function (angular) {
-    angular.module('researchApp.Controllers')
-        .controller('ProjectForumCtrl', ['$scope', '$stateParams', '$http', 'Auth', '$state',
-        function ($scope, $stateParams, $http, Auth, $state) {
-          $scope.forums = [];
-          $scope.forumsAccessError = true;
-          $scope.cursor = '';
-          $scope.loadMoreAvailable = true;
-          $scope.limit = 20;
-          _init();
+    angular.module('researchApp.Controllers').controller('ProjectForumCtrl',
+        ['$scope', '$stateParams', 'Auth', '$state', 'ForumsService', 'Assert', 'Type', 'AppSettings',
+        function ($scope, $stateParams, Auth, $state, ForumsService, Assert, Type, AppSettings) {
+            /** @private {String} */
+            $scope.researchId = $stateParams.id;
+            /** @public {Array<Object>} */
+            $scope.forums = [];
+            /** @public {Boolean} */
+            $scope.forumsAccessError = true;
+            /** @public {String} */
+            $scope.cursor = null;
+            /** @public {Boolean} */
+            $scope.loadMoreAvailable = true;
+            /** @public {Number} */
+            $scope.limit = AppSettings.getLoadLimit();
+            /** @public {String} */
+            $scope.errorMsg = null;
 
-          $scope.loadMore = function() {
-            if($scope.loadMoreAvailable) {
-              _init();
-            }
-          };
+            /**
+             * @private
+             */
+            $scope._init = function() {
+                Auth.isLoggedInAsync(function(login){
+                    if(login) {
+                        $scope.getForums();
+                    } else {
+                        $scope.forumsAccessError = true;
+                    }
+                });
+            };
 
-          function getForums(){
-            var query;
-            if ($scope.cursor == '') {
-              query = '/forums';
-            } else {
-              query = '/forums?cursor=' + $scope.cursor;
-            }
-            $http.get(API_URL + 'researches/' + $stateParams.id + query).success(function(res) {
-              $scope.forumsAccessError = false;
-              if ($scope.cursor == res.cursor) {
-                return;
-              }
-              if (res.forums.length < $scope.limit) {
-                $scope.loadMoreAvailable = false;
-              }
-              $scope.cursor = res.cursor;
-              res.forums.forEach(function(forum) {
-                $scope.forums.push(forum);
-              });
-            }).error(function(){
-              $scope.loadMoreAvailable = false;
-            });
-          }
+            /**
+             * @public
+             */
+            $scope.loadMore = function() {
+                if($scope.loadMoreAvailable) {
+                    $scope._init();
+                }
+            };
 
-          $scope.createForum = function(topic){
-            $http.post(API_URL + 'researches/' + $stateParams.id + '/forums', {
-              subject: topic
-            }).success(function(forum){
-              forum.id = forum.forum_id;
-              $state.go('project.forum.one', {forumId: forum.id})
-            });
-          }
+            /**
+             * @public
+             */
+            $scope.getForums = function(){
+                $scope.errorMsg = null;
 
-          function _init() {
-            Auth.isLoggedInAsync(function(login){
-              if(login) {
-                getForums();
-              } else {
-                $scope.forumsAccessError = true;
-              }
-            });
-          }
+                var params = {
+                    researchId: $scope.researchId,
+                    cursor: $scope.cursor
+                };
+                ForumsService.getForums(params, function(err, res) {
+                    if (Type.isNull(res)) {
+                        $scope.errorMsg = 'Error: Forums were not loaded';
+                        $scope.loadMoreAvailable = false;
+                    } else {
+                        $scope.forumsAccessError = false;
+                        if ($scope.cursor == res.data.cursor) {
+                            return;
+                        }
+                        if (res.data.forums.length < $scope.limit) {
+                            $scope.loadMoreAvailable = false;
+                        }
+                        $scope.cursor = res.data.cursor;
+
+                        res.data.forums.forEach(function(forum) {
+                            $scope.forums.push(forum);
+                        });
+                    }
+                });
+            };
+
+            /**
+             * @public
+             * @param {String} topic
+             */
+            $scope.createForum = function(topic){
+                Assert.isStringt(topic, 'Invalid "topic" type');
+
+                var params = {
+                    researchId: $scope.researchId,
+                    subject: topic
+                };
+
+                ForumsService.createNews(params, function(err, res) {
+                    if (Type.isNull(res)) {
+                        $scope.errorMsg = 'Failed to create new forum';
+                    } else {
+                        $state.go('project.forum.one', {forumId: res.forum_id});
+                    }
+                });
+            };
     }]);
 });
