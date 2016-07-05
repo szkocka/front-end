@@ -21,7 +21,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="#/signup">Sign up</a></li>
                 <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="#/login">Login</a></li>
-                <li ng-show="isLoggedIn()" ng-class="{active: isActive('/my-projects/{{getCurrentUser()._id}}')}"><a href="#/my-projects/{{getCurrentUser()._id}}">My Projects</a></li>
+                <li ng-show="isLoggedIn()" ng-class="{active: isActive('/my-projects')}"><a href="#/my-projects">My Projects</a></li>
                 <li ng-show="isLoggedIn()" ng-class="{active: isActive('/add-update-project/null')}"><a href="#/add-update-project/null">Add Project</a></li>
                 <li ng-show="isLoggedIn()" ng-class="{active: isActive('/news')}"><a href="#/news">News</a></li>
                 <li ng-show="isLoggedIn()" ng-class="{active: isActive('/profile/{{getCurrentUser()._id}}')}"><a href="#/profile/{{getCurrentUser()._id}}">Hello {{ getCurrentUser().name }}</a> </li>

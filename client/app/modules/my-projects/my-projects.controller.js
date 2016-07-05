@@ -1,13 +1,26 @@
 'use strict';
 
 define(['angular'], function (angular) {
-    angular.module('researchApp.Controllers')
-        .controller('MyProjectsCtrl', ['$scope', '$http', '$stateParams', 'Auth',
-        function ($scope, $http, $stateParams, Auth) {
+    angular.module('researchApp.Controllers').controller('MyProjectsCtrl',
+        ['$scope', 'ProfileService', 'Type', 'userId',
+        function ($scope, ProfileService, Type, userId) {
+
+            /** @private {String} */
+            $scope.userId = userId;
+            /** @public {Object} */
             $scope.user = {};
-            $scope.userId = $stateParams.id;
-            $http.get(API_URL + 'users/' + $scope.userId).success(function(res){
-              $scope.user = res;
-            });
+
+            /**
+             * @private
+             */
+            $scope._init = function() {
+                ProfileService.getUserProfile($scope.userId, function(err, res) {
+                    if (!Type.isNull(res)) {
+                        $scope.user = res.data;
+                    }
+                });
+            };
+
+            $scope._init();
     }]);
 });

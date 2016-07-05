@@ -74,9 +74,8 @@ define(['angular'], function (angular) {
              */
             $scope.accept = function(proj) {
                 Assert.isObject(proj, 'Invalid "proj" type');
-                Assert.isString(proj.id, 'Invalid "proj.id" type');
 
-                ProfileService.acceptInvitation(proj.id, function(err, res) {
+                ProfileService.acceptInvitation(proj.id.toString(), function(err, res) {
                     if (!Type.isNull(res)) {
                         $scope._init();
                     }
@@ -89,9 +88,8 @@ define(['angular'], function (angular) {
              */
             $scope.ignore = function(proj) {
                 Assert.isObject(proj, 'Invalid "proj" type');
-                Assert.isString(proj.id, 'Invalid "proj.id" type');
 
-                ProfileService.declineInvitation(proj.id, function(err, res) {
+                ProfileService.declineInvitation(proj.id.toString(), function(err, res) {
                     if (!Type.isNull(res)) {
                         $scope._init();
                     }
