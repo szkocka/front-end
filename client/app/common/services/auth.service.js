@@ -149,10 +149,9 @@ define(['angular'], function (angular) {
                 /**
                  * Waits for currentUser to resolve before checking if user is logged in
                  * public
-                 * @param  {Function} callback
+                 * @param  {Function} callback - optional
                  */
                 isLoggedInAsync: function(cb) {
-                    Assert.isFunction(callback, 'Invalid "callback" type');
 
                     if(_currentUser.hasOwnProperty('$promise')) {
                         _currentUser.$promise.then(function() {

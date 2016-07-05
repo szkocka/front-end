@@ -19,8 +19,8 @@ define(['angular'], function (angular) {
             
 
             /**
-            * @private
-            */
+             * @private
+             */
             $scope._init = function() {
                 AboutService.getAboutInfo(function(err, res) {
                     if (Type.isNull(res)) {
@@ -34,8 +34,8 @@ define(['angular'], function (angular) {
 
 
             /**
-            * @public
-            */
+             * @public
+             */
             $scope.updateAbout = function() {
                 var params = {
                     content: $scope.aboutProject.newDescription
@@ -53,8 +53,8 @@ define(['angular'], function (angular) {
             };
 
             /**
-            * @public
-            */
+             * @public
+             */
             $scope.edit = function() {
                   $scope.errorMsg = '';
                   $scope.successMsg = '';
@@ -62,8 +62,8 @@ define(['angular'], function (angular) {
             };
 
             /**
-            * @public
-            */
+             * @public
+             */
             $scope.cancel = function() {
                 $scope.showEditableTexarea = false;
             };

@@ -6,18 +6,20 @@ define(['angular'], function (angular) {
         function (RestService, Assert) {
 
             /** @private {String} */
-            var _baseUrl = 'pages/about';
+            var _baseUrl = 'users/';
 
             return {
 
                 /**
                  * @public
                  * @param {Function} callback
+                 * @param {String} id
                  */
-                getAboutInfo: function(callback) {
+                getUserProfile: function(id, callback) {
+                    Assert.isString(id, 'Invalid "id" type');
                     Assert.isFunction(callback, 'Invalid "callback" type');
 
-                    var url = _baseUrl;
+                    var url = _baseUrl + id;
                     RestService.getRequest(url, function(err, res) {
                         callback(err, res);
                     });
@@ -25,16 +27,43 @@ define(['angular'], function (angular) {
 
                 /**
                  * @public
-                 * @param {Object} params
                  * @param {Function} callback
                  */
-                updateAboutInfo: function(params, callback) {
-                    Assert.isObject(params, 'Invalid "params" type');
-                    Assert.isString(params.content, 'Invalid "params.content" type');
+                getInvitations: function(callback) {
                     Assert.isFunction(callback, 'Invalid "callback" type');
 
-                    var url = _baseUrl;
-                    RestService.postRequest(url, params, function(err, res) {
+                    var url = _baseUrl + 'users/me/invites/researches';
+                    RestService.getRequest(url, function(err, res) {
+                        callback(err, res);
+                    });
+                },
+
+                /**
+                 * @public
+                 * @param {Function} callback
+                 * @param {String} id
+                 */
+                acceptInvitation: function(id, callback) {
+                    Assert.isString(id, 'Invalid "id" type');
+                    Assert.isFunction(callback, 'Invalid "callback" type');
+
+                    var url = _baseUrl + 'users/me/invites/researches' + id + '/accepted';
+                    RestService.postRequest(url, {}, function(err, res) {
+                        callback(err, res);
+                    });
+                },
+
+                /**
+                 * @public
+                 * @param {Function} callback
+                 * @param {String} id
+                 */
+                declineInvitation: function(id, callback) {
+                     Assert.isString(id, 'Invalid "id" type');
+                    Assert.isFunction(callback, 'Invalid "callback" type');
+
+                    var url = _baseUrl + 'users/me/invites/researches' + id + '/declined';
+                    RestService.postRequest(url, {}, function(err, res) {
                         callback(err, res);
                     });
                 }

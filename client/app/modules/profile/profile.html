@@ -1,49 +1,48 @@
 <div ng-include="'app/common/components/navbar/navbar.html'"></div>
+
 <div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">
-          <button class="btn btn-primary pull-right" ng-if="isSupervisor" ng-click="edit()">Edit</button>
-          {{user.name}}
-        </h1>
-        <div ng-if="isSupervisor && invitations.length > 0">
-          <h5>Invitations: </h5>
-          <ul class="list-unstyled join-requests">
-            <li ng-repeat="inv in invitations">
-              <button type="button" class="btn btn-primary btn-xs" ng-click="accept(inv)">Accept</button>
-              <button type="button" class="btn btn-default btn-xs"  ng-click="ignore(inv)">Ignore</button>
-              <a href="#/project/{{inv.id}}">{{inv.title}}</a>
-            </li>
-          </ul>
-        </div>
-        <div ng-if="user.supervisor_of.length > 0"> 
-          <h5>{{user.name}} is supervising: </h5>
-          <ul>
-            <li ng-repeat="proj in user.supervisor_of">
-            <a href="#/project/{{proj.id}}">{{proj.title}}</a>
-            </li>
-          </ul>
-          <h5>Involved in:</h5>
-          <ul>
-            <li ng-repeat="item in area">{{item}}</li>
-          </ul>
-          <h5>Contact info:</h5>
-          <p>Email: {{user.email}}</p>
-        </div>
-        <div ng-if="user.researcher_in.length > 0">
-          <h5>Researcher in:</h5>
-          <ul>
-            <li ng-repeat="proj in user.researcher_in">
-              {{proj.title}}
-            </li>
-          </ul>
-        </div>
-          <h5>Summary:</h5>
-          <p ng-bind-html="user.cv"></p>
-        <div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                <button class="btn btn-primary pull-right" ng-if="isMyProfile" ng-click="edit()">Edit</button>
+                {{user.name}}
+            </h1>
+            <div ng-if="isMyProfile && invitations.length > 0">
+                <h5>Invitations: </h5>
+                <ul class="list-unstyled join-requests">
+                    <li ng-repeat="inv in invitations">
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="accept(inv)">Accept</button>
+                        <button type="button" class="btn btn-default btn-xs"    ng-click="ignore(inv)">Ignore</button>
+                        <a href="#/project/{{inv.id}}">{{inv.title}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div ng-if="user.supervisor_of.length > 0"> 
+                <h5>{{user.name}} is supervising: </h5>
+                <ul>
+                    <li ng-repeat="proj in user.supervisor_of">
+                    <a href="#/project/{{proj.id}}">{{proj.title}}</a>
+                    </li>
+                </ul>
+                <h5>Involved in:</h5>
+                <ul>
+                    <li ng-repeat="item in area">{{item}}</li>
+                </ul>
+                <h5>Contact info:</h5>
+                <p>Email: {{user.email}}</p>
+            </div>
+            <div ng-if="user.researcher_in.length > 0">
+                <h5>Researcher in:</h5>
+                <ul>
+                    <li ng-repeat="proj in user.researcher_in">
+                        {{proj.title}}
+                    </li>
+                </ul>
+            </div>
+            <h5>Summary:</h5>
+            <p ng-bind-html="user.cv"></p>
         </div>
     </div>
-  </div>
 </div>
 
 
