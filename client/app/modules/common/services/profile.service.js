@@ -28,11 +28,26 @@ define(['angular'], function (angular) {
                 /**
                  * @public
                  * @param {Function} callback
+                 * @param {Object} params
+                 */
+                saveUsersProfileData: function(params, callback) {
+                    Assert.isObject(params, 'Invalid "params" type');
+                    Assert.isFunction(callback, 'Invalid "callback" type');
+
+                    var url = 'users';
+                    RestService.putRequest(url, params, function(err, res) {
+                        callback(err, res);
+                    });
+                },
+
+                /**
+                 * @public
+                 * @param {Function} callback
                  */
                 getInvitations: function(callback) {
                     Assert.isFunction(callback, 'Invalid "callback" type');
 
-                    var url = _baseUrl + 'users/me/invites/researches';
+                    var url = _baseUrl + 'me/invites/researches';
                     RestService.getRequest(url, function(err, res) {
                         callback(err, res);
                     });
@@ -47,7 +62,7 @@ define(['angular'], function (angular) {
                     Assert.isString(id, 'Invalid "id" type');
                     Assert.isFunction(callback, 'Invalid "callback" type');
 
-                    var url = _baseUrl + 'users/me/invites/researches' + id + '/accepted';
+                    var url = _baseUrl + 'me/invites/researches' + id + '/accepted';
                     RestService.postRequest(url, {}, function(err, res) {
                         callback(err, res);
                     });
@@ -62,7 +77,7 @@ define(['angular'], function (angular) {
                      Assert.isString(id, 'Invalid "id" type');
                     Assert.isFunction(callback, 'Invalid "callback" type');
 
-                    var url = _baseUrl + 'users/me/invites/researches' + id + '/declined';
+                    var url = _baseUrl + 'me/invites/researches' + id + '/declined';
                     RestService.postRequest(url, {}, function(err, res) {
                         callback(err, res);
                     });

@@ -64,6 +64,29 @@ define(['angular'], function (angular) {
         /**
          * @public
          * @param {String} url
+         * @param {Object} data
+         * @param {Function} callback
+         */
+        restService.putRequest = function(url, data, callback) {
+            Assert.isString(url, 'Invalid "url" type');
+            Assert.isObject(data, 'Invalid "data" type');
+            Assert.isFunction(callback, 'Invalid "callback" type');
+
+            var fullUrl = this._getBaseUrl() + url;
+
+            http.put(fullUrl, data).then(
+                function(response) {
+                    callback(null, response);
+                },
+                function(response) {
+                    callback(response, null);
+                }
+            );
+        };
+
+        /**
+         * @public
+         * @param {String} url
          * @param {Function} callback
          */
         restService.deleteRequest = function(url, callback) {
