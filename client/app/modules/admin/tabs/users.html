@@ -44,12 +44,10 @@
             </td>
             <td>{{user.email}}</td>
             <td>{{user.role}}</td>
-            <td><a href="#admin/posts/{{user.id}}/{{user.name}}">
-                {{user.created_forums
-                + user.posted_messages
-                 + user.researcher_in
-                 + user.supervisor_in}}
-                 </a>
+            <td>
+                <a href="#admin/posts/{{user.id}}/{{user.name}}">
+                    {{user.created_forums + user.posted_messages + user.researcher_in + user.supervisor_in}}
+                </a>
             </td>
             <td>
                 <div>{{user.status}}</div>

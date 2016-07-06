@@ -17,7 +17,7 @@ define(['angular',
     'lodash', 
     'lazyScroll',
 
-    //========== HOME ===========//
+    //========== BOOTSTRAP ===========//
     'common/bootstrap/bootstrap',
     ], function (angular) {
 
@@ -78,6 +78,6 @@ define(['angular',
     app.run(function(Auth) {
         Auth.init().then( function() {});
     });
-    
+
     return app;
 });
