@@ -150,7 +150,7 @@ define(['angular'], function (angular) {
                     })
                 },
 
-                 /**
+                /**
                  * @public
                  * @param {Object} params
                  * @param {Function} callback
@@ -162,6 +162,54 @@ define(['angular'], function (angular) {
                     var url = _researchesUrl + params.researchId + '/researchers/' + params.userId + '/rejected';
 
                     RestService.postRequest(url, {}, function(err, res) {
+                          callback(err, res);
+                    })
+                },
+
+                /**
+                 * @public
+                 * @param {Object} params
+                 * @param {Function} callback
+                 */
+                createNewResearch: function(params, callback) {
+                    Assert.isObject(params, 'Invalid "params" type');
+                    Assert.isFunction(callback, 'Invalid "callback" type');
+
+                    var url = 'researches';
+
+                    RestService.postRequest(url, params, function(err, res) {
+                          callback(err, res);
+                    })
+                },
+
+                /**
+                 * @public
+                 * @param {Object} params
+                 * @param {Function} callback
+                 */
+                updateResearch: function(params, callback) {
+                    Assert.isObject(params, 'Invalid "params" type');
+                    Assert.isFunction(callback, 'Invalid "callback" type');
+
+                    var url = _researchesUrl + params.researchId;
+
+                    RestService.putRequest(url, params, function(err, res) {
+                          callback(err, res);
+                    })
+                },
+
+                /**
+                 * @public
+                 * @param {Object} params
+                 * @param {Function} callback
+                 */
+                removeResearcher: function(params, callback) {
+                    Assert.isObject(params, 'Invalid "params" type');
+                    Assert.isFunction(callback, 'Invalid "callback" type');
+
+                    var url = _researchesUrl + params.researchId + '/researchers/' + params.researcherId;
+
+                    RestService.deleteRequest(url, function(err, res) {
                           callback(err, res);
                     })
                 }

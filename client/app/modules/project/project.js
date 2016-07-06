@@ -1,11 +1,11 @@
 'use strict';
 
 define(['angular',
-    'modules/project/project.controller',
-    'modules/project/projectForum.controller',
-    'modules/project/projectForumMessages',
-    'modules/project/forums.service',
-    'modules/project/messages.service'
+    'modules/project/controllers/project.controller',
+    'modules/project/controllers/projectForum.controller',
+    'modules/project/controllers/projectForumMessages',
+    'modules/project/services/forums.service',
+    'modules/project/services/messages.service'
     ], function (angular) {
 
     return angular.module('researchApp.Routers').config(function ($stateProvider, $urlRouterProvider) {

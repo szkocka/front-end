@@ -2,8 +2,7 @@
 
 define(['angular'], function (angular) {
 
-    angular.module('researchApp.Directives')
-        .directive('customOnChange', function () {
+    angular.module('researchApp.Directives').directive('customOnChange', function () {
 
         return {
             restrict: 'A',
@@ -12,5 +11,5 @@ define(['angular'], function (angular) {
                 element.bind('change', onChangeHandler);
             }
         };
-       });
+    });
 });

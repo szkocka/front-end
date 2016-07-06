@@ -146,18 +146,18 @@ define(['angular'], function (angular) {
                 var image = event.target.files[0];
                 
                 if (image.type !== 'image/png' && image.type !== 'image/jpeg') {
-                        alert('Only PNG and JPEG are accepted.');
-                        return;
+                    alert('Only PNG and JPEG are accepted.');
+                    return;
                 }
 
                 $scope.upload = Upload.upload({
-                        url: $scope.appSettings.API_URL + 'upload',
-                        method: 'POST',
-                        file: image
+                    url: $scope.appSettings.API_URL + 'upload',
+                    method: 'POST',
+                    file: image
                 }).success(function(data, status, headers, config) {
-                        $scope.newsToAdd.image_url = data.url;
+                    $scope.newsToAdd.image_url = data.url;
                 }).error(function(err) {
-                        console.log('Error uploading file: ' + err.message || err);
+                    console.log('Error uploading file: ' + err.message || err);
                 });
             };
 
