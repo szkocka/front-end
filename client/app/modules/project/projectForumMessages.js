@@ -2,8 +2,8 @@
 
 define(['angular'], function (angular) {
     angular.module('researchApp.Controllers').controller('ProjectForumMessagesCtrl',
-        ['$scope', '$stateParams', 'AppSettings', 'ForumsServise', 'MessagesService', 'Assert', 'Type',
-        function ($scope, $stateParams, AppSettings, ForumsServise, MessagesService, Assert, Type) {
+        ['$scope', '$stateParams', 'AppSettings', 'ForumsService', 'MessagesService', 'Assert', 'Type',
+        function ($scope, $stateParams, AppSettings, ForumsService, MessagesService, Assert, Type) {
             /** @private {String} */
             $scope.forumId = $stateParams.forumId;
             /** @private {Number} */
@@ -25,7 +25,7 @@ define(['angular'], function (angular) {
              * @private
              */
             $scope._getActiveForum = function() {
-                ForumsServise.getForumById($scope.forumId, function(err, res){
+                ForumsService.getForumById($scope.forumId, function(err, res){
                     if (Type.isNull(res)) {
                         $scope.errorMsg = 'Forum was not found';
                     } else {
@@ -100,5 +100,8 @@ define(['angular'], function (angular) {
                     }
                 });
             };
+
+            $scope._init();
+            $scope._getActiveForum();
     }]);
 });

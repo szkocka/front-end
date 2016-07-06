@@ -3,8 +3,8 @@
 define(['angular'], function (angular) {
 
     angular.module('researchApp.Services').factory('MessagesService',
-    	['RestService', 'Assert',
-        function (RestService, Assert) {
+    	['RestService', 'Assert', 'Type',
+        function (RestService, Assert, Type) {
         	/** @private {String} */
             var _baseUrl = 'forums/';
 
@@ -43,7 +43,7 @@ define(['angular'], function (angular) {
                 createNewMessage: function(params, callback) {
                     Assert.isObject(params, 'Invalid "params" type');
                     Assert.isString(params.forumId, 'Invalid "params.forumId" type');
-                    Assert.isString(params.text, 'Invalid "params.text" type');
+                    Assert.isString(params.message, 'Invalid "params.message" type');
                     Assert.isFunction(callback, 'Invalid "callback" type');
 
                     var url = _baseUrl + params.forumId + '/messages';

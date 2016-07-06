@@ -63,7 +63,7 @@ define(['angular'], function (angular) {
              */
             $scope._init = function() {
 
-                ResearchesService.getResearches($scope.searchParams, function(err, res) {
+                ResearchesService.queryResearches($scope.searchParams, function(err, res) {
                     if (Type.isNull(res)) {
                         $scope.errorMsg = err.message;
                         $scope.loadMoreAvailable = false;

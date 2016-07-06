@@ -1,6 +1,6 @@
 'use strict';
 
-var API_URL = "https://szkocka-1080.appspot.com/";
+//var API_URL = "https://szkocka-1080.appspot.com/";
 define(['angular',
     //'jquery',
     //'kendo',

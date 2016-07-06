@@ -16,6 +16,11 @@ define(['angular',
                 url: "/project/:id",
                 templateUrl: 'app/modules/project/project.html',
                 controller: 'ProjectCtrl',
+                resolve: {
+                    user: function(Auth) {
+                        return Auth.getCurrentUser();
+                    }
+                },
                 abstract: true
             })
                 // project tabs

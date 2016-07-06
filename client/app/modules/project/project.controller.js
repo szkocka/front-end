@@ -2,112 +2,183 @@
 
 define(['angular'], function (angular) {
     angular.module('researchApp.Controllers').controller('ProjectCtrl',
-        ['$scope', '$stateParams', '$http', 'Auth', '$state',
-        function ($scope, $stateParams, $http, Auth, $state) {
+        ['$scope', '$stateParams', '$state', 'user', 'ResearchesService', 'Assert', 'Type',
+        function ($scope, $stateParams, $state, user, ResearchesService, Assert, Type) {
+            /** @private {String} */
+            $scope.researchId = $stateParams.id;
+            /** @public {Object} */
+            $scope.user = user;
+            /** @public {Boolean} */
             $scope.inviteSent = false;
+            /** @public {Boolean} */
             $scope.isSupervisor = false;
+            /** @public {Boolean} */
             $scope.canJoinProject = false;
+            /** @public {Object} */
             $scope.project = {};
+            /** @public {Object} */
             $scope.newResearcher = {};
+            /** @public {Array<Object>} */
             $scope.joinRequests = [];
-            $scope.user = null;
-            $scope.errorMsg = '';
-            $scope.validationMsg = '';
-            _init();
+            /** @public {String} */
+            $scope.errorMsg = null;
+            /** @public {String} */
+            $scope.validationMsg = null;
 
-            function _init() {
-            $scope.error = '';
-            $http.get(API_URL + 'researches/' + $stateParams.id).success(function(project) {
-              $scope.project = project;
-              $scope.user = Auth.getCurrentUser();
-              if( $scope.user && $scope.user._id == project.supervisor.id ){
-                $scope.isSupervisor = true;
-              }
+            /**
+             * @private
+             */
+            $scope._init = function() {
+                $scope.error = '';
 
-              if($scope.project.relationship_type === 'NONE') {
-                $scope.canJoinProject = true;
-              }
+                $scope._getResearchById();
+            };
 
-              /*if( !$scope.user || $scope.isSupervisor ||
-                  _.any(project.researchers, function(researcher) {
-                    return researcher.id == $scope.user._id;
-              }) || _.any(project.pending_join_requests, function(researcher) {
-                    return researcher.id == $scope.user._id;
-              })){
-                $scope.canJoinProject = false;
-              }*/
-            });
+            /**
+             * @private
+             */
+            $scope._getResearchById = function() {
+                ResearchesService.getResearchById($scope.researchId, function(err, res){
+                     if (Type.isNull(res)) {
+                        $scope.errorMsg = 'Failed to load the project';
+                    } else {
+                        $scope.project = res.data;
 
-            $http.get(API_URL + 'researches/' + $stateParams.id + '/requests').success(function(res) {
-              $scope.joinRequests = res.users;
-              if (_.any($scope.joinRequests, function(request) {
-                    return request.id == $scope.user._id;
-              })) {
-                $scope.canJoinProject = false;
-              }
-            });
-          }
+                        if($scope.user && $scope.user._id == $scope.project.supervisor.id ){
+                            $scope.isSupervisor = true;
+                        }
 
-          $scope.inviteResearcher = function(){
-            if(!$scope.newResearcher.email || $scope.newResearcher.email == '' ||
-              !$scope.newResearcher.name || $scope.newResearcher.name == '') {
-              $scope.validationMsg = 'Required';
-              return;
-            }
-            $http.post(API_URL + 'researches/' + $stateParams.id + '/invites', {
-              text: $scope.newResearcher.message ? $scope.newResearcher.message : '',
-              email: $scope.newResearcher.email,
-              name: $scope.newResearcher.name ? $scope.newResearcher.name : ''
-            }).success(function(){
-              $scope.newResearcher = {};
-              $scope.inviteSent = true;
-              $scope.validationMsg = '';
-            }).error(function(message) {
-              $scope.inviteSent = false;
-              $scope.validationMsg = '';
-              $scope.errorMsg = message.message;
-            });
-          };
+                        if($scope.project.relationship_type === 'NONE') {
+                            $scope.canJoinProject = true;
+                        }
+                        $scope._getJoinRequests();
+                    }
+                });
+            };
 
-          $scope.edit = function() {
-            $state.go('add-update-project', {id: $stateParams.id});
-          };
+            /**
+             * @private
+             */
+            $scope._getJoinRequests = function() {
+                ResearchesService.getJoinRequests($scope.researchId, function(err, res){
+                     if (Type.isNull(res)) {
+                        $scope.errorMsg = 'Failed to load join requests';
+                    } else {
+                        $scope.joinRequests = res.data.users;
+                        if (_.any($scope.joinRequests, function(request) {
+                            return request.id == $scope.user._id;
+                        })) {
+                            $scope.canJoinProject = false;
+                        }
+                    }
+                });
+            };
 
-          $scope.join = function() {
-            $http.post(API_URL + 'researches/' + $stateParams.id + '/requests', {
-              text: "DEF"
-            }).success(function(data){
-              console.log(data.message);
-              $scope.canJoinProject = false;
-            });
-          };
+            /**
+             * @public
+             */
+            $scope.inviteResearcher = function(){
 
-          $scope.accept = function(user) {
-            $http.post(API_URL + 'researches/' + $stateParams.id + '/researchers/' + user.id + '/approved', {
-            }).success(function(){
-              _init();
-            }).error(function(error) {
-              console.log(error);
-            });
-          };
+                if (!Type.isString($scope.newResearcher.email) || $scope.newResearcher.email == '' ||
+                    !Type.isString($scope.newResearcher.name) || $scope.newResearcher.name == '') {
+                    $scope.validationMsg = 'Required';
+                    return;
+                }
+                $scope.newResearcher.researchId = $scope.researchId;
 
-          $scope.ignore = function(user) {
-            $http.post(API_URL + 'researches/' + $stateParams.id + '/researchers/' + user.id + '/rejected', {
-            }).success(function(){
-              _init();
-            }).error(function(error) {
-              console.log(error);
-            });
-          };
+                ResearchesService.sendInvitation($scope.newResearcher, function(err, res){
+                     if (Type.isNull(res)) {
+                        $scope.inviteSent = false;
+                        $scope.validationMsg = null;
+                        $scope.errorMsg = err.message;
+                    } else {
+                        $scope.newResearcher = {};
+                        $scope.inviteSent = true;
+                        $scope.validationMsg = null;
+                    }
+                });
+            };
 
-          $scope.detectStatus = function() {
-            if($scope.project.status == 'active') {
-              return 'ACTIVE';
-            } else if ($scope.project.status == 'closed') {
-              return 'CLOSED';
-            } else {
-              return 'ON HOLD';
-            }
-          };
+            /**
+             * @public
+             */
+            $scope.edit = function() {
+                $state.go('add-update-project', {id: $scope.researchId});
+            };
+
+            /**
+             * @public
+             */
+            $scope.join = function() {
+                var params = {
+                    researchId: $scope.researchId,
+                    text: "DEF"
+                }
+                ResearchesService.sendInvitation(params, function(err, res){
+                     if (Type.isNull(res)) {
+                        console.log(err.message);
+                    } else {
+                        $scope.canJoinProject = false;
+                    }
+                });
+            };
+
+            /**
+             * @public
+             * @param {Object} user
+             */
+            $scope.accept = function(user) {
+                Assert.isObject(user, 'Invalid "user" type');
+
+                var params = {
+                    researchId: $scope.researchId,
+                    userId: user.id
+                };
+
+                ResearchesService.aproveResearcher(params, function(err, res){
+                     if (Type.isNull(res)) {
+                        console.log(err.message);
+                    } else {
+                        $scope._init();
+                    }
+                });
+            };
+
+            /**
+             * @public
+             * @param {Object} user
+             */
+            $scope.ignore = function(user) {
+                Assert.isObject(user, 'Invalid "user" type');
+
+                var params = {
+                    researchId: $scope.researchId,
+                    userId: user.id
+                };
+
+                ResearchesService.rejectResearcher(params, function(err, res){
+                     if (Type.isNull(res)) {
+                        console.log(err.message);
+                    } else {
+                        $scope._init();
+                    }
+                });
+            };
+
+            /**
+             * @public
+             * @return {String}
+             */
+            $scope.detectStatus = function() {
+                if($scope.project.status == 'active') {
+                    return 'ACTIVE';
+                } else if ($scope.project.status == 'closed') {
+                    return 'CLOSED';
+                } else {
+                    return 'ON HOLD';
+                }
+            };
+
+            $scope._init();
     }]);
 });

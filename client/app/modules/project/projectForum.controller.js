@@ -77,14 +77,14 @@ define(['angular'], function (angular) {
              * @param {String} topic
              */
             $scope.createForum = function(topic){
-                Assert.isStringt(topic, 'Invalid "topic" type');
+                Assert.isString(topic, 'Invalid "topic" type');
 
                 var params = {
                     researchId: $scope.researchId,
                     subject: topic
                 };
 
-                ForumsService.createNews(params, function(err, res) {
+                ForumsService.createNewForum(params, function(err, res) {
                     if (Type.isNull(res)) {
                         $scope.errorMsg = 'Failed to create new forum';
                     } else {
@@ -92,5 +92,6 @@ define(['angular'], function (angular) {
                     }
                 });
             };
+            $scope._init();
     }]);
 });

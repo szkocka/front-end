@@ -152,18 +152,19 @@ define(['angular'], function (angular) {
                  * @param  {Function} callback - optional
                  */
                 isLoggedInAsync: function(cb) {
-
-                    if(_currentUser.hasOwnProperty('$promise')) {
-                        _currentUser.$promise.then(function() {
+                    User.get(function(user) {
+                        if(user.hasOwnProperty('$promise')) {
+                            user.$promise.then(function() {
+                                cb(true);
+                            }).catch(function() {
+                                cb(false);
+                            });
+                        } else if(user.hasOwnProperty('role')) {
                             cb(true);
-                        }).catch(function() {
+                        } else {
                             cb(false);
-                        });
-                    } else if(_currentUser.hasOwnProperty('role')) {
-                        cb(true);
-                    } else {
-                        cb(false);
-                    }
+                        }
+                    });
                 },
 
                 /**

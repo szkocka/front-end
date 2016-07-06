@@ -2,8 +2,8 @@
 
 define(['angular'], function (angular) {
 
-    angular.module('researchApp.Services').factory('ForumsService', [
-        function () {
+    angular.module('researchApp.Services').factory('ForumsService', ['RestService', 'Assert', 'Type',
+        function (RestService, Assert, Type) {
           	/** @private {String} */
             var _baseUrl = 'researches/';
 
@@ -37,7 +37,7 @@ define(['angular'], function (angular) {
                     /** @private {String} */
                     var query = '';
 
-                    if (Type.isNull(cursor)) {
+                    if (Type.isNull(params.cursor)) {
                         query = '/forums';
                     } else {
                     	query = '/forums?cursor=' + params.cursor;
@@ -61,6 +61,7 @@ define(['angular'], function (angular) {
                     Assert.isFunction(callback, 'Invalid "callback" type');
 
                     var url = _baseUrl + params.researchId + '/forums';
+                    
                     RestService.postRequest(url, params, function(err, res) {
                           callback(err, res);
                     })
