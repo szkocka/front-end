@@ -7,7 +7,8 @@ define(['angular'], function (angular) {
             /** @private {String} */
             var url = AppSettings.getAppServer();
 
-            return $resource(url + 'users/:id/:controller', {
+            return $resource(url + 'users/:id/:controller',
+            {
                 id: '@_id'
             },
             {
@@ -16,11 +17,37 @@ define(['angular'], function (angular) {
                     params: {
                         controller:'password'
                     }
-            },
+                },
                 get: {
                     method: 'GET',
                     params: {
                         id:'me'
+                    }
+                },
+                query: {
+                    method: 'GET', 
+                    isArray: false
+                },
+
+                getResearches: {
+                    method: 'GET', 
+                    isArray: false,
+                    params: {
+                        controller:'researches'
+                    }
+                },
+                getForums: {
+                    method: 'GET', 
+                    isArray: false,
+                    params: {
+                        controller:'forums'
+                    }
+                },
+                getMessages: {
+                    method: 'GET', 
+                    isArray: false,
+                    params: {
+                        controller:'messages'
                     }
                 }
             });

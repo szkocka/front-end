@@ -1,8 +1,8 @@
 'use strict';
 define(['angular'], function (angular) {
     angular.module('researchApp.Controllers')
-        .controller('PostsCtrl', ['$scope', '$http', '$stateParams', '$q',
-        function ($scope, $http, $stateParams, $q) {
+        .controller('PostsCtrl', ['$scope', '$http', '$stateParams', '$q', 'User',
+        function ($scope, $http, $stateParams, $q, User) {
             $scope.userId = $stateParams.userId;
             $scope.userName = $stateParams.userName;
             $scope.posts = [];
@@ -20,7 +20,17 @@ define(['angular'], function (angular) {
 
             function _getForums() {
                 var defer = $q.defer();
-                $http.get(API_URL + 'users/' + $scope.userId + '/forums').success(function(res){
+                User.getForums({ id: $scope.userId, cursor: "" }, function(res) {
+                        res.forums.forEach(function(forum) {
+                            forum.type = 'FORUM';
+                            forum.title = forum.subject;
+                            $scope.posts.push(forum);
+                        });
+                        defer.resolve();
+                    }, function(err) {
+                       defer.reject();
+                    });
+                /*$http.get(API_URL + 'users/' + $scope.userId + '/forums').success(function(res){
                     res.forums.forEach(function(forum) {
                         forum.type = 'FORUM';
                         forum.title = forum.subject;
@@ -29,13 +39,27 @@ define(['angular'], function (angular) {
                     defer.resolve();
                   }).error(function(){
                     defer.reject();
-                  });
+                  });*/
                 return defer.promise;
             }
 
              function _getMessages() {
                 var defer = $q.defer();
-                $http.get(API_URL + 'users/' + $scope.userId + '/messages').success(function(res){
+
+                User.getMessages({ id: $scope.userId, cursor: "" }, function(res) {
+                        res.messages.forEach(function(message) {
+                            message.created = message.created[0];
+                            message.title = message.message;
+                            message.id = message.id[0];
+                            message.type = 'MESSAGE';
+
+                            $scope.posts.push(message);
+                        });
+                        defer.resolve();
+                    }, function(err) {
+                       defer.reject();
+                    });
+                /*$http.get(API_URL + 'users/' + $scope.userId + '/messages').success(function(res){
 
                     res.messages.forEach(function(message) {
                         message.created = message.created[0];
@@ -47,13 +71,25 @@ define(['angular'], function (angular) {
                     defer.resolve();
                   }).error(function(){
                     defer.reject();
-                  });
+                  });*/
                 return defer.promise;
             }
 
              function _getResearches() {
                 var defer = $q.defer();
-                $http.get(API_URL + 'users/' + $scope.userId + '/researches').success(function(res){
+                User.getResearches({ id: $scope.userId, cursor: "" }, function(res) {
+                        res.researches.forEach(function(research) {
+                            if (research.relationship_type === 'SUPERVISOR') {
+                                research.type = 'RESEARCH';
+                                $scope.posts.push(research);
+
+                            }
+                        });
+                        defer.resolve();
+                    }, function(err) {
+                       defer.reject();
+                    });
+                /*$http.get(API_URL + 'users/' + $scope.userId + '/researches').success(function(res){
 
                     res.researches.forEach(function(research) {
                         if (research.relationship_type === 'SUPERVISOR') {
@@ -65,7 +101,7 @@ define(['angular'], function (angular) {
                     defer.resolve();
                   }).error(function(){
                     defer.reject();
-                  });
+                  });*/
                 return defer.promise;
             }
     }]);

@@ -1,9 +1,9 @@
 'use strict';
 
 define(['angular'], function (angular) {
-    angular.module('researchApp.Controllers')
-        .controller('AdminCtrl', ['$scope', '$http',
-        function ($scope, $http) {
+    angular.module('researchApp.Controllers').controller('AdminCtrl', 
+        ['$scope', 'User',
+        function ($scope, User) {
 
           // Use the User $resource to fetch all users
           $scope.users = [];
@@ -51,31 +51,24 @@ define(['angular'], function (angular) {
 
           _init();
 
-          function _init() {
+        function _init() {
             $scope.errorMsg = '';
-            var query;
-            if ($scope.cursor == '') {
-              query = 'users';
-            } else {
-              query = 'news?cursor=' + $scope.cursor;
-            }
+            User.query({cursor: $scope.cursor}, function(res){
+                if ($scope.cursor == res.cursor) {
+                    return;
+                }
+                if (res.users.length < $scope.limit) {
+                    $scope.loadMoreAvailable = false;
+                }
+                $scope.cursor = res.cursor;
 
-            $http.get(API_URL + query).success(function(res){
-              if ($scope.cursor == res.cursor) {
-                return;
-              }
-              if (res.users.length < $scope.limit) {
+                res.users.forEach(function(user) {
+                    $scope.users.push(user);
+                });
+            }, function() {
                 $scope.loadMoreAvailable = false;
-              }
-              $scope.cursor = res.cursor;
-
-              res.users.forEach(function(user) {
-                $scope.users.push(user);
-              });
-            }).error(function(){
-              $scope.loadMoreAvailable = false;
             });
-          }
+        }
 
           $scope.loadMore = function() {
             if($scope.loadMoreAvailable) {
