@@ -6,7 +6,7 @@ define(['angular'], function (angular) {
             /** @private {String} */
             $scope.projectId = $stateParams.id;
             /** @private {String} */
-            $scope.API_URL = AppSettings.API_URL;
+            $scope.API_URL = AppSettings.getAppServer();
             /** @public {Boolean} */
             $scope.newProject = true;
             /** @public {Object} */
