@@ -1,15 +1,44 @@
 'use strict';
 define(['angular'], function (angular) {
     angular.module('researchApp.Controllers')
-        .controller('PostsCtrl', ['$scope', '$http', '$stateParams', '$q', 'User',
-        function ($scope, $http, $stateParams, $q, User) {
+        .controller('PostsCtrl', ['$scope', '$stateParams', '$q', 'User', 'AppSettings',
+        function ($scope, $stateParams, $q, User, AppSettings) {
+            /** @private {String} */
             $scope.userId = $stateParams.userId;
+            /** @private {String} */
             $scope.userName = $stateParams.userName;
+            /** @public {Array<Object>} */
             $scope.posts = [];
-            _init();
 
-            function _init() {
-                $q.all([_getForums(), _getMessages(), _getResearches()])
+            $scope.limit = AppSettings.getLoadLimit();
+
+            /** @private {Object} */
+            $scope.cursor = {
+                forums: '',
+                messages: '',
+                researches: ''
+            };
+            /** @private {Object} */
+            $scope.loadMoreAvailable = {
+                forums: true,
+                messages: true,
+                researches: true
+            };
+            /** @public {String} */
+            $scope.errorMsg = null;
+
+            /**
+             * @public
+             */
+            $scope.loadMore = function() {
+                $scope._init();
+            };
+
+            /**
+             * @private
+             */
+            $scope._init = function() {
+                $q.all([$scope._getForums(), $scope._getMessages(), $scope._getResearches()])
                     .then(function(){
                         $scope.posts.sort(function(a, b) {
                             return new Date(b.created).getTime() - new Date(a.created).getTime();
@@ -18,78 +47,102 @@ define(['angular'], function (angular) {
                     });
             }
 
-            function _getForums() {
+            /**
+             * @private
+             */
+            $scope._getForums = function() {
                 var defer = $q.defer();
-                User.getForums({ id: $scope.userId, cursor: "" }, function(res) {
-                        res.forums.forEach(function(forum) {
-                            forum.type = 'FORUM';
-                            forum.title = forum.subject;
-                            $scope.posts.push(forum);
-                        });
+
+                if(!$scope.loadMoreAvailable.forums) {
+                    defer.resolve();
+                    return;
+                }
+
+                User.getForums({ id: $scope.userId, cursor: $scope.cursor.forums },
+                function(res) {
+                    if ($scope.cursor.forums == res.cursor) {
                         defer.resolve();
-                    }, function(err) {
-                       defer.reject();
-                    });
-                /*$http.get(API_URL + 'users/' + $scope.userId + '/forums').success(function(res){
+                        return;
+                    }
+                    if (res.forums.length < $scope.limit) {
+                        $scope.loadMoreAvailable.forums = false;
+                    }
+                    $scope.cursor.forums = res.cursor;
+
                     res.forums.forEach(function(forum) {
                         forum.type = 'FORUM';
                         forum.title = forum.subject;
                         $scope.posts.push(forum);
                     });
                     defer.resolve();
-                  }).error(function(){
-                    defer.reject();
-                  });*/
-                return defer.promise;
-            }
 
-             function _getMessages() {
+                    }, function(err) {
+                        $scope.loadMoreAvailable.forums = false;
+                        defer.reject();
+                    });
+
+                return defer.promise;
+            };
+
+            /**
+             * @private
+             */
+            $scope._getMessages = function() {
                 var defer = $q.defer();
 
-                User.getMessages({ id: $scope.userId, cursor: "" }, function(res) {
-                        res.messages.forEach(function(message) {
-                            message.created = message.created[0];
-                            message.title = message.message;
-                            message.id = message.id[0];
-                            message.type = 'MESSAGE';
+                if(!$scope.loadMoreAvailable.messages) {
+                    defer.resolve();
+                    return;
+                }
 
-                            $scope.posts.push(message);
-                        });
+                User.getMessages({ id: $scope.userId, cursor: $scope.cursor.messages },
+                function(res) {
+                    if ($scope.cursor.messages == res.cursor) {
                         defer.resolve();
-                    }, function(err) {
-                       defer.reject();
-                    });
-                /*$http.get(API_URL + 'users/' + $scope.userId + '/messages').success(function(res){
+                        return;
+                    }
+                    if (res.messages.length < $scope.limit) {
+                        $scope.loadMoreAvailable.messages = false;
+                    }
+                    $scope.cursor.messages = res.cursor;
 
                     res.messages.forEach(function(message) {
                         message.created = message.created[0];
                         message.title = message.message;
                         message.id = message.id[0];
                         message.type = 'MESSAGE';
-                      $scope.posts.push(message);
+
+                        $scope.posts.push(message);
                     });
                     defer.resolve();
-                  }).error(function(){
-                    defer.reject();
-                  });*/
-                return defer.promise;
-            }
-
-             function _getResearches() {
-                var defer = $q.defer();
-                User.getResearches({ id: $scope.userId, cursor: "" }, function(res) {
-                        res.researches.forEach(function(research) {
-                            if (research.relationship_type === 'SUPERVISOR') {
-                                research.type = 'RESEARCH';
-                                $scope.posts.push(research);
-
-                            }
-                        });
-                        defer.resolve();
                     }, function(err) {
-                       defer.reject();
+                        $scope.loadMoreAvailable.messages = false;
+                        defer.reject();
                     });
-                /*$http.get(API_URL + 'users/' + $scope.userId + '/researches').success(function(res){
+
+                return defer.promise;
+            };
+
+            /**
+             * @private
+             */
+            $scope._getResearches = function() {
+                var defer = $q.defer();
+
+                if(!$scope.loadMoreAvailable.researches) {
+                    defer.resolve();
+                    return;
+                }
+                User.getResearches({id: $scope.userId, cursor: $scope.cursor.researches},
+                function(res) {
+                    if ($scope.cursor.researches == res.cursor) {
+                        defer.resolve();
+                        return;
+                    }
+                    if (res.researches.length < $scope.limit) {
+                        $scope.loadMoreAvailable.researches = false;
+                    }
+                    $scope.cursor.researches = res.cursor;
 
                     res.researches.forEach(function(research) {
                         if (research.relationship_type === 'SUPERVISOR') {
@@ -99,10 +152,14 @@ define(['angular'], function (angular) {
                         }
                     });
                     defer.resolve();
-                  }).error(function(){
-                    defer.reject();
-                  });*/
+                    }, function(err) {
+                        $scope.loadMoreAvailable.researches = false;
+                        defer.reject();
+                    });
+
                 return defer.promise;
-            }
+            };
+
+            $scope._init();
     }]);
 });

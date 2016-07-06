@@ -2,24 +2,26 @@
 
 define(['angular'], function (angular) {
     angular.module('researchApp.Controllers').controller('AdminCtrl', 
-        ['$scope', 'User',
-        function ($scope, User) {
-
-          // Use the User $resource to fetch all users
-          $scope.users = [];
-          $scope.params = {
+        ['$scope', 'User', 'AppSettings', 'Assert',
+        function ($scope, User, AppSettings, Assert) {
+            /** @public {Array<Object>} */
+            $scope.users = [];
+            /** @private {Object} */
+            $scope.params = {
               selectedAction: null,
               selectedRole: null,
               selectedUsers: []
-          };
-
-          $scope.cursor = '';
-          $scope.loadMoreAvailable = true;
-          $scope.limit = 20;
-
-          $scope.errorMsg = '';
-
-          $scope.actions = [
+            };
+            /** @private {Object} */
+            $scope.cursor = '';
+            /** @private {String} */
+            $scope.loadMoreAvailable = true;
+            /** @private {Number} */
+            $scope.limit = AppSettings.getLoadLimit();
+            /** @public {String} */
+            $scope.errorMsg = null;
+            /** @public {Array<Object>} */
+            $scope.actions = [
               {
                 id: '1',
                 name: 'Delete user'
@@ -36,9 +38,9 @@ define(['angular'], function (angular) {
                 id: '4',
                 name: 'Ban user and delete posts'
               }
-          ];
-
-          $scope.roles = [
+            ];
+            /** @public {Array<Object>} */
+            $scope.roles = [
               {
                 id: 'admin',
                 name: 'Admin'
@@ -47,88 +49,108 @@ define(['angular'], function (angular) {
                 id: 'user',
                 name: 'User'
               }
-          ];
+            ];
 
-          _init();
+            /**
+             * @private
+             */
+            $scope._init = function() {
+                $scope.errorMsg = null;
 
-        function _init() {
-            $scope.errorMsg = '';
-            User.query({cursor: $scope.cursor}, function(res){
-                if ($scope.cursor == res.cursor) {
-                    return;
-                }
-                if (res.users.length < $scope.limit) {
+                User.query({cursor: $scope.cursor}, function(res){
+                    if ($scope.cursor == res.cursor) {
+                        return;
+                    }
+                    if (res.users.length < $scope.limit) {
+                        $scope.loadMoreAvailable = false;
+                    }
+                    $scope.cursor = res.cursor;
+
+                    res.users.forEach(function(user) {
+                        $scope.users.push(user);
+                    });
+                }, function() {
                     $scope.loadMoreAvailable = false;
+                });
+            };
+
+            /**
+             * @public
+             */
+            $scope.loadMore = function() {
+                if($scope.loadMoreAvailable) {
+                    $scope._init();
                 }
-                $scope.cursor = res.cursor;
+            };
 
-                res.users.forEach(function(user) {
-                    $scope.users.push(user);
-                });
-            }, function() {
-                $scope.loadMoreAvailable = false;
-            });
-        }
+            /**
+             * @public
+             */
+            $scope.apply = function() {
+                switch($scope.params.selectedAction) {
+                    case '1':
+                        console.log('Delete user');
+                        break;
+                    case '2':
+                        console.log('Delete user and posts');
+                        break;
+                    case '3':
+                        console.log('Ban user');
+                        break;
+                    case '4':
+                        console.log('Ban user and posts');
+                        break;
+                    default:
+                        return;
+                }
+            };
 
-          $scope.loadMore = function() {
-            if($scope.loadMoreAvailable) {
-              _init();
-            }
-          };
+            /**
+             * @public
+             */
+            $scope.changeRole = function() {
+                switch($scope.params.selectedRole) {
+                    case 'admin':
+                        console.log('Admin');
+                        break;
+                    case 'user':
+                        console.log('User');
+                        break;
+                    default:
+                        return;
+                }
+            };
 
-          $scope.apply = function() {
-            switch($scope.params.selectedAction) {
-              case '1':
-                console.log('Delete user');
-                break;
-              case '2':
-                console.log('Delete user and posts');
-                break;
-              case '3':
-                console.log('Ban user');
-                break;
-              case '4':
-                console.log('Ban user and posts');
-                break;
-              default:
-                return;
-            }
-          };
+            /**
+             * @public
+             */
+            $scope.search = function() {
+                console.log('Search');
+            };
 
-          $scope.changeRole = function() {
-            switch($scope.params.selectedRole) {
-              case 'admin':
-                console.log('Admin');
-                break;
-              case 'user':
-                console.log('User');
-                break;
-              default:
-                return;
-            }
-          };
+            /**
+             * @public
+             */
+            $scope.restore = function() {
+                console.log('restore');
+            };
 
-          $scope.search = function() {
-            console.log('Search');
-          };
+            /**
+            * @public
+            * @param {Object} user
+            */
+            $scope.setChecked = function(user) {
+                Assert.isObject(user, 'Invalid "user" type');
 
-          $scope.restore = function() {
-            console.log('restore');
-          };
+                if (user.checked) {
+                    $scope.params.selectedUsers.push(user.id)
+                } else {
+                    _.remove($scope.params.selectedUsers, function(userId) {
+                        return userId == user.id;
+                    });
+                }
+            };
 
-          /**
-           * @public
-           * @param {Object} wo
-           * @param {Boolean} checked
-           */
-          $scope.setChecked = function(user) {
-              if (user.checked) {
-                $scope.params.selectedUsers.push(user.id)
-              } else {
-                _.remove($scope.params.selectedUsers, function(userId) {
-                  return userId == user.id;
-                });
-              }
-          };
+            $scope._init();
     }]);
 });

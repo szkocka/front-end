@@ -11,16 +11,16 @@ define(['angular',
             $urlRouterProvider.when('/admin', '/admin/users');
             $stateProvider
                 .state('admin', {
-                  url: "/admin",
-                  templateUrl: 'app/modules/admin/admin.html',
-                  controller: 'AdminCtrl',
-                  abstract: true
+                    url: "/admin",
+                    templateUrl: 'app/modules/admin/admin.html',
+                    controller: 'AdminCtrl',
+                    abstract: true
                 })
 
                     // admin tabs
                     .state('admin.users', {
-                      url: "/users",
-                      templateUrl: "app/modules/admin/tabs/users.html",
+                        url: "/users",
+                        templateUrl: "app/modules/admin/tabs/users.html",
                     })
                     .state('admin.posts', {
                         url: "/posts/:userId/:userName",
