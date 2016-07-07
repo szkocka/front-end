@@ -9,6 +9,6 @@
     </ul>
 </div>
 
-<h4>Status: {{detectStatus()}} </h4>
+<h4>Status: {{project.status.toUpperCase()}} </h4>
 <h2>{{project.title}}</h2>
 <p ng-bind-html="project.description.detailed"></p>

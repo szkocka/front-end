@@ -31,7 +31,6 @@
                     <label class="control-label">Add Labels<span class="text-danger">*</span></label>
                     <tags-input class="bootstrap"
                                 ng-model="project.tags"
-                                placeholder="Add a movie"
                                 replace-spaces-with-dashes="false">
                     </tags-input>
                     <small class="text-danger">{{errors.tagsError}}</small>
@@ -40,7 +39,7 @@
                     <label for="changeStatus"> Change status: </label>
                     <select class="form-control" id="changeStatus" ng-model="project.status">
                         <option ng-repeat="status in statuses" value="{{status.id}}" 
-                                ng-selected="status.id === project.status">{{status.name}}</option>
+                                ng-selected="status.id === project.status.toLowerCase()">{{status.name}}</option>
                     </select>
                 </div>
                 <div class="form-group" ng-if="!newProject && project.researchers.length > 0">

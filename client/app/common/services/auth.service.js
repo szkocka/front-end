@@ -134,7 +134,7 @@ define(['angular'], function (angular) {
                  * @return {Object} user
                  */
                 getCurrentUser: function() {
-                  return _currentUser.user;
+                    return _currentUser.user;
                 },
 
                 /**
@@ -143,7 +143,8 @@ define(['angular'], function (angular) {
                  * @return {Boolean}
                  */
                 isLoggedIn: function() {
-                  return ('user' in _currentUser && 'role' in _currentUser.user);
+                    var token = $cookieStore.get('token');;
+                    return ('user' in _currentUser && 'role' in _currentUser.user && Type.isString(token));
                 },
 
                 /**

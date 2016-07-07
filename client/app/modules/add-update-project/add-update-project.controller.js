@@ -71,7 +71,8 @@ define(['angular'], function (angular) {
                     area: 'test area',
                     description: {
                         brief: $scope.project.description.brief,
-                        detailed: $scope.project.description.detailed
+                        //detailed: $scope.project.description.detailed
+                        detailed: 'New Arch'
                     }
                 };
 
@@ -81,17 +82,17 @@ define(['angular'], function (angular) {
                     } else {
                         $scope.project = {};
 
-                        $scope._createForum(res.data.research_id);
+                        $scope._createForum(res.data.research_id.toString());
                     }
                 });
             };
 
             /**
              * @private
-             * @param {String} user
+             * @param {String} id
              */
             $scope._createForum = function(id){
-                Assert.isString(user, 'Invalid "user" type');
+                Assert.isString(id, 'Invalid "id" type');
 
                 var params = {
                     researchId: id,
@@ -119,7 +120,7 @@ define(['angular'], function (angular) {
                     researchId: $scope.projectId,
                     title: $scope.project.title,
                     image_url: $scope.project.image_url,
-                    area: 'test area',
+                    status: $scope.project.status,
                     description: {
                         brief: $scope.project.description.brief,
                         detailed: $scope.project.description.detailed
@@ -195,11 +196,11 @@ define(['angular'], function (angular) {
                 } else {
                     $scope.errors.shortDescError = null;
                 }
-                if (!Type.isString($scope.project.description.detailed) || $scope.project.description.detailed  === '') {
+                /*if (!Type.isString($scope.project.description.detailed) || $scope.project.description.detailed  === '') {
                     $scope.errors.longDescError = 'Detailed Description is required.'
                 } else {
                     $scope.errors.longDescError = null;
-                }
+                }*/
                 if (!Type.isArray($scope.project.tags) || $scope.project.tags.length === 0) {
                     $scope.errors.tagsError = 'Required.';
                 } else {
@@ -207,7 +208,7 @@ define(['angular'], function (angular) {
                 }
                 if (!Type.isString($scope.project.title) || $scope.project.title === '' || 
                     !Type.isString($scope.project.description.brief) || $scope.project.description.brief === '' ||
-                    !Type.isString($scope.project.description.detailed) || $scope.project.description.detailed === '' || 
+                    //!Type.isString($scope.project.description.detailed) || $scope.project.description.detailed === '' || 
                     !Type.isArray($scope.project.tags) || $scope.project.tags.length === 0) {
                     return false;
                 } else {

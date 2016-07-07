@@ -51,7 +51,11 @@ define(['angular'], function (angular) {
                         if($scope.project.relationship_type === 'NONE') {
                             $scope.canJoinProject = true;
                         }
-                        $scope._getJoinRequests();
+
+                        if($scope.isSupervisor) {
+                            $scope._getJoinRequests();
+                        }
+                        
                     }
                 });
             };
@@ -90,7 +94,7 @@ define(['angular'], function (angular) {
                      if (Type.isNull(res)) {
                         $scope.inviteSent = false;
                         $scope.validationMsg = null;
-                        $scope.errorMsg = err.message;
+                        $scope.errorMsg = err.data.message;
                     } else {
                         $scope.newResearcher = {};
                         $scope.inviteSent = true;
@@ -114,7 +118,7 @@ define(['angular'], function (angular) {
                     researchId: $scope.researchId,
                     text: "DEF"
                 }
-                ResearchesService.sendInvitation(params, function(err, res){
+                ResearchesService.joinResearch(params, function(err, res){
                      if (Type.isNull(res)) {
                         console.log(err.message);
                     } else {
@@ -163,20 +167,6 @@ define(['angular'], function (angular) {
                         $scope._init();
                     }
                 });
-            };
-
-            /**
-             * @public
-             * @return {String}
-             */
-            $scope.detectStatus = function() {
-                if($scope.project.status == 'active') {
-                    return 'ACTIVE';
-                } else if ($scope.project.status == 'closed') {
-                    return 'CLOSED';
-                } else {
-                    return 'ON HOLD';
-                }
             };
 
             $scope._init();

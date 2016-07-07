@@ -88,7 +88,7 @@ define(['angular'], function (angular) {
                     if (Type.isNull(res)) {
                         $scope.errorMsg = 'Failed to create new forum';
                     } else {
-                        $state.go('project.forum.one', {forumId: res.forum_id});
+                        $state.go('project.forum.one', {forumId: res.data.forum_id});
                     }
                 });
             };

@@ -62,7 +62,7 @@ define(['angular'], function (angular) {
                     Assert.isString(id, 'Invalid "id" type');
                     Assert.isFunction(callback, 'Invalid "callback" type');
 
-                    var url = _baseUrl + 'me/invites/researches' + id + '/accepted';
+                    var url = _baseUrl + 'me/invites/researches/' + id + '/accepted';
                     RestService.postRequest(url, {}, function(err, res) {
                         callback(err, res);
                     });
@@ -77,7 +77,7 @@ define(['angular'], function (angular) {
                      Assert.isString(id, 'Invalid "id" type');
                     Assert.isFunction(callback, 'Invalid "callback" type');
 
-                    var url = _baseUrl + 'me/invites/researches' + id + '/declined';
+                    var url = _baseUrl + 'me/invites/researches/' + id + '/declined';
                     RestService.postRequest(url, {}, function(err, res) {
                         callback(err, res);
                     });

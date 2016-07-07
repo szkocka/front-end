@@ -52,7 +52,7 @@
       <div class="btn-group btn-group-justified" role="group" aria-label="...">
         <button type="button" class="btn btn-default" ng-class="{'active': searchParams.status == 'active'}"
                 ng-click="showActiveProjects()">Active</button>
-        <button type="button" class="btn btn-default" ng-class="{'active': searchParams.status == ''}"
+        <button type="button" class="btn btn-default" ng-class="{'active': searchParams.status == null}"
                 ng-click="showAllProjects()">All</button>
       </div>
       <form class="form-inline">
