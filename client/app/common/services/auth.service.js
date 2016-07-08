@@ -118,7 +118,7 @@ define(['angular'], function (angular) {
                     
                     var cb = callback || angular.noop;
 
-                    return User.changePassword({ id: _currentUser._id }, {
+                    return User.changePassword({
                         oldPassword: oldPassword,
                         newPassword: newPassword
                     }, function(user) {

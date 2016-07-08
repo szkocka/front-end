@@ -15,6 +15,7 @@ define(['angular'], function (angular) {
                 changePassword: {
                     method: 'PUT',
                     params: {
+                        id:'me',
                         controller:'password'
                     }
                 },
