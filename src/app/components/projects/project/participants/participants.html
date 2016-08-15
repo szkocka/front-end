@@ -1,0 +1,51 @@
+<p>Research supervisor: 
+     <a ui-sref="profile({id: project.supervisor.id})">{{project.supervisor.name}}</a>
+</p>
+<div ng-if="project.researchers.length > 0">
+    <p>Researchers:</p>
+    <ul>
+        <li ng-repeat="user in project.researchers">
+            <section>
+                <a ui-sref="profile({id: user.id})">{{user.name}}</a>
+            </section>
+        </li>
+    </ul>
+</div>
+<div class="container" ng-if="isSupervisor">
+    <div class="row" ng-if="inviteSent">
+        <p class="text-success">Invitation have been sent</p>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Invite researcher</h3>
+        </div>
+        <div class="col-sm-12">
+            <form ng-submit="inviteResearcher(form.$valid, $event)" class="form" name="form" novalidate>
+
+                <div class="form-group">
+                    <label>Name<span class="text-danger">*</span></label>
+                    <input type="text" name="name" class="form-control" ng-model="newResearcher.name" required/>
+                    <div class="help-block" ng-messages="form.name.$error" ng-if="form.name.$touched">
+                        <p ng-message="required">This field is required</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email<span class="text-danger">*</span></label>
+                    <input type="email" name="email" class="form-control" ng-model="newResearcher.email"/>
+                    <div class="help-block" ng-messages="form.email.$error" ng-if="form.email.$touched">
+                        <p ng-message="required">This field is required</p>
+                        <p ng-message="email">This needs to be a valid email</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Message</label>
+                    <textarea class="form-control" rows="5" ng-model="newResearcher.text"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Invite</button>
+            </form>
+        </div>
+    </div>
+</div>

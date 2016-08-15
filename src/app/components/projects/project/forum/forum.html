@@ -1,0 +1,18 @@
+<h3 ng-if="forumsAccessError">Sorry, you don't have access to this research formus</h3>
+
+<div ng-if="!forumsAccessError">
+    <form>
+        <div class="form-group">
+            <h3>New topic</h3>
+            <input class="form-control" ng-model="newForum" placeholder="topic"></input>
+        </div>
+    </form>
+
+    <button type="button" class="btn btn-primary" ng-click="createForum(newForum, $event)">Start topic</button>
+    <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
+        <div ng-repeat="forum in forums | orderBy: 'forum.created'">
+            <h3><a ui-sref="project.messages({forumId: forum.id})">{{forum.subject}}</a></h3>
+            <i>{{forum.createdBy.name}} on {{forum.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
+        </div>
+    </div>
+<div>

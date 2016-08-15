@@ -1,0 +1,32 @@
+<section class="hero container">
+    <div class="row">
+        <div class="col-lg-12 project-image">
+            <img ng-src="{{project.image_url}}" alt="{{project.title}}">
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <button class="btn btn-primary pull-right" ng-if="isSupervisor" ng-click="edit()">
+                Edit
+            </button>
+            <button class="btn btn-success pull-right" ng-if="canJoinProject" ng-click="join()">
+                Join
+            </button>
+            <ul class="nav nav-tabs">
+                <li ui-sref-active="active">
+                    <a ui-sref="project.about">About</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="project.participants">Participants</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="project.forum">Forum</a>
+                </li>
+            </ul>
+            <div ui-view="content"></div>
+        </div>
+    </div>
+</section>

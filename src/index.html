@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Szkotska</title>
+
+    <!-- vendor:css -->
+    <!-- endinject -->
+
+    <!-- vendor:js -->
+    <!-- endinject -->
+
+    <!-- inject:css -->
+    <!-- endinject -->
+
+</head>
+<body>
+    <div ui-view="content"></div>
+
+    <!-- inject:js -->
+    <!-- endinject -->
+
+    <!-- templates:js -->
+    <!-- endinject -->
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                processEscapes: true
+            }
+        });
+    </script>
+</body>
+</html>

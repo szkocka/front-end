@@ -1,0 +1,2 @@
+angular
+    .module('change-password', []);

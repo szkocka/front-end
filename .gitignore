@@ -4,6 +4,6 @@ public
 .idea
 client/bower_components
 dist
-/server/config/local.env.js
-/server/api/project/upload
 /client/app/app.css
+dev
+release

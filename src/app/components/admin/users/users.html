@@ -1,0 +1,58 @@
+<form class="form-inline admin-users">
+      <div class="form-group admin-select">
+        <select class="form-control" ng-model="params.selectedAction">
+            <option value="">Select Action</option> 
+            <option ng-repeat="action in actions" value="{{action.id}}">{{action.name}}</option>
+        </select>
+        <button type="buttom" class="btn btn-default" ng-click="apply()">Apply</button>
+    </div>
+    <div class="form-group admin-select">
+        <select class="form-control" ng-model="params.selectedRole">
+            <option value="">Select Role</option> 
+            <option ng-repeat="role in roles" value="{{role.id}}">{{role.name}}</option>
+        </select>
+        <button type="buttom" class="btn btn-default" ng-click="changeRole()">Change Role</button>
+    </div>
+
+    <div class="form-group pull-right">
+        <input type="text" class="form-control" placeholder="search">
+        <button type="button" class="btn btn-default" ng-click="search()">Search</button>
+    </div>
+</form>
+
+<div class="table-responsive">
+    <table class="table table-bordered" lazy-scroll="loadMore()" lazy-scroll-trigger="90">
+        <tr>
+            <th></th>
+            <th>User</th>
+            <th>E-mail</th>
+            <th>Role</th>
+            <th>Posts</th>
+            <th>Status</th>
+        </tr>
+        <tr ng-repeat="user in users">
+            <td>
+                <div class="checkbox">
+                    <label ng-click="setChecked(user)">
+                          <input type="checkbox" ng-model="user.checked">
+                    </label>
+                  </div>
+            </td>
+            <td>
+                <div>{{user.name}}</div>
+                <a ui-sref="profile-edit({id: user.id})">Edit</a>
+            </td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
+            <td>
+                <a ui-sref="admin.posts({userId: user.id, userName: user.name})">
+                    {{user.created_forums + user.posted_messages + user.researcher_in + user.supervisor_in}}
+                </a>
+            </td>
+            <td>
+                <div>{{user.status}}</div>
+                <button ng-if="user.status === 'banned'" type="button" class="btn btn-link" ng-click="restore(user)">restore</button>
+            </td>
+        </tr>
+    </table>
+</div>

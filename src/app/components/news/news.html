@@ -1,0 +1,39 @@
+<div class="container">
+    <h1 class="page-header">
+        <button class="btn btn-primary pull-right" ng-if="showAddButton" ng-click="addNews()">
+            Add News
+        </button>
+        News:
+    </h1>
+</div>
+
+<section class="projects container">
+    <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
+        <ul class="list-unstyled">
+            <li class="project-block" ng-repeat="item in news">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="project-block-image" style="background-image: url('{{item.viewNews.image_url}}');">
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                        <div class="project-block-info">
+                            <h2>{{item.viewNews.title}}</h2>
+                            <i>{{item.viewNews.createdBy[0].name}} on {{item.viewNews.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
+                            <div class="news-descr">
+                                <p ng-bind-html="item.viewNews.body" ng-if="!item.showMore"></p>
+                            </div>
+
+                            <button class="btn btn-default" ng-if="item.showMore" ng-click="showMore(item)">
+                                More info...
+                            </button>
+                            <button class="btn btn-default" ng-if="!item.showMore" ng-click="showLess(item)">
+                                Hide...
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
