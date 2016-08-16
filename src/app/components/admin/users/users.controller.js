@@ -60,7 +60,7 @@
         };
 
         function apply() {
-            if ($scope.params.selectedUsers.length > 0) {
+            if ($scope.params.selectedUsers.length === 0) {
                 return;
             }
             switch($scope.params.selectedAction) {

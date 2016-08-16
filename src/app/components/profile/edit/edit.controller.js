@@ -20,7 +20,7 @@
 
             profileService.saveUsersProfileData($scope.user)
                 .then(function(res) {
-                    $state.go('profile', {id: 'my'});
+                    $state.go('profile', {id: $scope.user.id});
                 }, function(err) {
                     console.log(err.message);
                 });

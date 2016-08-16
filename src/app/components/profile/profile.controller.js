@@ -9,7 +9,7 @@
     function ProfileController($scope, $state, $stateParams, profileService,
         accountService, Assert, Type) {
         /** @public {Boolean} */
-        $scope.isMyProfile = $stateParams.id === 'my';
+        $scope.isMyProfile = $stateParams.id === 'my' || $stateParams.id == accountService.getCurrentUser()._id;
         /** @private {String} */
         $scope.userId = $scope.isMyProfile ? accountService.getCurrentUser()._id : $stateParams.id;
         /** @public {Object} */
