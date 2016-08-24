@@ -10,6 +10,7 @@
         return {
             getUserProfile: getUserProfile,
             saveUsersProfileData: saveUsersProfileData,
+            saveMyProfileData: saveMyProfileData,
             getInvitations: getInvitations,
             acceptInvitation: acceptInvitation,
             declineInvitation: declineInvitation,
@@ -21,6 +22,11 @@
         }
 
         function saveUsersProfileData(params) {
+            Assert.isObject(params, 'Invalid "params" type');
+            return $http.put(API_URL + 'users/' + params.id, params);
+        }
+
+        function saveMyProfileData(params) {
             Assert.isObject(params, 'Invalid "params" type');
             return $http.put(API_URL + 'users', params);
         }

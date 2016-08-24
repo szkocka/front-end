@@ -6,7 +6,11 @@
         .controller('ProfileEditController', ProfileEditController);
 
     /* ngInject */
-    function ProfileEditController($scope, $state, profileService, Type, userProfileResolver) {
+    function ProfileEditController($scope, $state, $stateParams, profileService, Type,
+        userProfileResolver, accountService) {
+
+        /** @public {Boolean} */
+        $scope.isMyProfile = $stateParams.id == accountService.getCurrentUser()._id;
         /** @public {Object} */
         $scope.user = userProfileResolver.data;
 
@@ -17,13 +21,21 @@
          */
         function save(e) {
             e.preventDefault();
-
-            profileService.saveUsersProfileData($scope.user)
-                .then(function(res) {
-                    $state.go('profile', {id: $scope.user.id});
-                }, function(err) {
-                    console.log(err.message);
-                });
+            if ($scope.isMyProfile) {
+                profileService.saveMyProfileData($scope.user)
+                    .then(function(res) {
+                        $state.go('profile', {id: 'my'});
+                    }, function(err) {
+                        console.log(err.message);
+                    });
+            } else {
+                profileService.saveUsersProfileData($scope.user)
+                    .then(function(res) {
+                        $state.go('profile', {id: $scope.user.id});
+                    }, function(err) {
+                        console.log(err.message);
+                    });
+            }
         };
     }
 })();
