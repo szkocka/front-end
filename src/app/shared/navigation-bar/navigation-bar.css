@@ -1,0 +1,27 @@
+.top-nav-bar {
+    position: fixed;
+    background-color:rgba(255,255,255,0.17)!important;
+}
+.top-nav-bar .md-toolbar-tools{
+    background-color:none;
+    position: relative;
+}
+.top-nav-bar .brand {
+    background-color: #ff5252;
+    width: 35px;
+    font-size: 25px;
+    font-weight: bold;
+}
+.top-nav-bar .md-button {
+    min-width: 0;
+}
+.top-nav-bar .right-part {
+    position: absolute;
+    right: 0;
+}
+.top-nav-bar .md-toolbar-tools > .md-button:first-child {
+    margin-left: 0;
+}
+.md-sidenav-left .md-button {
+    width: 100%;
+}

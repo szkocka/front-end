@@ -9,8 +9,9 @@ module.exports = function() {
                 'src/assets/**/*.css',
                 //'node_modules/bootstrap/less/bootstrap.less',
                 //'node_modules/font-awesome/less/font-awesome.less',
+                'src/app/**/*.css',
                 'src/app/app.less'
-                //'src/app/**/*.less'
+                
             ],
             images: 'src/assets/images/**/*',
             fonts: [
