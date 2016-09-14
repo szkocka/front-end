@@ -9,6 +9,7 @@ angular
         'ngTagsInput',
         'angularMoment',
         'ui.bootstrap',
+        'ngMaterial',
 
         'kendo.directives',
         'lazy-scroll',

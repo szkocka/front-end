@@ -5,6 +5,7 @@ module.exports = function() {
             scripts: 'src/app/**/*.js',
             stylesheets: [
                 'node_modules/ng-tags-input/build/ng-tags-input.min.css',
+                'node_modules/angular-material/angular-material.css',
                 'src/assets/**/*.css',
                 //'node_modules/bootstrap/less/bootstrap.less',
                 //'node_modules/font-awesome/less/font-awesome.less',
@@ -28,6 +29,9 @@ module.exports = function() {
                 'node_modules/angular-messages/angular-messages.js',
                 'node_modules/angular-resource/angular-resource.js',
                 'node_modules/angular-sanitize/angular-sanitize.js',
+                'node_modules/angular-aria/angular-aria.js',
+                'node_modules/angular-animate/angular-animate.js',
+                'node_modules/angular-material/angular-material.js',
                 'node_modules/angular-ui-router/release/angular-ui-router.js',
                 'node_modules/angular-mocks/angular-mocks.js',
                 'node_modules/lodash/dist/lodash.min.js',
