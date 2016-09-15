@@ -50,19 +50,26 @@
             </div>
 
             <div class="restricted-area" ng-if="!showAuth">
-                <md-button class="md-button" ui-sref-active="active" ui-sref="projects">
+                <md-button class="md-button" hide-xs ui-sref-active="active" ui-sref="projects">
                     My projects
-                </md-button>|
+                </md-button>
+                <span hide-xs>|</span>
                 <md-button class="md-button" ui-sref-active="active" ui-sref="profile({id: 'my'})">
                     {{user.name}}
                 </md-button>
                 <md-menu>
-                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                    <md-button aria-label="Open phone interactions menu" class="md-icon-button"
+                               ng-click="openMenu($mdOpenMenu, $event)">
                         <md-icon aria-label="more_vert" style="font-size: 26px">
                             more_vert
                         </md-icon>
                     </md-button>
                     <md-menu-content width="4">
+                        <md-menu-item hide-gt-sm show-xs>
+                            <md-button ui-sref="projects">
+                                My projects
+                            </md-button>
+                        </md-menu-item>
                         <md-menu-item>
                             <md-button ui-sref="add">
                                 Add Project
