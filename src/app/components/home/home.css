@@ -1,0 +1,26 @@
+.top-image {
+    position: relative;
+}
+.top-image img {
+    width: 100%;
+    height: auto;
+}
+.top-image .info {
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 40px;
+    color: #fff;
+    text-align: center;
+}
+.top-image h1 {
+    text-transform: uppercase;
+}
+.top-image h4 {
+    font-weight: 100;
+}
+@media (min-width: 768px) {
+    .top-image .info  {
+        bottom: 35%;
+    }
+}

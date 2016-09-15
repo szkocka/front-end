@@ -48,7 +48,7 @@ module.exports = function() {
             scripts: 'dev/app',
             less: 'dev/less',
             stylesheets: 'dev/stylesheets',
-            images: 'dev/images',
+            images: 'dev/img',
             fonts: 'dev/fonts',
             templates: 'dev/app',
             vendors: 'dev/vendor',
