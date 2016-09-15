@@ -1,4 +1,5 @@
-<md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="4" ng-click="toggleLeft()">
+<md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop=""
+            md-whiteframe="4" ng-click="toggleLeft()" >
     <md-button class="md-button" ui-sref="home">
         Projects
     </md-button>
@@ -25,16 +26,16 @@
         </md-button>
 
         <div class="left-part" show-gt-sm hide-sm hide-xs>
-            <md-button class="md-button" ui-sref-active="active" ui-sref="home">
+            <md-button class="md-button" md-autoselect="active" ui-sref="home">
                 Projects
             </md-button>
-            <md-button class="md-button" ui-sref-active="active" ui-sref="about">
+            <md-button class="md-button" md-autoselect="active" ui-sref="about">
                 About
             </md-button>
-            <md-button class="md-button" ui-sref-active="active" ui-sref="news" ng-if="!showAuth">
+            <md-button class="md-button" md-autoselect="active" ui-sref="news" ng-if="!showAuth">
                 News
             </md-button>
-            <md-button class="md-button" ui-sref-active="active" ui-sref="admin" ng-if="isAdmin">
+            <md-button class="md-button" md-autoselect="active" ui-sref="admin" ng-if="isAdmin">
                 Admin
             </md-button>
         </div>
@@ -65,7 +66,7 @@
                         </md-icon>
                     </md-button>
                     <md-menu-content width="4">
-                        <md-menu-item hide-gt-sm show-xs>
+                        <md-menu-item hide-gt-xs show-xs>
                             <md-button ui-sref="projects">
                                 My projects
                             </md-button>

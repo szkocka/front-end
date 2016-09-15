@@ -8,14 +8,14 @@
         .constant('LOAD_LIMIT', 20)
         .constant('TAGS_SHORT_LIST_QTY', 15)
         .constant('CAROUSEL_INTERVAL', 5000)
-        .constant('PROJ_STATUSES', [       
+        .constant('PROJ_STATUSES', [
             {'id': 'ACTIVE','name': 'ACTIVE'},
             {'id': 'CLOSED','name': 'CLOSED'},
             {'id': 'ONHOLD','name': 'ON HOLD'}])
         .constant('ACTIONS', [
             {'id': '1','name': 'Delete user'},
             {'id': '2','name': 'Ban user'}])
-        .constant('ROLES', [       
+        .constant('ROLES', [
             {'id': 'admin','name': 'Admin'},
             {'id': 'user','name': 'User'}]);
 })();
