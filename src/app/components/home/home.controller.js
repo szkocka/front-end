@@ -7,47 +7,50 @@
 
     /* ngInject */
     function HomeController($scope, $rootScope, homeService, LOAD_LIMIT,
-        TAGS_SHORT_LIST_QTY, CAROUSEL_INTERVAL, Assert, Type) {
+        TAGS_SHORT_LIST_QTY, CAROUSEL_INTERVAL, Assert, Type, $mdToast) {
         /** @public {Array<Object>} */
-        $scope.latest5 = [];
+        //$scope.latest5 = [];
         /** @private {Number} */
-        $scope.carouselInterval = CAROUSEL_INTERVAL;
+        //$scope.carouselInterval = CAROUSEL_INTERVAL;
         /** @public {Array<Object>} */
         $scope.projectsList = [];
         /** @private {Array<Object>} */
-        $scope.tags = [];
+        //$scope.tags = [];
         /** @public {Array<Object>} */
-        $scope.viewTags = [];
+        //$scope.viewTags = [];
         /** @public {Boolean} */
-        $scope.showTagsShortList = true;
+        //$scope.showTagsShortList = true;
         /** @public {Boolean} */
         $scope.loadMoreAvailable = true;
         /** @private {String} */
-        $scope.filterEventName = 'projectsFilter';
+        //$scope.filterEventName = 'projectsFilter';
         /** @private {Object} */
         $scope.searchParams = {
             keyword: null,
             status: 'active',
-            tag: null,
+            //tag: null,
             page: 0
         };
+        /** @public {Boolean} */
+        $scope.showSearchInput = false;
+        /** @private {String} */
+        $scope.currentNavItem = 'active';
+        /** @public {Boolean} */
+        $scope.isLoading = true;
 
-        /** @public {String} */
-        $scope.errorMsg = '';
-
-        $scope._getTags = _getTags;
-        $scope._getTagsToShow = _getTagsToShow;
+        //$scope._getTags = _getTags;
+        //$scope._getTagsToShow = _getTagsToShow;
         $scope._init = _init;
         $scope.loadMore = loadMore;
         $scope.showActiveProjects = showActiveProjects;
         $scope.showAllProjects = showAllProjects;
         $scope.search = search;
-        $scope.clearTag = clearTag;
-        $scope.activateTag = activateTag;
-        $scope.showAllTags = showAllTags;
-        $scope.showLessTags = showLessTags;
+        //$scope.clearTag = clearTag;
+        //$scope.activateTag = activateTag;
+        //$scope.showAllTags = showAllTags;
+        //$scope.showLessTags = showLessTags;
 
-        function _getTags() {
+        /*function _getTags() {
             homeService.getTags()
                 .then(function(res) {
                     $scope.tags = _.uniq(res.data.tags);
@@ -60,7 +63,7 @@
                 }, function(err) {
                     console.log(err.message);
                 });
-        };
+        };*/
 
         function loadMore() {
             if($scope.loadMoreAvailable) {
@@ -69,8 +72,10 @@
         };
 
         function _init() {
+            $scope.isLoading = true;
             homeService.query($scope.searchParams)
                 .then(function(res) {
+                    $scope.isLoading = false;
                     if(_.find($scope.projectsList, function(proj) {
                         return proj.id == res.data.researches[0].id; })
                         ) {
@@ -84,13 +89,13 @@
                         $scope.projectsList.push(proj);
                     });
 
-                    $scope.latest5 = _.take($scope.projectsList, 5);
+                    //$scope.latest5 = _.take($scope.projectsList, 5);
                     $scope.searchParams.page = $scope.searchParams.page + 1;
                     
                     // fire event to redraw main image slider carousel
-                    $rootScope.$broadcast($scope.filterEventName);
+                    //$rootScope.$broadcast($scope.filterEventName);
                 }, function(err) {
-                    $scope.errorMsg = err.message;
+                    $scope.isLoading = false;
                     $scope.loadMoreAvailable = false;
                 });
         };
@@ -113,19 +118,21 @@
             $scope._init();
         };
 
-        function search() {
-            $scope.projectsList = [];
-            $scope.searchParams.page = 0;
-            $scope.searchParams.tag = null;
-            $scope.loadMoreAvailable = true;
-            $scope._init();
+        function search(e) {
+            if (e.keyCode === 13) {
+                $scope.projectsList = [];
+                $scope.searchParams.page = 0;
+                //$scope.searchParams.tag = null;
+                $scope.loadMoreAvailable = true;
+                $scope._init();
+            }
         };
 
         function clearTag() {
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
             $scope.searchParams.keyword = null;
-            $scope.searchParams.tag = null;
+            //$scope.searchParams.tag = null;
             $scope.loadMoreAvailable = true;
             $scope._init();
         };
@@ -133,7 +140,7 @@
         /**
          * @param {String} tag
          */
-        function activateTag(tag) {
+        /*function activateTag(tag) {
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
             $scope.searchParams.keyword = null;
@@ -154,9 +161,9 @@
 
         function _getTagsToShow() {
             $scope.viewTags = _.take($scope.tags, TAGS_SHORT_LIST_QTY);
-        };
+        };*/
 
         $scope._init();
-        $scope._getTags();
+        //$scope._getTags();
     }
 })();

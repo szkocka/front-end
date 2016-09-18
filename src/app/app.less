@@ -7,6 +7,9 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
+html {
+    background-color: #fff;
+}
 .md-container {
     width:100%;
     margin: 0 auto;
@@ -15,6 +18,47 @@ body {
     .md-container {
         width:80%;
     }
+}
+md-content.md-default-theme, md-content {
+    background-color: #fff!important;
+}
+.progress-circular {
+    padding: 20px 45%;
+}
+md-toast .md-toast-content {
+    background-color: red;
+}
+.itemsList .date,
+.itemsList .md-headline,
+.itemsList .shortDescription,
+.itemsList md-card-actions{
+    margin: 0 10px 10px 10px;
+    word-break: break-all;
+    line-height: 1;
+}
+.itemsList .date {
+    color: rgb(63,81,181);
+    margin-top: 5px;
+}
+md-card md-card-title,
+md-card md-card-content {
+    padding: 0;
+}
+.itemsList .tag{
+    background: #ff5252;
+    font-size: 9px;
+    line-height: 2;
+    min-height: 100%;
+    height: 100%;
+    min-width: 0;
+}
+.itemsList .md-headline {
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.md-button:not([disabled]):hover {
+    background-color: rgba(158,158,158,0.6);
 }
 .browsehappy {
     margin: 0.2em 0;

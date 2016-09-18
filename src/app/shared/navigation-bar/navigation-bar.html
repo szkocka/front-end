@@ -26,36 +26,36 @@
         </md-button>
 
         <div class="left-part" show-gt-sm hide-sm hide-xs>
-            <md-button class="md-button" md-autoselect="active" ui-sref="home">
+            <md-button class="md-button" ng-class="{active: isActive('/')}" ui-sref="home">
                 Projects
             </md-button>
-            <md-button class="md-button" md-autoselect="active" ui-sref="about">
+            <md-button class="md-button" ng-class="{active: isActive('/about')}" ui-sref="about">
                 About
             </md-button>
-            <md-button class="md-button" md-autoselect="active" ui-sref="news" ng-if="!showAuth">
+            <md-button class="md-button" ng-class="{active: isActive('/news')}" ui-sref="news" ng-if="!showAuth">
                 News
             </md-button>
-            <md-button class="md-button" md-autoselect="active" ui-sref="admin" ng-if="isAdmin">
+            <md-button class="md-button" ui-sref-active="active" ui-sref="admin" ng-if="isAdmin">
                 Admin
             </md-button>
         </div>
 
         <div class="right-part">
             <div class="free-area" ng-if="showAuth">
-                <md-button class="md-button" ui-sref-active="active" ui-sref="sign-in">
+                <md-button class="md-button" ng-class="{active: isActive('/sign-in')}" ui-sref="sign-in">
                     Login
                 </md-button>
-                <md-button class="md-button" ui-sref-active="active" ui-sref="sign-up">
+                <md-button class="md-button" ng-class="{active: isActive('/sign-up')}" ui-sref="sign-up">
                     Sign up
                 </md-button>
             </div>
 
             <div class="restricted-area" ng-if="!showAuth">
-                <md-button class="md-button" hide-xs ui-sref-active="active" ui-sref="projects">
+                <md-button class="md-button" hide-xs ng-class="{active: isActive('/projects')}" ui-sref="projects">
                     My projects
                 </md-button>
                 <span hide-xs>|</span>
-                <md-button class="md-button" ui-sref-active="active" ui-sref="profile({id: 'my'})">
+                <md-button class="md-button" ng-class="{active: isActive('/profile/my')}" ui-sref="profile({id: 'my'})">
                     {{user.name}}
                 </md-button>
                 <md-menu>

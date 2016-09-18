@@ -1,5 +1,6 @@
 angular
     .module('shared', [
         'navigation-bar',
-        'utils'
+        'utils',
+        'global-error-handler'
     ]);

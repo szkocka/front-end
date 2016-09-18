@@ -24,7 +24,44 @@
       </div>
 </section>-->
 
-<section class="projects container">
+<md-content class="itemsList md-container">
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-click="goto('active')" ng-click="showActiveProjects()" name="active">Active</md-nav-item>
+        <md-nav-item md-nav-click="goto('all')" ng-click="showAllProjects()" name="all">All</md-nav-item>
+        <md-input-container md-theme="input" class="searchInput" flex ng-if="showSearchInput">
+            <label>&nbsp;</label>
+            <input placeholder="Search" ng-model="searchParams.keyword" ng-keypress="search($event)">
+        </md-input-container>
+        <md-icon aria-label="search" class="search" ng-click="showSearchInput = !showSearchInput">
+            search
+        </md-icon>
+    </md-nav-bar>
+
+    <md-content lazy-scroll="loadMore()" lazy-scroll-trigger="90" layout="row" layout-wrap>
+        <div flex="33" flex-sm="50" flex-xs="100" ng-repeat="project in projectsList">
+            <md-card  ui-sref="project({id: project.id})">
+                <img ng-src="{{project.image_url}}" class="md-card-image">
+                <i class="date">{{project.created | date:"DD/mm/yyyy 'at' h:mma"}}</i>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{project.title}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p ng-bind-html="project.description.brief" class="shortDescription"></p>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="start center">
+                    <md-button class="md-mini tag" ng-repeat="tag in project.tags">{{tag}}</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </md-content>
+    <div layout="row" layout-sm="column" layout-align="space-around" class="progress-circular" ng-if="isLoading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+</md-content>
+
+<!--<section class="projects container">
     <div class="row">
         <h2 class="projects-list-title">Projects</h2>
         <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -87,4 +124,4 @@
             </section>
         </div>
     </div>
-</section>
+</section>-->

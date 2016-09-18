@@ -40,7 +40,7 @@ module.exports = function() {
                 'node_modules/ng-tags-input/build/ng-tags-input.min.js',
                 'src/assets/lib/**/*.js'
             ],
-            kendoSprite: 'src/assets/lib/kendo/css/Default/sprite.png'
+            kendoSprite: 'src/assets/lib/kendo/css/Default/**/*.png'
         },
         dev: {
             index: 'dev',

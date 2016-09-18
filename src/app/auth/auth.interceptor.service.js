@@ -15,6 +15,7 @@
                     $rootScope.signOut();
                 });
             }
+            $rootScope.$broadcast( 'httpError', { response: response } );
             return $q.reject(response);
         };
     }

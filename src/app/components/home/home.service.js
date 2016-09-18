@@ -8,13 +8,13 @@
     /* ngInject */
     function homeService($http, API_URL, Assert, Type) {
         return {
-            getTags: getTags,
+            //getTags: getTags,
             query: query
         };
 
-        function getTags() {
+        /*function getTags() {
             return $http.get(API_URL + 'researches/tags');
-        };
+        };*/
 
         /**
          * @param {Object} params
@@ -35,10 +35,10 @@
                     params.push(status);
                 }
 
-                if (!Type.isNull(data.tag)) {
+                /*if (!Type.isNull(data.tag)) {
                     var tag = 'tag=' + data.tag;
                     params.push(tag);
-                }
+                }*/
 
                 if (data.page != '') {
                     var page = 'page=' + data.page;
