@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('global-error-handler')
+        .module('error-handler')
         .factory('errorService', errorService);
 
     function errorService($mdToast) {

@@ -14,8 +14,9 @@
                 $timeout(function() {
                     $rootScope.signOut();
                 });
+            } else {
+                $rootScope.$broadcast( 'httpError', { response: response } );
             }
-            $rootScope.$broadcast( 'httpError', { response: response } );
             return $q.reject(response);
         };
     }
