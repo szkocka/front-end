@@ -14,8 +14,5 @@
             {'id': 'ONHOLD','name': 'ON HOLD'}])
         .constant('ACTIONS', [
             {'id': '1','name': 'Delete user'},
-            {'id': '2','name': 'Ban user'}])
-        .constant('ROLES', [
-            {'id': 'admin','name': 'Admin'},
-            {'id': 'user','name': 'User'}]);
+            {'id': '2','name': 'Ban user'}]);
 })();

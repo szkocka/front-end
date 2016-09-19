@@ -6,13 +6,12 @@
         .controller('UsersController', UsersController);
 
     /* ngInject */
-    function UsersController($scope, LOAD_LIMIT, ACTIONS, ROLES, usersService, Assert) {
+    function UsersController($scope, LOAD_LIMIT, ACTIONS, usersService, Assert) {
         /** @public {Array<Object>} */
         $scope.users = [];
         /** @private {Object} */
         $scope.params = {
           selectedAction: null,
-          selectedRole: null,
           selectedUsers: []
         };
         /** @private {Object} */
@@ -21,15 +20,12 @@
         $scope.loadMoreAvailable = true;
         /** @public {Array<Object>} */
         $scope.actions = ACTIONS; 
-        /** @public {Array<Object>} */
-        $scope.roles = ROLES;
 
         $scope._init = _init;
         $scope._deleteUsers = _deleteUsers;
         $scope._banUsers = _banUsers;
         $scope.loadMore = loadMore;
         $scope.apply = apply;
-        $scope.changeRole = changeRole;
         $scope.search = search;
         $scope.restore = restore;
         $scope.setChecked = setChecked;
@@ -104,19 +100,6 @@
                 }, function(err) {
                     console.log(err);
                 });
-        };
-
-        function changeRole() {
-            switch($scope.params.selectedRole) {
-                case 'admin':
-                    console.log('Admin');
-                    break;
-                case 'user':
-                    console.log('User');
-                    break;
-                default:
-                    return;
-            }
         };
 
         function search() {
