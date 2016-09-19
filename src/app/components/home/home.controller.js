@@ -76,13 +76,15 @@
             homeService.query($scope.searchParams)
                 .then(function(res) {
                     $scope.isLoading = false;
-                    if(_.find($scope.projectsList, function(proj) {
-                        return proj.id == res.data.researches[0].id; })
-                        ) {
-                        return;
-                    }
+
                     if (res.data.researches.length < LOAD_LIMIT) {
                         $scope.loadMoreAvailable = false;
+                    }
+
+                    if(_.find($scope.projectsList, function(proj) {
+                        return res.data.researches.length > 0 && proj.id == res.data.researches[0].id; })
+                        ) {
+                        return;
                     }
 
                     res.data.researches.forEach(function(proj){

@@ -23,7 +23,6 @@
         </div>
       </div>
 </section>-->
-
 <md-content class="itemsList md-container">
     <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
         <md-nav-item md-nav-click="goto('active')" ng-click="showActiveProjects()" name="active">Active</md-nav-item>
@@ -37,7 +36,7 @@
         </md-icon>
     </md-nav-bar>
 
-    <md-content lazy-scroll="loadMore()" lazy-scroll-trigger="90" layout="row" layout-wrap>
+    <md-content  layout="row" layout-wrap lazy-scroll="loadMore()" lazy-scroll-trigger="90">
         <div flex="33" flex-sm="50" flex-xs="100" ng-repeat="project in projectsList">
             <md-card  ui-sref="project({id: project.id})">
                 <img ng-src="{{project.image_url}}" class="md-card-image">
@@ -60,6 +59,7 @@
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
 </md-content>
+
 
 <!--<section class="projects container">
     <div class="row">

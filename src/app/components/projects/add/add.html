@@ -21,12 +21,31 @@
                     <label class="control-label">Detailed Description<span class="text-danger">*</span></label>
                     <textarea kendo-editor k-ng-model="project.description.detailed"></textarea>
                 </div>
+
+
                 <div class="form-group">
-                    <button class="btn btn-default btn-file" ngf-select="onFileSelect($event)"
+                    <button class="btn btn-default btn-file" ngf-select ng-model="image" accept="image/*">
+                    Upload image</button>
+                    <div ngf-drop ng-model="image" ngf-pattern="image/*"
+                        class="cropArea">
+                        <img-crop image="image | ngfDataUrl" area-min-size="500"
+                        result-image="croppedDataUrl" ng-init="croppedDataUrl=''" area-type="square">
+                        </img-crop>
+                    </div>
+                    <div>
+                        <img ng-src="{{croppedDataUrl}}" />
+                    </div>
+                    <button ng-click="onFileSelect(croppedDataUrl, image.name)">Submit Image</button> 
+
+                    <!--<button class="btn btn-default btn-file" ngf-select="onFileSelect($event)"
                         accept="image/*">Upload image</button>
                     </span>
-                    <img class="preview" ng-src="{{project.image_url}}"> 
+                    <img class="preview" ng-src="{{project.image_url}}"> -->
                 </div>
+
+
+
+
                 <div class="form-group">
                     <label class="control-label">Add Labels<span class="text-danger">*</span></label>
                     <tags-input class="bootstrap"
