@@ -15,11 +15,17 @@
           selectedUsers: []
         };
         /** @private {Object} */
-        $scope.cursor = '';
-        /** @private {String} */
+        $scope.searchParams = {
+            cursor: '',
+            keyword: null
+        };
+        /** @private {Boolean} */
         $scope.loadMoreAvailable = true;
+        /** @private {Boolean} */
+        $scope.isLoading = false;
         /** @public {Array<Object>} */
-        $scope.actions = ACTIONS; 
+        $scope.actions = ACTIONS;
+
 
         $scope._init = _init;
         $scope._deleteUsers = _deleteUsers;
@@ -31,20 +37,23 @@
         $scope.setChecked = setChecked;
 
         function _init() {
-            usersService.getUsers($scope.cursor)
+            $scope.isLoading = true;
+            usersService.queryUsers($scope.searchParams)
                 .then(function(res) {
-                    if ($scope.cursor == res.data.cursor) {
+                    $scope.isLoading = false;
+                    if ($scope.searchParams.cursor == res.data.cursor) {
                         return;
                     }
                     if (res.data.users.length < LOAD_LIMIT) {
                         $scope.loadMoreAvailable = false;
                     }
-                    $scope.cursor = res.data.cursor;
+                    $scope.searchParams.cursor = res.data.cursor;
 
                     res.data.users.forEach(function(user) {
                         $scope.users.push(user);
                     });
                 }, function(err) {
+                    $scope.isLoading = false;
                     $scope.loadMoreAvailable = false;
                 });
         };
@@ -75,7 +84,8 @@
             usersService.deleteUsers({users_ids: $scope.params.selectedUsers})
                 .then(function(res) {
                     $scope.users = [];
-                    $scope.cursor = '';
+                    $scope.searchParams.cursor = '';
+                    $scope.searchParams.keyword = null;
                     $scope.loadMoreAvailable = true;
                     $scope.params.selectedUsers = [];
                     $scope._init();
@@ -93,7 +103,8 @@
             usersService.banUsers(params)
                 .then(function(res) {
                     $scope.users = [];
-                    $scope.cursor = '';
+                    $scope.searchParams.cursor = '';
+                    $scope.searchParams.keyword = null;
                     $scope.loadMoreAvailable = true;
                     $scope.params.selectedUsers = [];
                     $scope._init();
@@ -103,11 +114,22 @@
         };
 
         function search() {
-            console.log('Search');
+            $scope.users = [];
+            $scope.searchParams.cursor = '';
+            $scope.loadMoreAvailable = true;
+            $scope._init();
         };
 
-        function restore() {
-            console.log('restore');
+        /**
+        * @param {Object} user
+        */
+        function restore(user) {
+            usersService.restoreUser(user.id)
+                .then(function(res) {
+                    user.status = 'ACTIVE';
+                }, function(err) {
+                    console.log(err);
+                });
         };
 
         /**

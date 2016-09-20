@@ -8,34 +8,35 @@
     /* ngInject */
     function usersService($http, API_URL, Assert, Type) {
         return {
-            getUsers: getUsers,
             queryUsers: queryUsers,
             deleteUsers: deleteUsers,
             banUsers: banUsers,
-            changeRole: changeRole
-        }
-
-        /**
-         * @param {String} cursor
-         * @return {Promise}
-         */
-        function getUsers(cursor) {
-            Assert.isString(cursor, 'Invalid "cursor" type');
-            var query = '';
-
-            if (Type.isString(cursor)) {
-                query = '?cursor=' + cursor;
-            }
-            return $http.get(API_URL + 'users' + query);
+            restoreUser: restoreUser
         }
 
         /**
          * @param {Object} params
          * @return {Promise}
          */
-        function queryUsers(params) {
-            Assert.isObject(params, 'Invalid "params" type');
-            return $http.get(API_URL);
+        function queryUsers(data) {
+            Assert.isObject(data, 'Invalid "data" type');
+
+            var _createQuery = function(data) {
+                var params = [];
+
+                if (!Type.isNull(data.keyword) && data.keyword != '') {
+                    var keyword = 'keyword=' + data.keyword;
+                    params.push(keyword);
+                }
+
+               if (Type.isString(data.cursor)) {
+                    var cursor = 'cursor=' + data.cursor;
+                    params.push(cursor);
+                }
+                return params.join('&');
+            };
+
+            return $http.get(API_URL + 'users?' + _createQuery(data));
         }
 
         /**
@@ -54,8 +55,12 @@
             return $http.post(API_URL + 'users/banned', params);
         }
 
-        function changeRole() {
-            return $http.post(API_URL);
+        /**
+         * @param {String} id
+         * @return {Promise}
+         */
+        function restoreUser(id) {
+            return $http.post(API_URL + '/users/unbanned/' + id);
         }
     }
 })();

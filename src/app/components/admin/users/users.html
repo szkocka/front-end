@@ -8,7 +8,7 @@
     </div>
 
     <div class="form-group pull-right">
-        <input type="text" class="form-control" placeholder="search">
+        <input type="text" class="form-control" placeholder="search" ng-model="searchParams.keyword">
         <button type="button" class="btn btn-default" ng-click="search()">Search</button>
     </div>
 </form>
@@ -19,7 +19,6 @@
             <th></th>
             <th>User</th>
             <th>E-mail</th>
-            <th>Role</th>
             <th>Posts</th>
             <th>Status</th>
         </tr>
@@ -36,7 +35,6 @@
                 <a ui-sref="profile-edit({id: user.id})">Edit</a>
             </td>
             <td>{{user.email}}</td>
-            <td>{{user.role}}</td>
             <td>
                 <a ui-sref="admin.posts({userId: user.id, userName: user.name})">
                     {{user.created_forums + user.posted_messages + user.researcher_in + user.supervisor_in}}
@@ -48,4 +46,8 @@
             </td>
         </tr>
     </table>
+</div>
+
+<div layout="row" layout-sm="column" layout-align="space-around" class="progress-circular" ng-if="isLoading">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
