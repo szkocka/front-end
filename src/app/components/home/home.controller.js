@@ -7,11 +7,7 @@
 
     /* ngInject */
     function HomeController($scope, $rootScope, homeService, LOAD_LIMIT,
-        TAGS_SHORT_LIST_QTY, CAROUSEL_INTERVAL, Assert, Type, $mdToast) {
-        /** @public {Array<Object>} */
-        //$scope.latest5 = [];
-        /** @private {Number} */
-        //$scope.carouselInterval = CAROUSEL_INTERVAL;
+        TAGS_SHORT_LIST_QTY, Assert, Type, $mdToast) {
         /** @public {Array<Object>} */
         $scope.projectsList = [];
         /** @private {Array<Object>} */
@@ -22,8 +18,6 @@
         //$scope.showTagsShortList = true;
         /** @public {Boolean} */
         $scope.loadMoreAvailable = true;
-        /** @private {String} */
-        //$scope.filterEventName = 'projectsFilter';
         /** @private {Object} */
         $scope.searchParams = {
             keyword: null,
@@ -90,12 +84,8 @@
                     res.data.researches.forEach(function(proj){
                         $scope.projectsList.push(proj);
                     });
-
-                    //$scope.latest5 = _.take($scope.projectsList, 5);
                     $scope.searchParams.page = $scope.searchParams.page + 1;
-                    
-                    // fire event to redraw main image slider carousel
-                    //$rootScope.$broadcast($scope.filterEventName);
+
                 }, function(err) {
                     $scope.isLoading = false;
                     $scope.loadMoreAvailable = false;

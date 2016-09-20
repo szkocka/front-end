@@ -10,7 +10,7 @@
 }
 .top-nav-bar .md-toolbar-tools{
     background-color:none;
-    position: relative;
+    padding: 0 8px;
 }
 .top-nav-bar .brand {
     background-color: #ff5252;
@@ -21,10 +21,6 @@
 .top-nav-bar .md-button {
     min-width: 0;
     font-weight: 900;
-}
-.top-nav-bar .right-part {
-    position: absolute;
-    right: 0;
 }
 .top-nav-bar .md-toolbar-tools > .md-button:first-child {
     margin-left: 0;

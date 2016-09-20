@@ -16,7 +16,7 @@ html {
 }
 @media (min-width: 1200px) {
     .md-container {
-        width:80%;
+        width:70%;
     }
 }
 md-content.md-default-theme, md-content {
@@ -52,10 +52,28 @@ md-card md-card-content {
     height: 100%;
     min-width: 0;
 }
+.itemsList .md-headline,
+.itemsList md-card-content p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
 .itemsList .md-headline {
     font-size: 18px;
     text-transform: uppercase;
     font-weight: bold;
+    height: 35px;
+    -webkit-line-clamp: 2;
+}
+.itemsList md-card-content p {
+    height: 82px;
+    -webkit-line-clamp: 5;
+    line-height: 1.2 !important;
+}
+
+.itemsList .date {
+    color: rgb(63,81,181);
+    margin-top: 5px;
 }
 .md-button:not([disabled]):hover {
     background-color: rgba(158,158,158,0.6);
