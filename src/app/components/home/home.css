@@ -41,3 +41,8 @@
         bottom: 30%;
     }
 }
+@media (min-width: 1200px) {
+    .top-image .info {
+        bottom: 40%;
+    }
+}
