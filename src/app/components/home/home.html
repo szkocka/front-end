@@ -20,10 +20,16 @@
         </md-icon>
     </md-nav-bar>
 
+    <div class="clearfix">
+        <md-button class="md-mini tag tag-show-all" ng-if="searchParams.tag" ng-click="clearTag()">Unselect Tag</md-button>
+        <md-button class="md-mini tag" ng-repeat="tag in viewTags" ng-click="activateTag(tag)" ng-class="{'selected': tag == searchParams.tag}">{{tag}}</md-button>
+
+        <md-button class="md-mini tag show-hide-btn" ng-if="tags.length > 15 && showTagsShortList" ng-click="showAllTags()">Show All Tags</md-button>
+        <md-button class="md-mini tag show-hide-btn" ng-if="tags.length > 15 && !showTagsShortList" ng-click="showLessTags()">Hide...</md-button>
+    </div>
     <md-content layout="row" layout-wrap lazy-scroll="loadMore()" lazy-scroll-trigger="90">
         <div flex="33" flex-sm="50" flex-xs="100" ng-repeat="project in projectsList">
             <md-card  ui-sref="project({id: project.id})">
-                <!--<img ng-src="{{project.image_url}}" class="md-card-image">-->
                 <div class="card-image" style="background-image: url({{project.image_url}});"></div>
                 <i class="date">{{project.created | date:"DD/mm/yyyy 'at' h:mma"}}</i>
                 <md-card-title>

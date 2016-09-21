@@ -11,18 +11,18 @@
         /** @public {Array<Object>} */
         $scope.projectsList = [];
         /** @private {Array<Object>} */
-        //$scope.tags = [];
+        $scope.tags = [];
         /** @public {Array<Object>} */
-        //$scope.viewTags = [];
+        $scope.viewTags = [];
         /** @public {Boolean} */
-        //$scope.showTagsShortList = true;
+        $scope.showTagsShortList = true;
         /** @public {Boolean} */
         $scope.loadMoreAvailable = true;
         /** @private {Object} */
         $scope.searchParams = {
             keyword: null,
             status: 'active',
-            //tag: null,
+            tag: null,
             page: 0
         };
         /** @public {Boolean} */
@@ -32,19 +32,19 @@
         /** @public {Boolean} */
         $scope.isLoading = true;
 
-        //$scope._getTags = _getTags;
-        //$scope._getTagsToShow = _getTagsToShow;
+        $scope._getTags = _getTags;
+        $scope._getTagsToShow = _getTagsToShow;
         $scope._init = _init;
         $scope.loadMore = loadMore;
         $scope.showActiveProjects = showActiveProjects;
         $scope.showAllProjects = showAllProjects;
         $scope.search = search;
-        //$scope.clearTag = clearTag;
-        //$scope.activateTag = activateTag;
-        //$scope.showAllTags = showAllTags;
-        //$scope.showLessTags = showLessTags;
+        $scope.clearTag = clearTag;
+        $scope.activateTag = activateTag;
+        $scope.showAllTags = showAllTags;
+        $scope.showLessTags = showLessTags;
 
-        /*function _getTags() {
+        function _getTags() {
             homeService.getTags()
                 .then(function(res) {
                     $scope.tags = _.uniq(res.data.tags);
@@ -57,7 +57,7 @@
                 }, function(err) {
                     console.log(err.message);
                 });
-        };*/
+        };
 
         function loadMore() {
             if($scope.loadMoreAvailable) {
@@ -114,7 +114,7 @@
             if (e.keyCode === 13) {
                 $scope.projectsList = [];
                 $scope.searchParams.page = 0;
-                //$scope.searchParams.tag = null;
+                $scope.searchParams.tag = null;
                 $scope.loadMoreAvailable = true;
                 $scope._init();
             }
@@ -124,7 +124,7 @@
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
             $scope.searchParams.keyword = null;
-            //$scope.searchParams.tag = null;
+            $scope.searchParams.tag = null;
             $scope.loadMoreAvailable = true;
             $scope._init();
         };
@@ -132,7 +132,7 @@
         /**
          * @param {String} tag
          */
-        /*function activateTag(tag) {
+        function activateTag(tag) {
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
             $scope.searchParams.keyword = null;
@@ -153,9 +153,9 @@
 
         function _getTagsToShow() {
             $scope.viewTags = _.take($scope.tags, TAGS_SHORT_LIST_QTY);
-        };*/
+        };
 
         $scope._init();
-        //$scope._getTags();
+        $scope._getTags();
     }
 })();
