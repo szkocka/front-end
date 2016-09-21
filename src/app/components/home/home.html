@@ -20,10 +20,11 @@
         </md-icon>
     </md-nav-bar>
 
-    <md-content  layout="row" layout-wrap lazy-scroll="loadMore()" lazy-scroll-trigger="90">
+    <md-content layout="row" layout-wrap lazy-scroll="loadMore()" lazy-scroll-trigger="90">
         <div flex="33" flex-sm="50" flex-xs="100" ng-repeat="project in projectsList">
             <md-card  ui-sref="project({id: project.id})">
-                <img ng-src="{{project.image_url}}" class="md-card-image">
+                <!--<img ng-src="{{project.image_url}}" class="md-card-image">-->
+                <div class="card-image" style="background-image: url({{project.image_url}});"></div>
                 <i class="date">{{project.created | date:"DD/mm/yyyy 'at' h:mma"}}</i>
                 <md-card-title>
                     <md-card-title-text>
