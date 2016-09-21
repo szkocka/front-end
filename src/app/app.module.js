@@ -10,7 +10,6 @@ angular
         'angularMoment',
         'ui.bootstrap',
         'ngMaterial',
-        'ngImgCrop',
 
         'kendo.directives',
         'lazy-scroll',

@@ -6,7 +6,6 @@ module.exports = function() {
             stylesheets: [
                 'node_modules/ng-tags-input/build/ng-tags-input.min.css',
                 'node_modules/angular-material/angular-material.css',
-                'node_modules/ng-img-crop/compile/minified/ng-img-crop.css',
                 'src/assets/**/*.css',
                 //'node_modules/bootstrap/less/bootstrap.less',
                 //'node_modules/font-awesome/less/font-awesome.less',
@@ -39,7 +38,6 @@ module.exports = function() {
                 'node_modules/ng-file-upload/dist/ng-file-upload-shim.js',
                 'node_modules/ng-file-upload/dist/ng-file-upload.min.js',
                 'node_modules/ng-tags-input/build/ng-tags-input.min.js',
-                'node_modules/ng-img-crop/compile/minified/ng-img-crop.js',
                 'src/assets/lib/**/*.js'
             ],
             kendoSprite: 'src/assets/lib/kendo/css/Default/**/*.png'

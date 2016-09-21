@@ -67,20 +67,20 @@
         /**
          * @param {Object} event
          */
-        function onFileSelect(dataUrl, name) {
-            //Assert.isObject(event, 'Invalid "event" type');
+        function onFileSelect(event) {
+            Assert.isObject(event, 'Invalid "event" type');
 
-            //var image = event.target.files[0];
+            var image = event.target.files[0];
             
-            /*if (image.type !== 'image/png' && image.type !== 'image/jpeg') {
+            if (image.type !== 'image/png' && image.type !== 'image/jpeg') {
                 alert('Only PNG and JPEG are accepted.');
                 return;
-            }*/
+            }
 
             $scope.upload = Upload.upload({
                 url: API_URL + 'upload',
                 method: 'POST',
-                file: Upload.dataUrltoBlob(dataUrl, name)
+                file: image
             }).success(function(data, status, headers, config) {
                 $scope.project.image_url = data.url;
             }).error(function(err) {
