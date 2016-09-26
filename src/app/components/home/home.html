@@ -11,7 +11,7 @@
     <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
         <md-nav-item md-nav-click="goto('active')" ng-click="showActiveProjects()" name="active">Active</md-nav-item>
         <md-nav-item md-nav-click="goto('all')" ng-click="showAllProjects()" name="all">All</md-nav-item>
-        <md-nav-item md-nav-click="goto('tags')" ng-click="showTags()" name="tags">Search By Tags</md-nav-item>
+        <md-nav-item md-nav-click="goto('tags')" ng-click="showTags()" name="tags" hide-xs>Search By Tags</md-nav-item>
         <md-input-container md-theme="input" class="searchInput" flex ng-if="showSearchInput">
             <label>&nbsp;</label>
             <input placeholder="Search" ng-model="searchParams.keyword" ng-keypress="search($event)">

@@ -35,3 +35,15 @@ a:focus,
 a:hover {
     color: #fff!important;
 }
+.top-nav-bar .md-button.profile,
+.top-nav-bar .md-button.profile-wide {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.top-nav-bar .md-button.profile {
+    max-width: 100px;
+}
+.top-nav-bar .md-button.profile-wide {
+    max-width: 300px;
+}

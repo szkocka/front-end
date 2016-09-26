@@ -57,7 +57,10 @@
                     My projects
                 </md-button>
                 <span hide-xs>|</span>
-                <md-button class="md-button" ng-class="{active: isActive('/profile/my')}" ui-sref="profile({id: 'my'})">
+                <md-button class="md-button profile" hide-gt-xs show-xs ng-class="{active: isActive('/profile/my')}" ui-sref="profile({id: 'my'})">
+                    {{user.name}}
+                </md-button>
+                <md-button class="md-button profile-wide" hide-xs ng-class="{active: isActive('/profile/my')}" ui-sref="profile({id: 'my'})">
                     {{user.name}}
                 </md-button>
                 <md-menu>
