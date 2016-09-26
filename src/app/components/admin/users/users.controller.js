@@ -113,11 +113,13 @@
                 });
         };
 
-        function search() {
-            $scope.users = [];
-            $scope.searchParams.cursor = '';
-            $scope.loadMoreAvailable = true;
-            $scope._init();
+        function search(e) {
+            if (e.keyCode === 13) {
+                $scope.users = [];
+                $scope.searchParams.cursor = '';
+                $scope.loadMoreAvailable = true;
+                $scope._init();
+            }
         };
 
         /**

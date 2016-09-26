@@ -13,7 +13,8 @@
             parent: 'restricted-area',
             views: {
                 content: {
-                    templateUrl: 'components/admin/admin.html'
+                    templateUrl: 'components/admin/admin.html',
+                    controller: 'AdminController'
                 }
             }
         });

@@ -6,6 +6,8 @@
         .controller('AdminController', AdminController);
 
     /* ngInject */
-    function AdminController() {
+    function AdminController($scope) {
+        /** @public {String} */
+        $scope.currentNavItem = 'users';
     }
 })();

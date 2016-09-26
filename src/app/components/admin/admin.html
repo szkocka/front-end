@@ -1,15 +1,7 @@
-<section class="container" >
-    <div class="row">
-        <div class="col-lg-12" style="margin-top: 100px">
-            <ul class="nav nav-tabs">
-                <li role="presentation" ui-sref-active="active">
-                    <a ui-sref="admin.users">Users</a>
-                </li>
-                <li role="presentation" ui-sref-active="active">
-                    <a ui-sref="admin.researches">Researches</a>
-                 </li>
-            </ul>
-            <div ui-view="content"></div>
-        </div>
-    </div>
-</section>
+<md-content class="md-padding md-container" style="padding-top: 100px">
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+      <md-nav-item md-nav-click="goto('users')" name="users" ui-sref="admin.users">Users</md-nav-item>
+      <md-nav-item md-nav-click="goto('researches')" ui-sref="admin.researches" name="researches">Researches</md-nav-item>
+    </md-nav-bar>
+    <div ui-view="content"></div>
+</md-content>
