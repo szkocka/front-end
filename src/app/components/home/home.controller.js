@@ -31,6 +31,8 @@
         $scope.currentNavItem = 'active';
         /** @public {Boolean} */
         $scope.isLoading = true;
+        /** @public {Boolean} */
+        $scope.tagsAreVisible = false;
 
         $scope._getTags = _getTags;
         $scope._getTagsToShow = _getTagsToShow;
@@ -39,6 +41,7 @@
         $scope.showActiveProjects = showActiveProjects;
         $scope.showAllProjects = showAllProjects;
         $scope.search = search;
+        $scope.showTags = showTags;
         $scope.clearTag = clearTag;
         $scope.activateTag = activateTag;
         $scope.showAllTags = showAllTags;
@@ -96,8 +99,10 @@
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
             $scope.searchParams.keyword = null;
+            $scope.searchParams.tag = null;
             $scope.searchParams.status = 'active';
             $scope.loadMoreAvailable = true;
+            $scope.tagsAreVisible = false;
             $scope._init();
         };
 
@@ -106,7 +111,9 @@
             $scope.searchParams.page = 0;
             $scope.searchParams.keyword = null;
             $scope.searchParams.status = null;
+            $scope.searchParams.tag = null;
             $scope.loadMoreAvailable = true;
+            $scope.tagsAreVisible = false;
             $scope._init();
         };
 
@@ -118,6 +125,10 @@
                 $scope.loadMoreAvailable = true;
                 $scope._init();
             }
+        };
+
+        function showTags() {
+            $scope.tagsAreVisible = true;
         };
 
         function clearTag() {
@@ -136,6 +147,7 @@
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
             $scope.searchParams.keyword = null;
+            $scope.searchParams.status = null;
             $scope.searchParams.tag = tag;
             $scope.loadMoreAvailable = true;
             $scope._init();
