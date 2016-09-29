@@ -6,7 +6,7 @@
         .controller('PostsController', PostsController);
 
     /* ngInject */
-    function PostsController($q, $scope, $stateParams, LOAD_LIMIT, postsService) {
+    function PostsController($q, $scope, $stateParams, $state, LOAD_LIMIT, postsService, Assert, Type) {
         /** @private {String} */
         $scope.userId = $stateParams.userId;
         /** @private {String} */
@@ -30,7 +30,17 @@
         $scope._getForums = _getForums;
         $scope._getMessages = _getMessages;
         $scope._getResearches = _getResearches;
+        
         $scope.loadMore = loadMore;
+
+        $scope.editPost = editPost;
+        $scope.updatePost = updatePost;
+        $scope._updateForum = _updateForum;
+        $scope._updateMessage = _updateMessage;
+
+        $scope.deletePost = deletePost;
+        $scope._removePostFromScreen = _removePostFromScreen;
+
 
         function loadMore() {
             $scope._init();
@@ -68,6 +78,7 @@
                     res.data.forums.forEach(function(forum) {
                         forum.type = 'FORUM';
                         forum.title = forum.subject;
+                        forum.isEditing = false;
                         $scope.posts.push(forum);
                     });
                     defer.resolve();
@@ -102,6 +113,7 @@
                         message.title = message.message;
                         message.id = message.id[0];
                         message.type = 'MESSAGE';
+                        message.isEditing = false;
 
                         $scope.posts.push(message);
                     });
@@ -136,7 +148,6 @@
                         if (research.relationship_type === 'SUPERVISOR') {
                             research.type = 'RESEARCH';
                             $scope.posts.push(research);
-
                         }
                     });
                     defer.resolve();
@@ -147,6 +158,133 @@
 
             return defer.promise;
         };
+
+        /**
+         * @param {Object} post
+         */
+        function editPost(post) {
+            Assert.isObject(post, 'Invalid "post" type');
+            switch(post.type) {
+                case 'RESEARCH':
+                    $state.go('project-update', {id: post.id});
+                    break;
+                default:
+                    $scope.posts.forEach(function(item) {
+                        item.isEditing = false;
+                    });
+
+                    post.isEditing = true;
+            }
+        };
+
+        /**
+         * @param {Object} post
+         */
+        function updatePost(post) {
+            Assert.isObject(post, 'Invalid "post" type');
+
+            switch(post.type) {
+                case 'FORUM':
+                    $scope._updateForum(post);
+                    break;
+                case 'MESSAGE':
+                    $scope._updateMessage(post);
+                    break;
+                default:
+                    return;
+            }
+        };
+
+        /**
+         * @param {Object} post
+         */
+        function _updateForum(post){
+            Assert.isObject(post, 'Invalid "post" type');
+
+            var params = {
+                id: post.id,
+                subject: post.title
+            };
+
+            postsService.updateForum(params)
+                .then(function(res) {
+                    post.isEditing = false;
+                }, function(err) {
+                    console.log(err);
+                });
+        };
+
+        /**
+         * @param {Object} post
+         */
+        function _updateMessage(post){
+            Assert.isObject(post, 'Invalid "post" type');
+
+            var params = {
+                id: post.id,
+                message: post.title
+            };
+
+            postsService.updateMessage(params)
+                .then(function(res) {
+                    post.isEditing = false;
+                }, function(err) {
+                    console.log(err);
+                });
+        };
+
+        /**
+         * @param {Object} post
+         */
+        function deletePost(post) {
+            Assert.isObject(post, 'Invalid "post" type');
+
+            switch(post.type) {
+                case 'RESEARCH':
+                    postsService.deleteResearch(post.id)
+                        .then(function(res) {
+
+                            $scope._removePostFromScreen(post);
+
+                        }, function(err) {
+                            console.log(err);
+                        });
+                    break;
+                case 'FORUM':
+                    postsService.deleteForum(post.id)
+                        .then(function(res) {
+
+                            $scope._removePostFromScreen(post);
+
+                        }, function(err) {
+                            console.log(err);
+                        });
+                    break;
+                case 'MESSAGE':
+                    postsService.deleteMessage(post.id)
+                        .then(function(res) {
+
+                            $scope._removePostFromScreen(post);
+
+                        }, function(err) {
+                            console.log(err);
+                        });
+                    break;
+                default:
+                    return;
+            }
+        };
+
+        /**
+         * @param {Object} post
+         */
+        function _removePostFromScreen(post) {
+            Assert.isObject(post, 'Invalid "post" type');
+
+            _.remove($scope.posts, function(item) {
+                return item.id === post.id;
+            });
+        }
 
         $scope._init();
     }

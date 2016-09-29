@@ -22,9 +22,15 @@
         </tr>
         <tr ng-repeat="post in posts">
             <td width="60%">
-                <div>{{post.title}}</div>
-                <md-button class="md-primary md-raised" ng-click="editPost(post)">Edit</md-button>
-                <md-button class="md-primary md-raised" ng-click="deletePost(post)">Delete</md-button>
+                <p ng-if="!post.isEditing" ng-bind-html="post.title"></p>
+                <div ng-if="post.isEditing">
+                    <textarea kendo-editor k-ng-model="post.title"></textarea>
+                </div>
+                <md-button ng-if="!post.isEditing" class="md-primary md-raised" ng-click="editPost(post)">Edit</md-button>
+                <md-button ng-if="!post.isEditing" class="md-primary md-raised" ng-click="deletePost(post)">Delete</md-button>
+
+                <md-button ng-if="post.isEditing" class="md-primary md-raised" ng-click="updatePost(post)">Update</md-button>
+                <md-button ng-if="post.isEditing" class="md-primary md-raised" ng-click="post.isEditing = !post.isEditing">Cancel</md-button>
             </td>
             <td>{{post.type}}</td>
             <td>{{post.created}}</td>
