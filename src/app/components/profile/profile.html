@@ -10,7 +10,7 @@
                 <ul class="list-unstyled join-requests">
                     <li ng-repeat="inv in invitations">
                         <button type="button" class="btn btn-primary btn-xs" ng-click="accept(inv)">Accept</button>
-                        <button type="button" class="btn btn-default btn-xs"    ng-click="ignore(inv)">Ignore</button>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="ignore(inv)">Ignore</button>
                         <a href="#/project/{{inv.id}}">{{inv.title}}</a>
                     </li>
                 </ul>

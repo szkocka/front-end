@@ -1,0 +1,42 @@
+<md-content layout-padding >
+    <form>
+        <md-input-container class="md-icon-float md-icon-right md-block" flex>
+            <label>Search</label>
+            <input ng-model="searchParams.keyword" type="text" ng-keypress="search($event)">
+            <md-icon aria-label="search" class="search">
+                search
+            </md-icon>
+        </md-input-container>
+    </form>
+</md-content>
+
+<div class="md-table-responsive">
+    <table class="md-table md-table-bordered" lazy-scroll="loadMore()" lazy-scroll-trigger="90">
+        <tr>
+            <th>Title</th>
+            <th>Supervisor</th>
+            <th>Researchers</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+        <tr ng-repeat="project in projectsList">
+            <td >
+                <p ng-bind-html="project.title"></p>
+                <md-button class="md-primary md-raised" ui-sref="project-update({id: project.id})">Edit</md-button>
+                <md-button class="md-primary md-raised" ng-click="deleteProject(project)">Delete</md-button>
+            </td>
+            <td>
+                <div>{{project.supervisor.name}}</div>
+                <div>{{project.supervisor.email}}</div>
+            </td>
+            <td>
+                <div ng-repeat="researcher in project.researchers">{{researcher.name}}</div>
+            </td>
+            <td>{{project.status}}</td>
+            <td>{{project.created}}</td>
+        </tr>
+    </table>
+    <div layout="row" layout-sm="column" layout-align="space-around" class="progress-circular" ng-if="isLoading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+</div>

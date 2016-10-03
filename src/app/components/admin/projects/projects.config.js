@@ -13,7 +13,7 @@
             views: {
                 content: {
                     templateUrl: 'components/admin/projects/projects.html',
-                    controller: 'ProjectsController'
+                    controller: 'AdminProjectsController'
                 }
             }
         });
