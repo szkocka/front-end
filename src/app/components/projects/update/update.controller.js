@@ -7,7 +7,7 @@
 
     /* ngInject */
     function UpdateController($scope, $state, UpdateResolver, projectsService,
-        PROJ_STATUSES, Assert, Type) {
+        PROJ_STATUSES, Assert, Type, Upload, API_URL) {
         /** @public {Object} */
         $scope.project = UpdateResolver.data;
         /** @public {Array<Object>} */
@@ -15,6 +15,7 @@
 
         $scope.update = update;
         $scope.removeResearcher = removeResearcher;
+        $scope.onFileSelect = onFileSelect;
 
         /**
          * @param {Boolean} valid
@@ -63,6 +64,30 @@
                 }, function(err) {
                     console.log(err);
                 });
+        };
+
+        /**
+         * @param {Object} event
+         */
+        function onFileSelect(event) {
+            Assert.isObject(event, 'Invalid "event" type');
+
+            var image = event.target.files[0];
+            
+            if (image.type !== 'image/png' && image.type !== 'image/jpeg') {
+                alert('Only PNG and JPEG are accepted.');
+                return;
+            }
+
+            $scope.upload = Upload.upload({
+                url: API_URL + 'upload',
+                method: 'POST',
+                file: image
+            }).success(function(data, status, headers, config) {
+                $scope.project.image_url = data.url;
+            }).error(function(err) {
+
+            });
         };
     };
 })();
