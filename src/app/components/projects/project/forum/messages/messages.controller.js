@@ -6,9 +6,11 @@
         .controller('ForumMessagesController', ForumMessagesController);
 
     /* ngInject */
-    function ForumMessagesController($scope, $stateParams, LOAD_LIMIT, messagesService, Assert) {
+    function ForumMessagesController($scope, $stateParams, LOAD_LIMIT, messagesService, Assert, accountService) {
         /** @private {String} */
         $scope.forumId = $stateParams.forumId;
+        /** @public {Object} */
+        $scope.user = accountService.getCurrentUser();
         /** @public {Object} */
         $scope.activeForum = {};
         /** @public {Array<Object>} */
@@ -24,6 +26,7 @@
         $scope._init = _init;
         $scope.loadMore = loadMore;
         $scope.postMessage = postMessage;
+        $scope.updateMessage = updateMessage;
 
         function _getActiveForum() {
             messagesService.getForumById($scope.forumId)
@@ -57,6 +60,8 @@
                     $scope.cursor = res.data.cursor;
 
                     res.data.messages.forEach(function(msg) {
+                        
+                        msg.showEditedTextaria = false;
                         $scope.activeForumMessages.push(msg);
                     });
                 }, function(err) {
@@ -87,6 +92,28 @@
                     };
                     $scope.activeForumMessages.push(msg);
                     $scope.newMessage = '';
+                }, function(err) {
+                    console.log(err.message);
+                });
+        };
+
+        /**
+         * @param {Object} msg
+         * @param {Object} e
+         */
+        function updateMessage(msg, e){
+            Assert.isObject(msg, 'Invalid "msg" type');
+            e.preventDefault();
+
+            var params = {
+                id: msg.id[0],
+                message: msg.message
+            };
+            return;
+
+            messagesService.updateMessage(params)
+                .then(function(res) {
+                    msg.showEditedTextaria = false;
                 }, function(err) {
                     console.log(err.message);
                 });

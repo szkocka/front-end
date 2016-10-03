@@ -6,7 +6,23 @@
 </ol>
 <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
     <div ng-repeat="message in activeForumMessages | orderBy: 'message.created'">
-        <blockquote>
+        <md-icon aria-label="edit" class="edit-message" 
+        ng-if="!message.showEditedTextaria && message.createdBy[0].id === user._id" 
+        ng-click="message.showEditedTextaria = !message.showEditedTextaria">
+            edit
+        </md-icon>
+        <md-icon aria-label="close" class="edit-message" ng-if="message.showEditedTextaria" 
+        ng-click="message.showEditedTextaria = !message.showEditedTextaria">
+            close
+        </md-icon>
+        <md-icon aria-label="check" class="edit-message" ng-if="message.showEditedTextaria" 
+        ng-click="updateMessage(message, $event)">
+            check
+        </md-icon>
+        <div class="form-group" ng-if="message.showEditedTextaria">
+            <textarea kendo-editor k-ng-model="message.message"></textarea>
+        </div>
+        <blockquote ng-if="!message.showEditedTextaria">
             <p mathjax-bind="message.message"></p>
             <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
         </blockquote>

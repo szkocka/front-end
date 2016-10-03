@@ -10,7 +10,8 @@
         return {
             getForumById: getForumById,
             getForumMessages: getForumMessages,
-            createNewMessage: createNewMessage
+            createNewMessage: createNewMessage,
+            updateMessage: updateMessage
         }
 
         /**
@@ -43,6 +44,14 @@
             Assert.isObject(params, 'Invalid "params" type');
             Assert.isString(params.message, 'Invalid "params.message" type');
             return $http.post(API_URL + 'forums/' + params.forumId + '/messages', params);
+        }
+
+        /**
+         * @param {Object} params
+         */
+        function updateMessage(params) {
+            Assert.isString(params.message, 'Invalid "params.message" type');
+            return $http.put(API_URL + 'messages/' + params.id, params);
         }
     }
 })();
