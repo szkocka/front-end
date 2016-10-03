@@ -6,14 +6,11 @@
         .controller('HomeController', HomeController);
 
     /* ngInject */
-    function HomeController($scope, $rootScope, homeService, LOAD_LIMIT,
-        TAGS_SHORT_LIST_QTY, Assert, Type, $mdToast) {
+    function HomeController($scope, homeService, LOAD_LIMIT, Assert, Type, $mdToast) {
         /** @public {Array<Object>} */
         $scope.projectsList = [];
         /** @private {Array<Object>} */
-        $scope.tags = [];
-        /** @public {Array<Object>} */
-        $scope.viewTags = [];
+        $scope.tag = [];
         /** @public {Boolean} */
         $scope.showTagsShortList = true;
         /** @public {Boolean} */
@@ -35,7 +32,6 @@
         $scope.tagsAreVisible = false;
 
         $scope._getTags = _getTags;
-        $scope._getTagsToShow = _getTagsToShow;
         $scope._init = _init;
         $scope.loadMore = loadMore;
         $scope.showActiveProjects = showActiveProjects;
@@ -44,19 +40,11 @@
         $scope.showTags = showTags;
         $scope.clearTag = clearTag;
         $scope.activateTag = activateTag;
-        $scope.showAllTags = showAllTags;
-        $scope.showLessTags = showLessTags;
 
         function _getTags() {
             homeService.getTags()
                 .then(function(res) {
                     $scope.tags = _.uniq(res.data.tags);
-
-                    if ($scope.tags.length > TAGS_SHORT_LIST_QTY) {
-                        $scope._getTagsToShow();
-                    } else {
-                        $scope.viewTags = $scope.tags;
-                    }
                 }, function(err) {
                     console.log(err.message);
                 });
@@ -151,20 +139,6 @@
             $scope.searchParams.tag = tag;
             $scope.loadMoreAvailable = true;
             $scope._init();
-        };
-
-        function showAllTags() {
-            $scope.viewTags = $scope.tags;
-            $scope.showTagsShortList = false;
-        };
-
-        function showLessTags() {
-            $scope._getTagsToShow();
-            $scope.showTagsShortList = true;
-        };
-
-        function _getTagsToShow() {
-            $scope.viewTags = _.take($scope.tags, TAGS_SHORT_LIST_QTY);
         };
 
         $scope._init();
