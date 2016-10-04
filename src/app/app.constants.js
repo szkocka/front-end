@@ -6,7 +6,6 @@
         .constant('APP_VERSION', '0.01')
         .constant('API_URL', 'https://szkocka-1080.appspot.com/')
         .constant('LOAD_LIMIT', 20)
-        .constant('TAGS_SHORT_LIST_QTY', 15)
         .constant('PROJ_STATUSES', [
             {'id': 'ACTIVE','name': 'ACTIVE'},
             {'id': 'CLOSED','name': 'CLOSED'},
