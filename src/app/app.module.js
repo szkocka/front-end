@@ -6,7 +6,6 @@ angular
         'ngMessages',
         'ngSanitize',
         'ngFileUpload',
-        'ngTagsInput',
         'angularMoment',
         'ui.bootstrap',
         'ngMaterial',

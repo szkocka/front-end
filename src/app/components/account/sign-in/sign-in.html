@@ -1,4 +1,40 @@
-<section class="container">
+<div class="account">
+    <div class="info" layout="column">
+        <h1>explore our projects</h1>
+        <h3 hide-xs>Connect with researches, share data and knowledge, get funded</h3>
+    </div>
+
+    <md-content layout-padding class="account-container">
+        <form ng-submit="signIn(userForm.$valid, $event)" name="userForm" novalidate>
+
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input type="email" ng-model="user.email" name="email" required>
+                <div class="help-block" ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
+                    <p ng-message="required">This field is required</p>
+                    <p ng-message="email">This needs to be a valid email</p>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Password</label>
+                <input type="password" ng-model="user.password" name="password" required>
+                <div class="help-block" ng-messages="userForm.password.$error" ng-if="userForm.password.$touched">
+                    <p ng-message="required">This field is required</p>
+                </div>
+            </md-input-container>
+            <section layout="row">
+                <md-button flex="50" type="button" class="md-block" ui-sref="sign-up">SIGN UP</md-button>
+                <md-button flex="50" type="submit" class="md-primary md-raised md-block">LOGIN</md-button>
+            </section>
+        </form>
+    </md-content>
+</div>
+
+
+
+
+<!--<section class="container">
     <div class="row">
         <div class="col-sm-12">
             <h1>Login</h1>
@@ -28,4 +64,4 @@
         </div>
     </div>
     <hr>
-</section>
+</section>-->

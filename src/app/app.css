@@ -1,11 +1,9 @@
-@import '../../node_modules/bootstrap/less/bootstrap.less';
-@import '../../node_modules/font-awesome/less/font-awesome.less';
-
 /**
  * App-wide Styles
  */
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #fff;
 }
 html {
     background-color: #fff;
@@ -108,22 +106,27 @@ md-card md-card-content {
     clear: both;
     visibility: hidden;
 }
-.browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
 
-// injector
-@import 'components/about/about.less';
-@import 'components/account/sign-in/sign-in.less';
-@import 'components/admin/admin.less';
-@import 'components/home/home.less';
-@import 'components/profile/profile.less';
-@import 'components/profile/edit/edit.less';
-@import 'components/profile/profile.less';
-@import 'components/projects/project/project.less';
-@import 'components/projects/projects.less';
-@import 'components/news/news.less';
-// endinjector
+.top-image {
+    position: relative;
+}
+.top-image img {
+    width: 100%;
+    height: auto;
+}
+.top-image .info {
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 15%;
+    color: #fff;
+    text-align: center;
+}
+.top-image h1 {
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px #000000;
+}
+.top-image h3 {
+    font-weight: 300;
+    text-shadow: 1px 1px 3px #000000;
+}

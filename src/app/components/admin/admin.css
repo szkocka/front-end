@@ -1,13 +1,3 @@
-.trash { color:rgb(209, 91, 71); }
-.admin-users {
-    .form-group {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    .admin-select {
-        margin-right: 20px;
-    }
-}
 .admin .apply-btn {
     margin: 13x 15px 0 0;
     height: 36px;
