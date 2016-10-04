@@ -109,7 +109,6 @@
                 id: msg.id[0],
                 message: msg.message
             };
-            return;
 
             messagesService.updateMessage(params)
                 .then(function(res) {

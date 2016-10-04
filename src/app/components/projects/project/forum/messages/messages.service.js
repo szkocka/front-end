@@ -51,7 +51,7 @@
          */
         function updateMessage(params) {
             Assert.isString(params.message, 'Invalid "params.message" type');
-            return $http.put(API_URL + 'messages/' + params.id, params);
+            return $http.put(API_URL + 'forums/messages/' + params.id, params);
         }
     }
 })();
