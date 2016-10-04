@@ -12,8 +12,7 @@ angular
         'ngMaterial',
 
         'kendo.directives',
-        'lazy-scroll',
-        //'mock',
+        'infinite-scroll',
 
         'auth',
         'layouts',

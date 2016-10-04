@@ -9,7 +9,7 @@
     </form>
 
     <button type="button" class="btn btn-primary" ng-click="createForum(newForum, $event)">Start topic</button>
-    <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
+    <div infinite-scroll="loadMore()" infinite-scroll-distance="1">
         <div ng-repeat="forum in forums | orderBy: 'forum.created'">
             <h3><a ui-sref="project.messages({forumId: forum.id})">{{forum.subject}}</a></h3>
             <i>{{forum.createdBy.name}} on {{forum.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
