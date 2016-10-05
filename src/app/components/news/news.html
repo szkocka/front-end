@@ -8,7 +8,7 @@
 </div>
 
 <section class="projects container">
-    <div infinite-scroll="loadMore()" infinite-scroll-distance="1">
+    <div infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-disabled="!loadMoreAvailable">
         <ul class="list-unstyled">
             <li class="project-block" ng-repeat="item in news">
                 <div class="row">

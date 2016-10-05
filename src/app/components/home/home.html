@@ -7,7 +7,8 @@
     <img src="img/hero-bg-2x.png">
 </div>
 
-<md-content class="itemsList md-container" infinite-scroll="loadMore()" infinite-scroll-distance="1">
+<md-content class="itemsList md-container" infinite-scroll="loadMore()" infinite-scroll-distance="1" 
+            infinite-scroll-disabled="!loadMoreAvailable">
     <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
         <md-nav-item md-nav-click="goto('active')" ng-click="showActiveProjects()" name="active">Active</md-nav-item>
         <md-nav-item md-nav-click="goto('all')" ng-click="showAllProjects()" name="all">All</md-nav-item>
