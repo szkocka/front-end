@@ -34,7 +34,7 @@ md-toast .md-toast-content {
 .itemsList md-card-actions{
     margin: 0 10px 10px 10px;
     word-break: break-all;
-    line-height: 1;
+    line-height: 1!important;
 }
 .itemsList .date {
     color: rgb(63,81,181);
@@ -78,7 +78,7 @@ md-card md-card-content {
     -webkit-line-clamp: 2;
 }
 .itemsList md-card-content p {
-    height: 82px;
+    height: 81px;
     -webkit-line-clamp: 5;
     line-height: 1.2 !important;
 }

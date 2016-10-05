@@ -87,6 +87,5 @@
         function getUserProfile(id) {
             return $http.get(API_URL + 'users/' + id);
         };
-        
     }
 })();

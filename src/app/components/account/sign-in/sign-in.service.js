@@ -6,7 +6,7 @@
         .factory('signInService', signInService);
 
     /* ngInject */
-    function signInService($http, $q, API_URL, authService, Assert) {
+    function signInService($http, $q, API_URL, authService, Assert, $rootScope) {
         return {
             /**
              * @param  {Object}   user     - user info

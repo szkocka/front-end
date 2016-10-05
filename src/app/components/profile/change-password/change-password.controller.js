@@ -6,11 +6,9 @@
         .controller('ChangePasswordController', ChangePasswordController);
 
     /* ngInject */
-    function ChangePasswordController($scope, profileService) {
+    function ChangePasswordController($scope, profileService, errorService) {
         /** @private {Object} */
         $scope.data = {};
-        /** @private {String} */
-        $scope.errorMsg = null;
         /** @private {String} */
         $scope.message = null;
 
@@ -24,6 +22,7 @@
             e.preventDefault();
 
             if(!valid) {
+                errorService.showError('Form is not valid');
                 return;
             }
             profileService.changePassword($scope.data)
@@ -32,7 +31,7 @@
                     $scope.data = {};
                 }, function(err) {
                     $scope.message = null;
-                    $scope.errorMsg = 'Incorrect password';
+                    errorService.showError('Incorrect password');
                 });
         };
     }

@@ -17,7 +17,9 @@
         /** @public {Array<Object>} */
         $scope.invitations = [];
         /** @public {String} */
-        $scope.errorMsg = null;
+        $scope.currentNavItem = 'supervising';
+        /** @public {String} */
+        $scope.showMyProjects = true;
 
         $scope._init = _init;
         $scope.getUserProfile = getUserProfile;
@@ -25,6 +27,9 @@
         $scope.edit = edit;
         $scope.accept = accept;
         $scope.ignore = ignore;
+
+        $scope.showSupervising = showSupervising;
+        $scope.showResearcherIn = showResearcherIn;
 
         function _init() {
             $scope.getUserProfile();
@@ -39,7 +44,6 @@
                 .then(function(res) {
                         $scope.user = res.data;
                     }, function(err) {
-                        $scope.errorMsg = 'User was not found';
                     });
         };
 
@@ -82,6 +86,14 @@
                 }, function(err) {
                     console.log(err.message);
                 });
+        };
+
+        function showSupervising() {
+            $scope.showMyProjects = true;
+        };
+
+        function showResearcherIn() {
+            $scope.showMyProjects = false;
         };
 
         $scope._init();

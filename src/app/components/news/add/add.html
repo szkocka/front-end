@@ -1,35 +1,38 @@
-<section class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1 class="page-header">Add News:</h1>
-        </div>
-        <p class="text-danger">{{errorMsg}}</p>
-        <div class="col-sm-12">
-            <form class="form" ng-submit="save(newsForm.$valid, $event)" name="newsForm" novalidate>
-
-                <div class="form-group">
-                    <label>Title<span class="text-danger">*</span></label>
-                    <input type="text" name="title" class="form-control" ng-model="newsToAdd.title" required/>
-                    <div class="help-block" ng-messages="newsForm.title.$error" ng-if="newsForm.title.$touched">
-                        <p ng-message="required">This field is required</p>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Body<span class="text-danger">*</span></label>
-                    <textarea kendo-editor k-ng-model="newsToAdd.body"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <button class="btn btn-default btn-file" ngf-select="onFileSelect($event)"
-                        accept="image/*">Upload image</button>
-
-                    <img class="preview" ng-src="{{newsToAdd.image_url}}"> 
-                </div>
-
-                <button class="btn btn-primary" type="submit">Save</button>
-                <button class="btn btn-default" ng-click="cancel()">Cancel</button>
-            </form>
-        </div>
+<div class="header add-news">
+    <div class="info" layout="column">
+        <h1>Create news</h1>
     </div>
-</section>
+
+    <md-content layout-padding class="md-container">
+        <form ng-submit="save(newsForm.$valid, $event)" name="newsForm"
+              novalidate layout-wrap layout="row" layout-align="end start">
+            <div flex="50" flex-xs="100" class="add-padding-right">
+                <div class="md-block select-image" ngf-select="onFileSelect($event)" 
+                            accept="image/*"
+                            ng-if="!newsToAdd.image_url">
+                    <div class="proj-image">News Image</div>
+                </div>
+                <img class="preview" ng-src="{{newsToAdd.image_url}}" 
+                        ngf-select="onFileSelect($event)" 
+                        accept="image/*">
+            </div>
+            <div flex="50" flex-xs="100">
+                <md-input-container class="md-block">
+                    <label>Title</label>
+                    <input type="text" name="title" ng-model="newsToAdd.title" required>
+                    <div ng-messages="newsForm.title.$error">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label class="detailed-description">Body</label>
+                    <textarea kendo-editor k-ng-model="newsToAdd.body" required=""></textarea>
+                </md-input-container>
+            </div>
+            <section layout="row">
+                <md-button flex="50" ng-click="cancel()" class="md-block">CANCEL</md-button>
+                <md-button flex="50" type="submit" class="md-primary md-raised md-block">SUBMIT</md-button>
+            </section>
+        </form>
+    </md-content>
+</div>

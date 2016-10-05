@@ -1,44 +1,81 @@
-<section class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                <button class="btn btn-primary pull-right" ng-if="isMyProfile" ng-click="edit()">Edit</button>
-                {{user.name}}
-            </h1>
-            <div ng-if="isMyProfile && invitations.length > 0">
-                <h5>Invitations: </h5>
-                <ul class="list-unstyled join-requests">
-                    <li ng-repeat="inv in invitations">
-                        <button type="button" class="btn btn-primary btn-xs" ng-click="accept(inv)">Accept</button>
-                        <button type="button" class="btn btn-default btn-xs" ng-click="ignore(inv)">Ignore</button>
-                        <a href="#/project/{{inv.id}}">{{inv.title}}</a>
-                    </li>
-                </ul>
-            </div>
-            <div ng-if="user.supervisor_of.length > 0"> 
-                <h5>{{user.name}} is supervising: </h5>
-                <ul>
-                    <li ng-repeat="proj in user.supervisor_of">
-                    <a ui-sref="project({id: proj.id})">{{proj.title}}</a>
-                    </li>
-                </ul>
-                <h5>Involved in:</h5>
-                <ul>
-                    <li ng-repeat="item in area">{{item}}</li>
-                </ul>
-                <h5>Contact info:</h5>
-                <p>Email: {{user.email}}</p>
-            </div>
-            <div ng-if="user.researcher_in.length > 0">
-                <h5>Researcher in:</h5>
-                <ul>
-                    <li ng-repeat="proj in user.researcher_in">
-                        {{proj.title}}
-                    </li>
-                </ul>
-            </div>
-            <h5>Summary:</h5>
-            <p ng-bind-html="user.cv"></p>
+<div class="header profile">
+    <div class="info" layout="column">
+        <h1>{{user.name}}</h1>
+        <h3 ng-bind-html="user.cv"></h3>
+        <div style="height: 50px">
+            <md-button class="md-raised md-primary" ng-click="edit()" ng-if="isMyProfile">Edit Profile</md-button>
+            <md-button ng-show="user.supervisor_of.length == 0 && user.researcher_in.length == 0 && isMyProfile"
+                    class="md-raised" ui-sref="add">Add My First Project</md-button>
         </div>
     </div>
-</sectio>
+
+    <md-content class="itemsList md-container">
+        <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+            <md-nav-item md-nav-click="goto('supervising')" 
+                        ng-click="showSupervising()" 
+                        name="supervising">Supervising</md-nav-item>
+            <md-nav-item md-nav-click="goto('researcher')" 
+                        ng-click="showResearcherIn()"  
+                        name="researcher">Researcher In</md-nav-item>
+        </md-nav-bar>
+
+        <md-list ng-if="isMyProfile && invitations.length > 0">
+            <md-subheader class="md-no-sticky">Invitations</md-subheader>
+            <md-list-item class="md-1-line" ng-repeat="inv in invitations">
+                <div class="md-list-item-text">
+                    <h3 ui-sref="project({id: inv.id})">{{inv.title}}</h3>
+                </div>
+                <md-button class="md-secondary md-icon-button" ng-click="accept(inv)">
+                    <md-icon aria-label="check">
+                        check
+                    </md-icon>
+                </md-button>
+                <md-button class="md-secondary md-icon-button" ng-click="ignore(inv)">
+                    <md-icon aria-label="close">
+                        close
+                    </md-icon>
+                </md-button>
+                <md-divider ></md-divider>
+            </md-list-item>
+        </md-list>
+
+        <md-content layout="row" layout-wrap ng-if="user.supervisor_of.length > 0 && showMyProjects">
+            <div flex="33" flex-sm="50" flex-xs="100" ng-repeat="project in user.supervisor_of">
+                <md-card  ui-sref="project({id: project.id})">
+                    <div class="card-image" style="background-image: url({{project.image_url}});"></div>
+                    <i class="date">{{project.created | date:"DD/mm/yyyy 'at' h:mma"}}</i>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">{{project.title}}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <p ng-bind-html="project.description.brief" class="shortDescription"></p>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="start center">
+                        <md-button class="md-mini tag" ng-repeat="tag in project.tags">{{tag}}</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </md-content>
+        <md-content layout="row" layout-wrap ng-if="user.researcher_in.length > 0 && !showMyProjects">
+            <div flex="33" flex-sm="50" flex-xs="100" ng-repeat="project in user.researcher_in">
+                <md-card  ui-sref="project({id: project.id})">
+                    <div class="card-image" style="background-image: url({{project.image_url}});"></div>
+                    <i class="date">{{project.created | date:"DD/mm/yyyy 'at' h:mma"}}</i>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">{{project.title}}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <p ng-bind-html="project.description.brief" class="shortDescription"></p>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="start center">
+                        <md-button class="md-mini tag" ng-repeat="tag in project.tags">{{tag}}</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </md-content>
+    </md-content>
+</div>

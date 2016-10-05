@@ -53,10 +53,6 @@
             </div>
 
             <div class="restricted-area" ng-if="!showAuth">
-                <md-button class="md-button" hide-xs ng-class="{active: isActive('/projects')}" ui-sref="projects">
-                    My projects
-                </md-button>
-                <span hide-xs>|</span>
                 <md-button class="md-button profile" hide-gt-xs show-xs ng-class="{active: isActive('/profile/my')}" ui-sref="profile({id: 'my'})">
                     {{user.name}}
                 </md-button>
@@ -71,14 +67,14 @@
                         </md-icon>
                     </md-button>
                     <md-menu-content width="4">
-                        <md-menu-item hide-gt-xs show-xs>
-                            <md-button ui-sref="projects">
-                                My projects
-                            </md-button>
-                        </md-menu-item>
                         <md-menu-item>
                             <md-button ui-sref="add">
                                 Add Project
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ui-sref="profile-edit({id: user._id})">
+                                Edit Profile
                             </md-button>
                         </md-menu-item>
                         <md-menu-item>

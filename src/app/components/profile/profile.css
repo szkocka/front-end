@@ -1,0 +1,17 @@
+.profile {}
+
+.profile-container {
+	margin: 0 auto;
+}
+@media (min-width: 768px) {
+    .profile-container {
+        width: 500px;
+    }
+}
+.profile md-list h3 {
+	margin-bottom: 0;
+}
+.profile md-list h3:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}

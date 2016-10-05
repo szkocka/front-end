@@ -1,0 +1,32 @@
+.news {}
+.news md-list {
+	margin-top: 20px;
+}
+.news md-list-item {
+	background-color: #fff;
+	border-radius: 2px;
+	margin-bottom: 15px!important;
+	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+	padding: 16px;
+}
+.news md-list h2 {
+	margin-top: 33px;
+}
+.news md-list .md-avatar {
+	width: 250px;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 2px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.news md-list-item {
+	position: relative;
+}
+.news md-list-item i {
+	position: absolute;
+	font-size: 12px;
+	left: 282px;
+}
