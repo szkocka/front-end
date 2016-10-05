@@ -1,0 +1,48 @@
+footer {
+    min-height: 100px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    background-color: rgba(26, 38, 52, 0.6);
+}
+footer div {
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 8px;
+}
+footer ul,
+footer li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+footer a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+footer ul li:first-child {
+    padding-bottom: 10px;
+    margin-top: 15px;
+}
+footer .copyright {
+    margin-left: 100px;
+}
+footer .brand {
+    background-color: #ff5252;
+    min-width: 35px;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 15px
+}
+footer .list {
+    float: right;
+    width: 175px;
+}
+footer .list2 {
+    float: right;
+    width: 80px;
+}
