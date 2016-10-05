@@ -55,6 +55,7 @@
                 researchId: $scope.project.id,
                 researcherId: researcher.id
             };
+            return;
 
             projectsService.removeResearcher(params)
                 .then(function(res) {

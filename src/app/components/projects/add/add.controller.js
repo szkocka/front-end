@@ -6,11 +6,14 @@
         .controller('AddController', AddController);
 
     /* ngInject */
-    function AddController($scope, $state, API_URL, addService, Upload, Assert) {
+    function AddController($scope, $state, API_URL, addService, Upload, Assert, Type, errorService) {
         /** @public {Object} */
         $scope.project = {
-            description: {}
+            description: {},
+            tags: []
         };
+        $scope.tags = [];
+        $scope.project.tags = angular.copy($scope.tags);
 
         $scope.create = create;
         $scope._createForum = _createForum;
@@ -27,9 +30,16 @@
                 return;
             }
 
+            if (Type.isUndefined($scope.project.description.detailed) ||
+                $scope.project.description.detailed === '' ||
+                $scope.project.tags.length === 0) {
+                errorService.showError('All fields are required.');
+                return;
+            }
+
             var params = {
                 title: $scope.project.title,
-                tags: _.map($scope.project.tags, function(t){return t.text}),
+                tags: $scope.project.tags,
                 image_url: $scope.project.image_url,
                 area: 'test area',
                 description: {

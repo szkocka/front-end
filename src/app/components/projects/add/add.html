@@ -1,45 +1,53 @@
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Create Project:</h1>
-            <form class="project-form" ng-submit="create(form.$valid, $event)" name="form" novalidate>
-                <div class="form-group">
-                    <label class="control-label">Project Title<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="title" ng-model="project.title" required>
-                    <div class="help-block" ng-messages="form.title.$error" ng-if="form.title.$touched">
-                        <p ng-message="required">This field is required</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Short Description<span class="text-danger">*</span></label>
-                    <textarea class="form-control"  name="brief" rows="2" style="resize:none" ng-model="project.description.brief" required></textarea>
-                    <div class="help-block" ng-messages="form.brief.$error" ng-if="form.brief.$touched">
-                        <p ng-message="required">This field is required</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Detailed Description<span class="text-danger">*</span></label>
-                    <textarea kendo-editor k-ng-model="project.description.detailed"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <button class="btn btn-default btn-file" ngf-select="onFileSelect($event)"
-                        accept="image/*">Upload image</button>
-                    </span>
-                    <img class="preview" ng-src="{{project.image_url}}">
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Add Labels<span class="text-danger">*</span></label>
-                    <tags-input class="bootstrap"
-                                ng-model="project.tags"
-                                replace-spaces-with-dashes="false">
-                    </tags-input>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Save Project</button>
-                </div>
-            </form>
-        </div>
+<div class="header add-project">
+    <div class="info" layout="column">
+        <h1>Create project</h1>
     </div>
+
+    <md-content layout-padding class="md-container">
+        <form ng-submit="create(form.$valid, $event)" name="form" novalidate layout-wrap layout="row" layout-align="end start">
+            <div flex="50" flex-xs="100" class="add-padding-right">
+                <div class="md-block select-image" ngf-select="onFileSelect($event)" 
+                            accept="image/*"
+                            ng-if="!project.image_url">
+                    <div class="proj-image">Project Image</div>
+                </div>
+                <img class="preview" ng-src="{{project.image_url}}" 
+                        ngf-select="onFileSelect($event)" 
+                        accept="image/*">
+                <md-chips
+                    ng-model="project.tags"
+                    md-removable="true"
+                    placeholder="Enter a tag"
+                    delete-button-label="Remove Tag"
+                    delete-hint="Press delete to remove tag"
+                    secondary-placeholder="+Tag">
+                </md-chips>
+            </div>
+            <div flex="50" flex-xs="100">
+                <md-input-container class="md-block">
+                    <label>Project name</label>
+                    <input type="text" name="title" ng-model="project.title" required>
+                    <div ng-messages="form.title.$error">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Shord Description</label>
+                    <textarea name="brief" rows="4" ng-model="project.description.brief" required></textarea>
+                    <div class="help-block" ng-messages="form.brief.$error">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label class="detailed-description">Detailed Description</label>
+                    <textarea kendo-editor k-ng-model="project.description.detailed" name="detailed" required></textarea>
+                    <div class="help-block" ng-messages="form.detailed.$error">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <md-button type="submit" class="md-primary md-raised">SUBMIT</md-button>
+        </form>
+    </md-content>
 </div>

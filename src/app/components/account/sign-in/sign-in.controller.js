@@ -6,11 +6,9 @@
         .controller('SignInController', SignInController);
 
     /* ngInject */
-    function SignInController($scope, $state, signInService, Assert, Type) {
+    function SignInController($scope, $state, signInService, Assert, Type, errorService) {
         /** @public {Object} */
         $scope.user = {};
-        /** @public {String} */
-        $scope.error = null;
 
         $scope.signIn = signIn;
 
@@ -24,7 +22,7 @@
             event.preventDefault();
 
             if (!valid) {
-                $scope.error = 'Form is not valid';
+                errorService.showError('Form is not valid');
                 return;
             }
 
@@ -32,8 +30,7 @@
                 .then(function(){
                     $state.go('home');
                 }, function(err){
-                    $scope.error = err.message;
-                    console.log(err.message);
+                    errorService.showError(err.data.message);
                 });
         };
     }

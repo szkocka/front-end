@@ -1,53 +1,68 @@
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Update Project:</h1>
-            <form class="project-form" ng-submit="update(form.$valid, $event)" name="form" novalidate>
-                <div class="form-group">
-                    <label class="control-label">Project Title<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="title" ng-model="project.title" required>
-                    <div class="help-block" ng-messages="form.title.$error" ng-if="form.title.$touched">
-                        <p ng-message="required">This field is required</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Short Description<span class="text-danger">*</span></label>
-                    <textarea class="form-control"  name="brief" rows="2" style="resize:none" ng-model="project.description.brief" required></textarea>
-                    <div class="help-block" ng-messages="form.brief.$error" ng-if="form.brief.$touched">
-                        <p ng-message="required">This field is required</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Detailed Description<span class="text-danger">*</span></label>
-                    <textarea kendo-editor k-ng-model="project.description.detailed"></textarea>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-default btn-file" ngf-select="onFileSelect($event)"
-                        accept="image/*">Update image</button>
-                    </span>
-                    <img class="preview" ng-src="{{project.image_url}}">
-                </div>
-                <div class="form-group">
-                    <label for="changeStatus"> Change status: </label>
-                    <select class="form-control" id="changeStatus" ng-model="project.status">
-                        <option ng-repeat="status in statuses" value="{{status.name}}" 
-                                ng-selected="status.name === project.status">{{status.name}}</option>
-                    </select>
-                </div>
-                <div class="form-group" ng-if="project.researchers.length > 0">
-                    <label for="changeStatus">Researchers:</label>
-                    <ul class="list-unstyled researchers-list">
-                        <li ng-repeat="researcher in project.researchers">
-                            {{researcher.name}}
-                            <button type="button" class="close" ng-click="removeResearcher(researcher)">&times;</button>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Update Project</button>
-                </div>
-            </form>
-        </div>
+<div class="header update-project">
+    <div class="info" layout="column">
+        <h1>Update project</h1>
     </div>
+
+    <md-content layout-padding class="md-container">
+        <form ng-submit="update(form.$valid, $event)" name="form" novalidate layout-wrap layout="row" layout-align="end start">
+            <div flex="50" flex-xs="100" class="add-padding-right">
+                <div class="md-block select-image" ngf-select="onFileSelect($event)" 
+                            accept="image/*"
+                            ng-if="!project.image_url">
+                    <div class="proj-image">Project Image</div>
+                </div>
+                <img class="preview" ng-src="{{project.image_url}}" 
+                        ngf-select="onFileSelect($event)" 
+                        accept="image/*">
+
+                <md-input-container>
+                    <label>Change status</label>
+                    <md-select name="favoriteColor" ng-model="project.status">
+                        <md-option ng-repeat="status in statuses" value="{{status.name}}" 
+                                ng-selected="status.name === project.status">{{status.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-list ng-if="project.researchers.length > 0">
+                    <md-subheader class="md-no-sticky">Researchers</md-subheader>
+                    <md-list-item class="md-1-line" ng-repeat="researcher in project.researchers">
+                        <div class="md-list-item-text">
+                            <h3> {{researcher.name}} </h3>
+                        </div>
+                        <md-button class="md-secondary md-icon-button" ng-click="removeResearcher(researcher)" aria-label="md-close">
+                            <md-icon aria-label="lose" class="delete" >
+                                close
+                            </md-icon>
+                        </md-button>
+                        <md-divider ></md-divider>
+                    </md-list-item>
+                </md-list>
+            </div>
+            <div flex="50" flex-xs="100">
+                <md-input-container class="md-block">
+                    <label>Project name</label>
+                    <input type="text" name="title" ng-model="project.title" required>
+                    <div ng-messages="form.title.$error">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Shord Description</label>
+                    <textarea name="brief" rows="4" ng-model="project.description.brief" required></textarea>
+                    <div class="help-block" ng-messages="form.brief.$error">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label class="detailed-description">Detailed Description</label>
+                    <textarea kendo-editor k-ng-model="project.description.detailed" name="detailed" required></textarea>
+                    <div class="help-block" ng-messages="form.detailed.$error">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <md-button type="submit" class="md-primary md-raised">SUBMIT</md-button>
+        </form>
+    </md-content>
 </div>

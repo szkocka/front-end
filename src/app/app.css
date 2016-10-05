@@ -9,7 +9,6 @@ html {
     background-color: #fff;
 }
 .md-container {
-    width:100%;
     margin: 0 auto;
 }
 @media (min-width: 1200px) {
@@ -107,26 +106,31 @@ md-card md-card-content {
     visibility: hidden;
 }
 
-.top-image {
-    position: relative;
+.header {
+    background-image: url(../img/hero-bg-2x.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 450px;
 }
-.top-image img {
-    width: 100%;
-    height: auto;
-}
-.top-image .info {
-    position: absolute;
-    display: block;
-    width: 100%;
-    bottom: 15%;
+.header .info {
     color: #fff;
     text-align: center;
 }
-.top-image h1 {
+.header h1,
+.header h2 {
+    margin-top: 100px;
     text-transform: uppercase;
     text-shadow: 1px 1px 3px #000000;
 }
-.top-image h3 {
+.header h3 {
+    margin-top: 0;
     font-weight: 300;
     text-shadow: 1px 1px 3px #000000;
+}
+.header md-content.md-default-theme, .header md-content {
+    background-color: transparent!important;
+}
+.header form {
+    background-color: rgba(250, 250, 250, 0.4);
 }

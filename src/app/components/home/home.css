@@ -1,4 +1,26 @@
-
+.top-image {
+    position: relative;
+}
+.top-image img {
+    width: 100%;
+    height: auto;
+}
+.top-image .info {
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 15%;
+    color: #fff;
+    text-align: center;
+}
+.top-image h1 {
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px #000000;
+}
+.top-image h3 {
+    font-weight: 300;
+    text-shadow: 1px 1px 3px #000000;
+}
 .itemsList .md-default-theme, md-content.itemsList {
     background-color: #fff;
 }

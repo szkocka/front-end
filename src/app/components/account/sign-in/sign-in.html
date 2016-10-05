@@ -1,6 +1,7 @@
-<div class="account">
+<div class="header">
     <div class="info" layout="column">
-        <h1>explore our projects</h1>
+        <h1 show-gt-xs hide-xs>explore our projects</h1>
+        <h2 hide-gt-xs show-xs>explore our projects</h2>
         <h3 hide-xs>Connect with researches, share data and knowledge, get funded</h3>
     </div>
 
@@ -10,17 +11,17 @@
             <md-input-container class="md-block">
                 <label>Email</label>
                 <input type="email" ng-model="user.email" name="email" required>
-                <div class="help-block" ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
-                    <p ng-message="required">This field is required</p>
-                    <p ng-message="email">This needs to be a valid email</p>
+                <div ng-messages="userForm.email.$error">
+                    <div ng-message="required">This field is required</div>
+                    <div ng-message="email">This needs to be a valid email</div>
                 </div>
             </md-input-container>
 
             <md-input-container class="md-block">
                 <label>Password</label>
                 <input type="password" ng-model="user.password" name="password" required>
-                <div class="help-block" ng-messages="userForm.password.$error" ng-if="userForm.password.$touched">
-                    <p ng-message="required">This field is required</p>
+                <div ng-messages="userForm.password.$error">
+                    <div ng-message="required">This field is required</div>
                 </div>
             </md-input-container>
             <section layout="row">
@@ -30,38 +31,3 @@
         </form>
     </md-content>
 </div>
-
-
-
-
-<!--<section class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1>Login</h1>
-        </div>
-        <div class="col-sm-12">
-            <form class="form" ng-submit="signIn(userForm.$valid, $event)" name="userForm" novalidate>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control" ng-model="user.email" required>
-                    <div class="help-block" ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
-                        <p ng-message="required">This field is required</p>
-                        <p ng-message="email">This needs to be a valid email</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control" ng-model="user.password" required>
-                    <div class="help-block" ng-messages="userForm.password.$error" ng-if="userForm.password.$touched">
-                        <p ng-message="required">This field is required</p>
-                    </div>
-                </div>
-                <div>
-                    <button class="btn btn-primary btn-lg btn-login" type="submit">Sign-in</button>
-                    <a class="btn btn-default btn-lg btn-register" ui-sref="sign-up">Sign-up</a>
-                </div>
-            </form>
-        </div>
-    </div>
-    <hr>
-</section>-->

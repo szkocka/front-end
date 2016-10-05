@@ -1,0 +1,38 @@
+.add-project {}
+.update-project {}
+
+.add-padding-right {
+  	padding-right: 20px;  
+}
+.select-image {
+	height: 300px;
+	background-repeat: no-repeat;
+	background-image: url(../img/photo.png);
+	background-size: 100px;
+	background-position: center;
+	opacity: 0.3;
+	cursor: pointer;
+	position: relative;
+}
+.select-image .proj-image {
+	display: block;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 200px;
+}
+.preview {
+	width: 100%;
+	cursor: pointer;
+}
+.detailed-description {
+	-webkit-transform: translate3d(0, 0, 0) scale(1)!important;
+    transform: translate3d(0, 0, 0) scale(1)!important;
+}
+
+.update-project md-input-container {
+	display: block;
+}
+.update-project md-list h3 {
+	margin-bottom: 0;
+}

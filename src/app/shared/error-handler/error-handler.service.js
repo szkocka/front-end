@@ -8,10 +8,10 @@
     function errorService($mdToast) {
         var service = {
             message: '',
-            serverError: serverError
+            showError: showError
         };
         return service;
-        function serverError( errorMessage ) {
+        function showError( errorMessage ) {
             this.message = errorMessage;
             $mdToast.show( {
                 template: '<md-toast>' + this.message + '</md-toast>',

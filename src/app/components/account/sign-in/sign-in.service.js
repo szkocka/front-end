@@ -24,8 +24,8 @@
                         deferred.resolve();
                     },
                     function(err) {
-                        $rootScope.signOut();
                         deferred.reject(err);
+                        $rootScope.signOut();
                     });
 
                 return deferred.promise;

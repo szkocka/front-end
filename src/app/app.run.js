@@ -15,12 +15,14 @@
         }
         // error handling
         $rootScope.$on( 'httpError', function( event, eventData ) {
-            errorService.serverError( eventData.response.data.message );
+            errorService.showError( eventData.response.data.message );
         })
 
         function signOut() {
             authService.unAuth();
-            $state.go('sign-in');
+            if ($state.current.name !== 'sign-up') {
+                $state.go('sign-in');
+            }
         }
     }
 })();

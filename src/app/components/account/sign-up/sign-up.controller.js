@@ -6,11 +6,9 @@
         .controller('SignUpController', SignUpController);
 
     /* ngInject */
-    function SignUpController($scope, $state, signUpService, Type, Assert) {
+    function SignUpController($scope, $state, signUpService, Type, Assert, errorService) {
         /** @public {Object} */
         $scope.user = {};
-        /** @public {Object} */
-        $scope.errors = {};
 
         $scope.signUp = signUp;
 
@@ -24,15 +22,14 @@
             event.preventDefault();
 
             if (!valid) {
-                $scope.errors.valid = 'Form is not valid';
+                errorService.showError('Form is not valid');
                 return;
             }
             signUpService.signUp($scope.user)
                 .then(function(){
                         $state.go('home');
                     }, function(err){
-                        $scope.errors.other = err.message;
-                        console.log(err.message);
+                        errorService.showError(err.data.message);
                     });
             }
     }
