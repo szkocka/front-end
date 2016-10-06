@@ -13,7 +13,7 @@
             parent: 'restricted-area',
             views: {
                 content: {
-                    templateUrl: 'components/projects/add/add.html',
+                    templateUrl: 'components/project/add/add.html',
                     controller: 'AddController'
                 }
             }

@@ -9,7 +9,7 @@
     function aboutService($http, API_URL, Assert) {
         return {
             get: get,
-            update: update
+            update: update,
         };
 
         function get() {

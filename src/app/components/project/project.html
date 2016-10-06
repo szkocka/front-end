@@ -1,0 +1,133 @@
+<div class="header project">
+    <div class="info" layout="column">
+        <div>
+            <md-button class="md-raised md-primary" ng-if="canJoinProject" ng-click="join()">Join Project</md-button>
+            <md-button class="md-raised md-primary" ng-if="isSupervisor" ng-click="edit()">Edit Project</md-button>
+        </div>
+    </div>
+    <md-content class=" md-container">
+        <md-card layout="row" layout-wrap>
+        <div flex="33" flex-sm="50" flex-xs="100" class="left-side">
+            <div class="status">{{project.status}}</div>
+            <div class="image" style="background-image: url('{{project.image_url}}')"></div>
+            <md-card-actions layout="row" layout-align="start center">
+                <md-button class="md-mini tag" ng-repeat="tag in project.tags">{{tag}}</md-button>
+            </md-card-actions>
+
+            <md-list ng-if="isSupervisor && joinRequests.length > 0">
+                <md-subheader class="md-no-sticky">Join Requests</md-subheader>
+                <md-list-item class="md-1-line" ng-repeat="request in joinRequests">
+                    <div class="md-list-item-text">
+                        <h3 ui-sref="profile({id: request.id})">{{request.name}}</h3>
+                    </div>
+                    <md-button class="md-secondary md-icon-button" ng-click="accept(request)">
+                        <md-icon aria-label="check">
+                            check
+                        </md-icon>
+                    </md-button>
+                    <md-button class="md-secondary md-icon-button" ng-click="ignore(request)">
+                        <md-icon aria-label="close">
+                            close
+                        </md-icon>
+                    </md-button>
+                    <md-divider ></md-divider>
+                </md-list-item>
+            </md-list>
+            <md-button class="md-raised md-primary invite" ng-if="isSupervisor" ng-click="show()">Invite Researcher</md-button>
+
+            <div class="invitation" ng-if="showInvitation">
+                <form ng-submit="inviteResearcher(form.$valid, $event)"  name="form" novalidate>
+                    <md-input-container class="md-block">
+                        <label>Name</label>
+                        <input type="text" ng-model="newResearcher.name" name="name" required>
+                        <div ng-messages="forn.name.$error">
+                            <div ng-message="required">This field is required</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Email Address</label>
+                        <input type="email" ng-model="newResearcher.email" name="email" required>
+                        <div ng-messages="form.email.$error">
+                            <div ng-message="required">This field is required</div>
+                            <div ng-message="email">This needs to be a valid email</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Message</label>
+                        <textarea ng-model="newResearcher.text" rows="5"></textarea>
+                    </md-input-container>
+                    <section layout="row">
+                        <md-button flex="50" type="button" class="md-block" ng-click="cancel()">CANCEL</md-button>
+                        <md-button flex="50" type="submit" class="md-primary md-raised md-block">INVITE</md-button>
+                    </section>
+                </form>
+            </div>
+        </div>
+        <div flex>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{project.title}}</span>
+                    <span class="md-subhead" ng-bind-html="project.description.detailed"></span>
+                    <span class="researchers">
+                        <strong>Supevised by: 
+                            <a ui-sref="profile({id: project.supervisor.id})">{{project.supervisor.name}}</a>
+                        </strong>
+                        <br>
+                        <strong ng-if="project.researchers.length > 0">Researchers: 
+                            <a ng-repeat="user in project.researchers" ui-sref="profile({id: user.id})">{{user.name}}</a>
+                        </strong>
+                    </span>
+                </md-card-title-text>
+            </md-card-title>
+        </div>
+            <!--<md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Card with image</span>
+                    <span class="md-subhead">Large</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <div class="md-media-lg card-media"></div>
+                </md-card-title-media>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button>Action 1</md-button>
+                <md-button>Action 2</md-button>
+            </md-card-actions>-->
+        </md-card>
+    </md-content>
+</div>
+
+<!--<section class="hero container">
+    <div class="row">
+        <div class="col-lg-12 project-image">
+            <img ng-src="{{project.image_url}}" alt="{{project.title}}">
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <button class="btn btn-primary pull-right" ng-if="isSupervisor" ng-click="edit()">
+                Edit
+            </button>
+            <button class="btn btn-success pull-right" ng-if="canJoinProject" ng-click="join()">
+                Join
+            </button>
+            <ul class="nav nav-tabs">
+                <li ui-sref-active="active">
+                    <a ui-sref="project.about">About</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="project.participants">Participants</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="project.forum">Forum</a>
+                </li>
+            </ul>
+            <div ui-view="content"></div>
+        </div>
+    </div>
+</section>-->
+<footer-section></footer-section>

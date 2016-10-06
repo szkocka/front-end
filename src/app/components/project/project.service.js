@@ -2,11 +2,11 @@
     'use strict';
 
     angular
-        .module('projects')
-        .factory('projectsService', projectsService);
+        .module('project')
+        .factory('projectService', projectService);
 
     /* ngInject */
-    function projectsService($http, API_URL, Assert, Type) {
+    function projectService($http, API_URL, Assert, Type) {
         return {
             getProjectById: getProjectById,
             update: update,

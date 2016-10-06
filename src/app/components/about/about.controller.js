@@ -18,7 +18,6 @@
         $scope.edit = edit;
         $scope.cancel = cancel;
 
-
         function save(e) {
             e.preventDefault();
             aboutService.update({

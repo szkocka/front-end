@@ -1,18 +1,85 @@
-<section class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-            	<button class="btn btn-primary pull-right" ng-if="showEditButton" ng-click="edit()">
-            		Edit
-            	</button>
-            	About
-            </h1>
-            <p ng-if="!showEditableTexarea" ng-bind-html="description"></p>
-            <div ng-if="showEditableTexarea" class="add-margin-bottom">
-                <textarea kendo-editor k-ng-model="data.editedDescription"></textarea>
-            </div>
-            <button ng-if="showEditableTexarea" class="btn btn-primary" ng-click="save($event)">Save</button>
-            <button ng-if="showEditableTexarea" class="btn btn-default" ng-click="cancel()">Cancel</button>
+<div class="header about">
+    <div class="info" layout="column">
+        <h1>Platform for scientific research</h1>
+        <h3>Connect with researches, share data and knowledge, get funded</h3>
+        <div class="edit-btn">
+            <md-button class="md-raised md-primary" ng-if="showEditButton" ng-click="edit()">Edit</md-button>
         </div>
     </div>
-</section>
+
+    <md-content class="md-container ">
+        <div layout="column">
+            <md-list flex>
+                <md-list-item class="md-1-line md-long-text">
+                  <div class="md-list-item-text">
+                    <p ng-if="!showEditableTexarea" ng-bind-html="description"></p>
+                    <div ng-if="showEditableTexarea">
+                        <textarea kendo-editor k-ng-model="data.editedDescription"></textarea>
+                    </div>
+                    <section layout="row" ng-if="showEditableTexarea">
+                        <md-button flex="50" ng-click="cancel()" class="md-block">CANCEL</md-button>
+                        <md-button flex="50" ng-click="save($event)" class="md-primary md-raised md-block">SAVE</md-button>
+                    </section>
+                  </div>
+            </md-list>
+        </div>
+    </md-content>
+
+    
+    <h1 class="about-title">Research support funds</h1>
+    <h3 class="about-subtitle">Szkocka grunds support induvidual researchers of any nationality and age who wish to pursue their frontier research</h3>
+    <md-content class="md-container" layout="row" layout-wrap >
+        
+        <div flex="33" flex-sm="50" flex-xs="100">
+            <md-card class="fund-desc">
+                <md-card-content >
+                    <h4>Szkocka Fund</h4>
+                    <p>Wether you are well-esteblished researcher, looking for Post-Doc Funding or considering sttarting a PhD, the Uropean Union offers you several funding opportunities regurdless of what country or sector you wish to work in.</p>
+                    <p>Fund provides grunts to help you carry out your research project, get aditional skills, acquire across disciplinary experience and boost your career</p>
+                </md-card-content>
+                <md-button ng-disabled="true" class="md-raised md-primary">APPLY</md-button>
+            </md-card>
+        </div>
+
+        <div flex="33" flex-sm="50" flex-xs="100" >
+            <md-card >
+                <div class="card-image" style="background-image: url(img/photo.png)"></div>
+            </md-card>
+        </div>
+        <div flex="33" flex-sm="50" flex-xs="100">
+            <md-card >
+                <div class="card-image" style="background-image: url(img/photo.png)"></div>
+            </md-card>
+        </div>
+    </md-content>
+
+    <h1 class="about-title">Sponsors</h1>
+    <h3 class="about-subtitle">We are supported by awesome companies which helpfund our programs</h3>
+    <md-content class="md-container" style="margin-bottom: 100px;">
+        <!--<md-grid-list 
+            md-cols-xs="1" md-cols-sm="4" md-cols-md="6"
+            md-row-height-gt-md="1:1" md-row-height="2:2"
+            md-gutter="30px" md-gutter-gt-sm="20px" >
+
+            <md-grid-tile class="sponsor" style="background-image: url(img/nix.png)">
+            </md-grid-tile>
+
+            <md-grid-tile class="sponsor" style="background-image: url(img/eleks.png)">
+            </md-grid-tile>
+
+            <md-grid-tile class="sponsor" style="background-image: url(img/nix.png)">
+            </md-grid-tile>
+
+            <md-grid-tile class="sponsor" style="background-image: url(img/eleks.png)">
+            </md-grid-tile>
+
+            <md-grid-tile class="sponsor" style="background-image: url(img/nix.png)">
+            </md-grid-tile>
+
+            <md-grid-tile class="sponsor" style="background-image: url(img/eleks.png)">
+            </md-grid-tile>
+
+        </md-grid-list>-->
+    </md-content>
+</div>
+<footer-section></footer-section>

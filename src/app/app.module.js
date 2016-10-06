@@ -24,7 +24,7 @@ angular
         'home',
         'news',
         'profile',
-        'projects',
+        'project',
 
         'templates'
     ]);

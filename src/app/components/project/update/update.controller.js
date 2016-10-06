@@ -6,7 +6,7 @@
         .controller('UpdateController', UpdateController);
 
     /* ngInject */
-    function UpdateController($scope, $state, UpdateResolver, projectsService,
+    function UpdateController($scope, $state, UpdateResolver, projectService,
         PROJ_STATUSES, Assert, Type, Upload, API_URL) {
         /** @public {Object} */
         $scope.project = UpdateResolver.data;
@@ -39,9 +39,9 @@
                 }
             };
 
-            projectsService.update(params)
+            projectService.update(params)
                 .then(function(res) {
-                    $state.go('project.about', {id: $scope.project.id});
+                    $state.go('project', {id: $scope.project.id});
                 }, function(err) {
                     console.log(err);
                 });
@@ -57,7 +57,7 @@
             };
             return;
 
-            projectsService.removeResearcher(params)
+            projectService.removeResearcher(params)
                 .then(function(res) {
                     _.remove($scope.project.researchers, function(person) {
                         return person.id === researcher.id;

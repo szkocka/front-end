@@ -12,7 +12,7 @@
             parent: 'project',
             views: {
                 content: {
-                    templateUrl: 'components/projects/project/forum/messages/messages.html',
+                    templateUrl: 'components/project/forum/messages/messages.html',
                     controller: 'ForumMessagesController'
                 }
             }

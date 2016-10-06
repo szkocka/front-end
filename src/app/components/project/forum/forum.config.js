@@ -2,17 +2,18 @@
     'use strict';
 
     angular
-        .module('project.about')
+        .module('project.forum')
         .config(config);
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state('project.about', {
-            url: '/about',
+        $stateProvider.state('project.forum', {
+            url: '/forum',
             parent: 'project',
             views: {
                 content: {
-                    templateUrl: 'components/projects/project/about/about.html'
+                    templateUrl: 'components/project/forum/forum.html',
+                    controller: 'ProjectForumController'
                 }
             }
         });

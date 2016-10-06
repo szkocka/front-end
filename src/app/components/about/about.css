@@ -1,3 +1,45 @@
-.add-margin-bottom {
-    margin-bottom: 15px;
+.about {
+}
+.about .edit-btn {
+    min-height: 48px;
+}
+.about md-list-item {
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+    padding: 16px;
+}
+.about md-list {
+    margin-top: 20px;
+}
+.about md-list p{
+    margin: 0;
+}
+.about .fund-desc {
+    padding: 16px;
+}
+.about .fund-desc h4{
+    margin-top: 0;
+}
+.about .about-title,
+.about .about-subtitle {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: #536063;
+    text-align: center;
+    text-shadow: none;
+    display: block;
+}
+.about .about-subtitle {
+    margin-top: 0;
+}
+.about .sponsor,
+.about .card-image {
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+.about md-card{
+    height: 350px;
 }

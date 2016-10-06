@@ -2,18 +2,18 @@
     'use strict';
 
     angular
-        .module('projects')
+        .module('project')
         .config(config);
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state('projects', {
-            url: '^/projects',
+        $stateProvider.state('project', {
+            url: '^/project/:id',
             parent: 'restricted-area',
             views: {
                 content: {
-                    templateUrl: 'components/projects/projects.html',
-                    controller: 'ProjectsController'
+                    templateUrl: 'components/project/project.html',
+                    controller: 'ProjectController'
                 }
             }
         });

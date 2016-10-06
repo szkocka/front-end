@@ -11,12 +11,12 @@
             url: '^/project-update/:id',
             parent: 'restricted-area',
             resolve: {
-                projectsService: 'projectsService',
+                projectService: 'projectService',
                 UpdateResolver: UpdateResolver
             },
             views: {
                 content: {
-                    templateUrl: 'components/projects/update/update.html',
+                    templateUrl: 'components/project/update/update.html',
                     controller: 'UpdateController'
                 }
             }
@@ -24,7 +24,7 @@
     }
 
     /* ngInject */
-    function UpdateResolver(projectsService, $stateParams) {
-        return projectsService.getProjectById($stateParams.id);
+    function UpdateResolver(projectService, $stateParams) {
+        return projectService.getProjectById($stateParams.id);
     }
 })();
