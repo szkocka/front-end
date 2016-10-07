@@ -1,0 +1,7 @@
+.update-project {}
+.update-project md-input-container {
+	display: block;
+}
+.update-project md-list h3 {
+	margin-bottom: 0;
+}

@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" ng-if="!showForgorPassword">
     <div class="info" layout="column">
         <h1 show-gt-xs hide-xs>explore our projects</h1>
         <h2 hide-gt-xs show-xs>explore our projects</h2>
@@ -25,8 +25,35 @@
                 </div>
             </md-input-container>
             <section layout="row">
-                <md-button flex="50" type="button" class="md-block" ui-sref="sign-up">SIGN UP</md-button>
+                <md-button flex="50" type="button" class="md-block" 
+                            ng-click="showFP()">FORGOT PASSWORD?</md-button>
                 <md-button flex="50" type="submit" class="md-primary md-raised md-block">LOGIN</md-button>
+            </section>
+        </form>
+    </md-content>
+</div>
+<div class="header forgotPassword" ng-if="showForgorPassword">
+    <div class="info" layout="column">
+        <h1 >Forgot password</h1>
+        <h3>&nbsp;</h3>
+    </div>
+
+    <md-content layout-padding class="account-container">
+        <form ng-submit="forgotPassword(form.$valid, $event)" name="form" novalidate>
+
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input type="email" ng-model="user.email" name="email" required>
+                <div ng-messages="userForm.email.$error">
+                    <div ng-message="required">This field is required</div>
+                    <div ng-message="email">This needs to be a valid email</div>
+                </div>
+            </md-input-container>
+
+            <section layout="row">
+                <md-button flex="50" type="button" class="md-block" 
+                            ng-click="hideFP()">LOGIN</md-button>
+                <md-button flex="50" type="submit" class="md-primary md-raised md-block">RESET PASSWORD</md-button>
             </section>
         </form>
     </md-content>

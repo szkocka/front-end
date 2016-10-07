@@ -1,5 +1,6 @@
 angular
     .module('account', [
         'sign-in',
-        'sign-up'
+        'sign-up',
+        'forgot-password'
     ]);

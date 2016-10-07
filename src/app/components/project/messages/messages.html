@@ -55,8 +55,11 @@
                         </md-button>
                     </md-list-item>
                 </md-list>
-                <div class="postMessage" layout-align="end start">
-                    <textarea kendo-editor k-ng-model="newMessage"></textarea>
+                <div class="postMessage">
+                    <md-input-container class="md-block">
+                        <label class="detailed-description">Add Comment</label>
+                        <textarea kendo-editor k-ng-model="newMessage"></textarea>
+                    </md-input-container>
                     <section layout="row">
                         <div flex="50" class="md-block">{{message}}</div>
                         <md-button flex="50" class="md-primary md-raised md-block"

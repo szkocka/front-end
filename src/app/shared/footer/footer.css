@@ -1,8 +1,7 @@
 footer {
     min-height: 100px;
     width: 100%;
-    position: fixed;
-    bottom: 0;
+
     background-color: rgba(26, 38, 52, 0.6);
 }
 footer div {

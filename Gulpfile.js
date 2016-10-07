@@ -6,7 +6,6 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
     ngAnnotate = require('gulp-ng-annotate'),
     ngHtml2js = require('gulp-ng-html2js'),
-    less = require('gulp-less'),
     del = require('del'),
     eventStream = require('event-stream'),
     environments = require('gulp-environments');
@@ -78,7 +77,6 @@ function buildVendorScripts() {
 
 function buildStyles() {
     return gulp.src(config.sources.stylesheets)
-        .pipe(less())
         .pipe(concat('app.css'))
         .pipe(gulp.dest(destination.stylesheets));
 }

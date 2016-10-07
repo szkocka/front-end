@@ -1,5 +1,5 @@
 /**
- * App-wide Styles
+ * GENERAL STYLES
  */
 body {
     font-family: 'Roboto', sans-serif;
@@ -7,14 +7,6 @@ body {
 }
 html {
     background-color: #fff;
-}
-.md-container {
-    margin: 0 auto;
-}
-@media (min-width: 1200px) {
-    .md-container {
-        width:70%;
-    }
 }
 md-content.md-default-theme, md-content {
     background-color: #fff!important;
@@ -25,6 +17,89 @@ md-content.md-default-theme, md-content {
 md-toast .md-toast-content {
     background-color: red;
 }
+.md-button:not([disabled]):hover {
+    background-color: rgba(158,158,158,0.6);
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+md-card md-card-title,
+md-card md-card-content {
+    padding: 0;
+}
+.add-padding-right {
+    padding-right: 20px;
+}
+.select-image {
+    height: 300px;
+    background-repeat: no-repeat;
+    background-image: url(../img/photo.png);
+    background-size: 100px;
+    background-position: center;
+    opacity: 0.3;
+    cursor: pointer;
+    position: relative;
+}
+.select-image .proj-image {
+    display: block;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 200px;
+}
+.preview {
+    width: 100%;
+    cursor: pointer;
+}
+.detailed-description {
+    -webkit-transform: translate3d(0, 0, 0) scale(1)!important;
+    transform: translate3d(0, 0, 0) scale(1)!important;
+}
+.md-container {
+    margin: 0 auto;
+}
+@media (min-width: 1200px) {
+    .md-container {
+        width:70%;
+    }
+}
+
+/******* HEADER *******/
+.header {
+    background-image: url(../img/hero-bg-2x.png);
+    background-size: 100% 500px;
+    background-position: top;
+    background-repeat: no-repeat;
+    min-height: 600px;
+}
+.header .info {
+    color: #fff;
+    text-align: center;
+}
+.header h1,
+.header h2 {
+    margin-top: 100px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px #000000;
+    font-weight: 300;
+}
+.header h3 {
+    margin-top: 0;
+    font-weight: 300;
+    text-shadow: 1px 1px 3px #000000;
+}
+.header md-content.md-default-theme, .header md-content {
+    background-color: transparent!important;
+}
+.header form {
+    background-color: rgba(250, 250, 250, 0.5);
+}
+
+/******* LIST OF PROJECTS *******/
 .itemsList {
     overflow: hidden;
 }
@@ -40,10 +115,7 @@ md-toast .md-toast-content {
     color: rgb(63,81,181);
     margin-top: 5px;
 }
-md-card md-card-title,
-md-card md-card-content {
-    padding: 0;
-}
+
 .itemsList .tag{
     background: #ff5252;
     font-size: 9px;
@@ -94,43 +166,4 @@ md-card md-card-content {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
-.md-button:not([disabled]):hover {
-    background-color: rgba(158,158,158,0.6);
-}
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-
-.header {
-    background-image: url(../img/hero-bg-2x.png);
-    background-size: 100% 500px;
-    background-position: top;
-    background-repeat: no-repeat;
-}
-.header .info {
-    color: #fff;
-    text-align: center;
-}
-.header h1,
-.header h2 {
-    margin-top: 100px;
-    text-transform: uppercase;
-    text-shadow: 1px 1px 3px #000000;
-    font-weight: 300;
-}
-.header h3 {
-    margin-top: 0;
-    font-weight: 300;
-    text-shadow: 1px 1px 3px #000000;
-}
-.header md-content.md-default-theme, .header md-content {
-    background-color: transparent!important;
-}
-.header form {
-    background-color: rgba(250, 250, 250, 0.5);
 }

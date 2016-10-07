@@ -34,7 +34,6 @@
             Assert.isObject(params, 'Invalid "params" type');
             Assert.isString(params.title, 'Invalid "params.title" type');
             Assert.isString(params.body, 'Invalid "params.body" type');
-            Assert.isString(params.image_url, 'Invalid "params.image_url" type');
 
             return $http.post(API_URL + 'news', params);
         };

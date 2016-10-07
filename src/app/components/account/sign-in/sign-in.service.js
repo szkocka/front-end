@@ -29,6 +29,16 @@
                     });
 
                 return deferred.promise;
+            },
+
+            /**
+             * @param  {String}   email
+             * @return {Promise}
+             */
+            forgotPassword: function(email) {
+                Assert.isString(email, 'Invalid "email" type');
+
+                return $http.put(API_URL + 'users/me/forgotPassword', email);
             }
         };
     }

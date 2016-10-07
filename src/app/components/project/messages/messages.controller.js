@@ -92,13 +92,12 @@
 
             messagesService.createNewMessage(params)
                 .then(function(res) {
-                    var msg = {
-                        message: text,
-                        createdBy: [{name:'You', id: $scope.user._id}],
-                        created: new Date()
-                    };
-                    $scope.activeForumMessages.push(msg);
+                    $scope.activeForumMessages = [];
                     $scope.newMessage = '';
+                    $scope.cursor = null;
+                    $scope._init();
+
+                    
                 }, function(err) {
                     console.log(err.message);
                 });
