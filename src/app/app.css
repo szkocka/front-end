@@ -108,10 +108,9 @@ md-card md-card-content {
 
 .header {
     background-image: url(../img/hero-bg-2x.png);
-    background-size: cover;
-    background-position: center;
+    background-size: 100% 500px;
+    background-position: top;
     background-repeat: no-repeat;
-    height: 450px;
 }
 .header .info {
     color: #fff;

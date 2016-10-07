@@ -7,7 +7,7 @@
 
     /* ngInject */
     function ProjectController($scope, $state, $stateParams, accountService, 
-        projectService, Assert, Type) {
+        projectService, Assert, Type, LOAD_LIMIT) {
         /** @private {Number} */
         $scope.projectId = $stateParams.id;
         /** @private {Object} */
@@ -18,25 +18,35 @@
         $scope.user = accountService.getCurrentUser();
         /** @public {Array<Object>} */
         $scope.joinRequests = [];
+        /** @public {Array<Object>} */
+        $scope.forums = [];
         /** @public {Boolean} */
         $scope.isSupervisor = false;
+        /** @public {Boolean} */
+        $scope.isResearcher = false;
         /** @public {Boolean} */
         $scope.canJoinProject = false;
         /** @public {Boolean} */
         $scope.showInvitation = false;
         /** @public {Boolean} */
         $scope.inviteSent = false;
+        /** @private {String} */
+        $scope.forumsCursor = '';
+        /** @public {Boolean} */
+        $scope.loadMoreAvailable = false;
 
         $scope._init = _init;
         $scope._getJoinRequests = _getJoinRequests;
+        $scope._getForums = _getForums;
+        $scope.loadMore = loadMore;
         $scope.edit = edit;
         $scope.join = join;
         $scope.accept = accept;
         $scope.ignore = ignore;
-
         $scope.show = show;
         $scope.cancel = cancel;
         $scope.inviteResearcher = inviteResearcher;
+        $scope.createForum = createForum;
 
         function _init() {
             projectService.getProjectById($scope.projectId).then(function(res) {
@@ -49,6 +59,19 @@
                 if($scope.user && $scope.user._id == $scope.project.supervisor.id ){
                     $scope.isSupervisor = true;
                     $scope._getJoinRequests();
+                }
+
+                // show forums if user is working on current project
+                var researcher = _.find($scope.project.researchers, function(person) {
+                    return person.id == $scope.user._id;
+                });
+                if (Type.isObject(researcher)) {
+                    $scope.isResearcher = true;
+                }
+
+                if ($scope.user._id == $scope.project.supervisor.id || Type.isObject(researcher)) {
+
+                    $scope._getForums();
                 }
             }, function(err) {
                 console.log(err);
@@ -68,6 +91,36 @@
                 }, function(err) {
                     console.log(err.message);
                 });
+        };
+
+        function _getForums() {
+            var params = {
+                researchId: $scope.projectId,
+                cursor: $scope.forumsCursor
+            };
+
+            projectService.getForums(params)
+                .then(function(res) {
+                    if ($scope.forumsCursor == res.data.cursor) {
+                        return;
+                    }
+                    if (res.data.forums.length < LOAD_LIMIT) {
+                        $scope.loadMoreAvailable = false;
+                    }
+                    $scope.forumsCursor = res.data.cursor;
+
+                    res.data.forums.forEach(function(forum) {
+                        $scope.forums.push(forum);
+                    });
+                }, function(err) {
+                    $scope.loadMoreAvailable = false;
+                });
+        };
+
+        function loadMore() {
+            if($scope.loadMoreAvailable) {
+                $scope._getForums();
+            }
         };
 
         function edit() {
@@ -146,6 +199,33 @@
                 .then(function(res) {
                     $scope.newResearcher = {};
                     $scope.showInvitation = false;
+                }, function(err) {
+                    console.log(err.message);
+                });
+        };
+
+        /**
+         * @param {String} topic
+         * @param {Object} e
+         */
+        function createForum(topic, e){
+            Assert.isString(topic, 'Invalid "topic" type');
+
+            e.preventDefault();
+
+            var params = {
+                researchId: $scope.projectId,
+                subject: topic
+            };
+
+            projectService.createForum(params)
+                .then(function(res) {
+                    $state.go('project-messages',
+                        {
+                            forumId: res.data.forum_id,
+                            projectId: $scope.projectId,
+                            isSupervisor: $scope.isSupervisor
+                        });
                 }, function(err) {
                     console.log(err.message);
                 });

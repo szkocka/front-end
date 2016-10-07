@@ -2,7 +2,7 @@
 .update-project {}
 
 .add-padding-right {
-  	padding-right: 20px;  
+  	padding-right: 20px;
 }
 .select-image {
 	height: 300px;
@@ -38,6 +38,10 @@
 }
 
 .project {
+}
+
+.project.header form {
+    background-color: #fff;
 }
 .project .info {
 	height: 200px;
@@ -115,4 +119,20 @@
 .project md-list h3:hover {
 	text-decoration: underline;
 	cursor: pointer;
+}
+.project md-card h1{
+    margin-top: 0.67em;
+}
+.project .createForum {
+    margin-top: 30px;
+}
+.project .forum .md-headline{
+    color: rgb(57,73,171);
+    cursor: pointer;
+    text-transform: none;
+    font-size: 20px;
+}
+.project .forum {
+    margin-bottom: 30px;
+    padding-right: 20px;
 }

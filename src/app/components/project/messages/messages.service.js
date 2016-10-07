@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('project.messages')
+        .module('project-messages')
         .factory('messagesService', messagesService);
 
     /* ngInject */
@@ -11,7 +11,8 @@
             getForumById: getForumById,
             getForumMessages: getForumMessages,
             createNewMessage: createNewMessage,
-            updateMessage: updateMessage
+            updateMessage: updateMessage,
+            deleteMessage: deleteMessage
         }
 
         /**
@@ -52,6 +53,14 @@
         function updateMessage(params) {
             Assert.isString(params.message, 'Invalid "params.message" type');
             return $http.put(API_URL + 'forums/messages/' + params.id, params);
+        }
+
+        /**
+         * @param {Object} params
+         * @return {Promise}
+         */
+        function deleteMessage(params) {
+            return $http.delete(API_URL + 'forums/messages/' + params.id);
         }
     }
 })();

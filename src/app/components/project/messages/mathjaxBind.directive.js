@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('project.messages')
+        .module('project-messages')
         .directive('mathjaxBind', mathjaxBind);
 
     /* ngInject */

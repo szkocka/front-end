@@ -2,17 +2,17 @@
     'use strict';
 
     angular
-        .module('project.messages')
+        .module('project-messages')
         .config(config);
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state('project.messages', {
-            url: '/:forumId',
-            parent: 'project',
+        $stateProvider.state('project-messages', {
+            url: '^/project-messages/:forumId/:projectId/:isSupervisor',
+            parent: 'restricted-area',
             views: {
                 content: {
-                    templateUrl: 'components/project/forum/messages/messages.html',
+                    templateUrl: 'components/project/messages/messages.html',
                     controller: 'ForumMessagesController'
                 }
             }

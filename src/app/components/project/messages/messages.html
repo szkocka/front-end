@@ -1,0 +1,104 @@
+<div class="header messages">
+    <div class="info" layout="column"></div>
+    <md-content class=" md-container">
+        <md-card layout="row" layout-wrap>
+            <div flex="100">
+                <div class="activeForum">
+                    <md-list>
+                        <md-list-item class="md-2-line md-long-text">
+                            <md-icon class="back" ui-sref="project({id: projectId})">chevron_left</md-icon>
+                            <div class="md-list-item-text">
+                                <h3 ng-if="!message.showEditedTextaria">{{activeForum.createdBy.name}} <small> on <i><i>{{activeForum.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i></i></small></h3> 
+                                <h1>{{activeForum.subject}}</h1>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+                <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+                    <md-nav-item md-nav-click="goto('comments')" name="comments">Comments</md-nav-item>
+                </md-nav-bar>
+                <md-list infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-disabled="!loadMoreAvailable">
+                    <md-list-item class="md-2-line md-long-text"
+                                    ng-repeat="message in activeForumMessages">
+
+                        <div class="md-list-item-text">
+                            <h3 ng-if="!message.showEditedTextaria">{{message.createdBy[0].name}} <small> on <i><i>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i></i></small></h3> 
+                            <p ng-if="!message.showEditedTextaria" mathjax-bind="message.message"></p>
+                            <div ng-if="message.showEditedTextaria">
+                                <textarea kendo-editor k-ng-model="message.message"></textarea>
+                            </div>
+                        </div>
+
+                        <md-button class="md-secondary md-icon-button"
+                                ng-if="!message.showEditedTextaria && (message.createdBy[0].id === user._id || isSupervisor)"
+                                ng-click="message.showEditedTextaria = !message.showEditedTextaria"
+                                aria-label="edit">
+                            <md-icon>edit</md-icon>
+                        </md-button>
+                        <md-button class="md-secondary md-icon-button" ng-click="deleteMessage(message, $event)"
+                                ng-if="!message.showEditedTextaria && (message.createdBy[0].id === user._id || isSupervisor)"
+                                aria-label="close">
+                            <md-icon>close</md-icon>
+                        </md-button>
+
+                        <md-button class="md-secondary md-icon-button"
+                                ng-if="message.showEditedTextaria"
+                                ng-click="message.showEditedTextaria = !message.showEditedTextaria"
+                                aria-label="close">
+                            <md-icon>close</md-icon>
+                        </md-button>
+                        <md-button class="md-secondary md-icon-button"
+                                ng-if="message.showEditedTextaria"
+                                ng-click="updateMessage(message, $event)"
+                                aria-label="check">
+                            <md-icon>check</md-icon>
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+                <div class="postMessage" layout-align="end start">
+                    <textarea kendo-editor k-ng-model="newMessage"></textarea>
+                    <section layout="row">
+                        <div flex="50" class="md-block">{{message}}</div>
+                        <md-button flex="50" class="md-primary md-raised md-block"
+                                    ng-click="postMessage(newMessage, $event)">POST MESSAGE</md-button>
+                    </section>
+                </div>
+            </div>
+        </md-card>
+    </md-content>
+</div>
+<footer-section></footer-section>
+<!--<ol class="breadcrumb">
+    <li>
+        <a ui-sref="project.forum">All topics</a>
+    </li>
+    <li class="active">{{activeForum.subject}}</li>
+</ol>
+<div infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-disabled="!loadMoreAvailable">
+    <div ng-repeat="message in activeForumMessages | orderBy: 'message.created'">
+        <md-icon aria-label="edit" class="edit-message" 
+        ng-if="!message.showEditedTextaria && message.createdBy[0].id === user._id" 
+        ng-click="message.showEditedTextaria = !message.showEditedTextaria">
+            edit
+        </md-icon>
+        <md-icon aria-label="close" class="edit-message" ng-if="message.showEditedTextaria" 
+        ng-click="message.showEditedTextaria = !message.showEditedTextaria">
+            close
+        </md-icon>
+        <md-icon aria-label="check" class="edit-message" ng-if="message.showEditedTextaria" 
+        ng-click="updateMessage(message, $event)">
+            check
+        </md-icon>
+        <div class="form-group" ng-if="message.showEditedTextaria">
+            <textarea kendo-editor k-ng-model="message.message"></textarea>
+        </div>
+        <blockquote ng-if="!message.showEditedTextaria">
+            <p mathjax-bind="message.message"></p>
+            <footer>{{message.createdBy.name}} on <cite>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</cite></footer>
+        </blockquote>
+    </div>
+</div>
+<div class="form-group">
+    <textarea kendo-editor k-ng-model="newMessage"></textarea>
+</div>
+<button type="button" class="btn btn-primary" ng-click="postMessage(newMessage, $event)">Post message</button>-->

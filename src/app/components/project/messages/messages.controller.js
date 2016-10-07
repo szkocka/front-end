@@ -2,13 +2,17 @@
     'use strict';
 
     angular
-        .module('project.messages')
+        .module('project-messages')
         .controller('ForumMessagesController', ForumMessagesController);
 
     /* ngInject */
     function ForumMessagesController($scope, $stateParams, LOAD_LIMIT, messagesService, Assert, accountService) {
         /** @private {String} */
         $scope.forumId = $stateParams.forumId;
+        /** @private {String} */
+        $scope.projectId = $stateParams.projectId;
+        /** @public {Boolean} */
+        $scope.isSupervisor = $stateParams.isSupervisor === 'true';
         /** @public {Object} */
         $scope.user = accountService.getCurrentUser();
         /** @public {Object} */
@@ -21,12 +25,15 @@
         $scope.cursor = null;
         /** @public {Boolean} */
         $scope.loadMoreAvailable = true;
+        /** @public {String} */
+        $scope.currentNavItem = 'comments';
 
         $scope._getActiveForum = _getActiveForum;
         $scope._init = _init;
         $scope.loadMore = loadMore;
         $scope.postMessage = postMessage;
         $scope.updateMessage = updateMessage;
+        $scope.deleteMessage = deleteMessage;
 
         function _getActiveForum() {
             messagesService.getForumById($scope.forumId)
@@ -87,7 +94,7 @@
                 .then(function(res) {
                     var msg = {
                         message: text,
-                        createdBy: {name:'You'},
+                        createdBy: [{name:'You', id: $scope.user._id}],
                         created: new Date()
                     };
                     $scope.activeForumMessages.push(msg);
@@ -113,6 +120,28 @@
             messagesService.updateMessage(params)
                 .then(function(res) {
                     msg.showEditedTextaria = false;
+                }, function(err) {
+                    console.log(err.message);
+                });
+        };
+
+        /**
+         * @param {Object} msg
+         * @param {Object} e
+         */
+        function deleteMessage(msg, e){
+            Assert.isObject(msg, 'Invalid "msg" type');
+            e.preventDefault();
+
+            var params = {
+                id: msg.id[0]
+            };
+
+            messagesService.deleteMessage(params)
+                .then(function(res) {
+                    _.remove($scope.activeForumMessages, function(item) {
+                        return item.id[0] === msg.id[0];
+                    });
                 }, function(err) {
                     console.log(err.message);
                 });

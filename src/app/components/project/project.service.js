@@ -16,7 +16,9 @@
             joinResearch: joinResearch,
             aproveResearcher: aproveResearcher,
             rejectResearcher: rejectResearcher,
-            getUserProfile: getUserProfile
+            getUserProfile: getUserProfile,
+            getForums: getForums,
+            createForum: createForum
         };
 
         /**
@@ -86,6 +88,30 @@
          */
         function getUserProfile(id) {
             return $http.get(API_URL + 'users/' + id);
+        };
+
+        /**
+         * @param {Object} params
+         */
+        function getForums(params) {
+            Assert.isObject(params, 'Invalid "params" type');
+            var query = '';
+
+            if (Type.isNull(params.cursor)) {
+                query = '/forums';
+            } else {
+                query = '/forums?cursor=' + params.cursor;
+            }
+            return $http.get(API_URL + 'researches/' + params.researchId + query);
+        };
+
+        /**
+         * @param {Object} params
+         */
+        function createForum(params) {
+            Assert.isObject(params, 'Invalid "params" type');
+            Assert.isString(params.subject, 'Invalid "params.subject" type');
+            return $http.post(API_URL + 'researches/' + params.researchId + '/forums', params);
         };
     }
 })();

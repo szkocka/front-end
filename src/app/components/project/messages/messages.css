@@ -1,0 +1,30 @@
+.messages {
+    margin-bottom: 100px;
+}
+.messages .info {
+    height: 200px;
+    padding-top: 110px;
+}
+.messages .md-list-item {
+    margin-bottom: 20px;
+}
+.messages .postMessage {
+    padding: 16px;
+}
+.messages .activeForum h1 {
+    color: rgb(57,73,171);
+    text-transform: none;
+    font-size: 20px;
+    margin-top: 10px;
+    text-shadow: none;
+}
+.messages md-list-item h3 {
+    text-shadow: none;
+    color: #000!important;
+}
+.messages .activeForum .back {
+    font-size: 60px;
+    margin: 0 40px 0 0;
+    color: rgb(57,73,171);
+    cursor: pointer;
+}
