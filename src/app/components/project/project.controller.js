@@ -16,6 +16,8 @@
         $scope.newResearcher = {};
         /** @public {Object} */
         $scope.user = accountService.getCurrentUser();
+        /** @public {Boolean} */
+        $scope.isAdmin = accountService.isAdmin();
         /** @public {Array<Object>} */
         $scope.joinRequests = [];
         /** @public {Array<Object>} */
@@ -69,7 +71,7 @@
                     $scope.isResearcher = true;
                 }
 
-                if ($scope.user._id == $scope.project.supervisor.id || Type.isObject(researcher)) {
+                if ($scope.user._id == $scope.project.supervisor.id || $scope.isResearcher || $scope.isAdmin) {
 
                     $scope._getForums();
                 }
