@@ -8,7 +8,7 @@
     /* ngInject */
     function config($stateProvider) {
         $stateProvider.state('forgot-password', {
-            url: '^/forgot-password',
+            url: '^/forgot-password/:id',
             parent: 'free-area',
             views: {
                 content: {

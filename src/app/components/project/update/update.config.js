@@ -10,10 +10,6 @@
         $stateProvider.state('project-update', {
             url: '^/project-update/:id',
             parent: 'restricted-area',
-            resolve: {
-                projectService: 'projectService',
-                UpdateResolver: UpdateResolver
-            },
             views: {
                 content: {
                     templateUrl: 'components/project/update/update.html',
@@ -21,10 +17,5 @@
                 }
             }
         });
-    }
-
-    /* ngInject */
-    function UpdateResolver(projectService, $stateParams) {
-        return projectService.getProjectById($stateParams.id);
     }
 })();

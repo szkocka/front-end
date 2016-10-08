@@ -25,12 +25,12 @@
                 <div class="md-list-item-text">
                     <h3 ui-sref="project({id: inv.id})">{{inv.title}}</h3>
                 </div>
-                <md-button class="md-secondary md-icon-button" ng-click="accept(inv)">
+                <md-button class="md-secondary md-icon-button" ng-click="confirmAccept(inv, $event)">
                     <md-icon aria-label="check">
                         check
                     </md-icon>
                 </md-button>
-                <md-button class="md-secondary md-icon-button" ng-click="ignore(inv)">
+                <md-button class="md-secondary md-icon-button" ng-click="confirmIgnore(inv, $event)">
                     <md-icon aria-label="close">
                         close
                     </md-icon>

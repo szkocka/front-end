@@ -24,7 +24,7 @@
                 <td >
                     <p ng-bind-html="project.title"></p>
                     <md-button class="md-primary md-raised" ui-sref="project-update({id: project.id})">Edit</md-button>
-                    <md-button class="md-primary md-raised" ng-click="deleteProject(project)">Delete</md-button>
+                    <md-button class="md-primary md-raised" ng-click="confirmDelete(project, $event)">Delete</md-button>
                 </td>
                 <td>
                     <div>{{project.supervisor.name}}</div>

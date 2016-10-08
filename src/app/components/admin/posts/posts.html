@@ -20,7 +20,7 @@
                     <textarea kendo-editor k-ng-model="post.title"></textarea>
                 </div>
                 <md-button ng-if="!post.isEditing" class="md-primary md-raised" ng-click="editPost(post)">Edit</md-button>
-                <md-button ng-if="!post.isEditing" class="md-primary md-raised" ng-click="deletePost(post)">Delete</md-button>
+                <md-button ng-if="!post.isEditing" class="md-primary md-raised" ng-click="confirmDelete(post, $event)">Delete</md-button>
 
                 <md-button ng-if="post.isEditing" class="md-primary md-raised" ng-click="updatePost(post)">Update</md-button>
                 <md-button ng-if="post.isEditing" class="md-primary md-raised" ng-click="post.isEditing = !post.isEditing">Cancel</md-button>

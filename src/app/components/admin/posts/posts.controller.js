@@ -6,7 +6,8 @@
         .controller('PostsController', PostsController);
 
     /* ngInject */
-    function PostsController($q, $scope, $stateParams, $state, LOAD_LIMIT, postsService, Assert, Type) {
+    function PostsController($q, $scope, $stateParams, $state, LOAD_LIMIT, postsService,
+    Assert, Type, dialogService) {
         /** @private {String} */
         $scope.userId = $stateParams.userId;
         /** @private {String} */
@@ -37,8 +38,8 @@
         $scope.updatePost = updatePost;
         $scope._updateForum = _updateForum;
         $scope._updateMessage = _updateMessage;
-
-        $scope.deletePost = deletePost;
+        $scope.confirmDelete = confirmDelete;
+        $scope._deletePost = _deletePost;
         $scope._removePostFromScreen = _removePostFromScreen;
 
 
@@ -235,8 +236,21 @@
 
         /**
          * @param {Object} post
+         * @param {Object} ev
          */
-        function deletePost(post) {
+        function confirmDelete (post, ev) {
+            var title = 'Are you sure?';
+            var message = '';
+            var button = 'DELETE';
+            var callback = $scope._deletePost;
+
+            dialogService.confirm(title, message, button, callback, ev, post);
+        }
+
+        /**
+         * @param {Object} post
+         */
+        function _deletePost(post) {
             Assert.isObject(post, 'Invalid "post" type');
 
             switch(post.type) {

@@ -6,7 +6,8 @@
         .controller('ForumMessagesController', ForumMessagesController);
 
     /* ngInject */
-    function ForumMessagesController($scope, $stateParams, LOAD_LIMIT, messagesService, Assert, accountService) {
+    function ForumMessagesController($scope, $stateParams, LOAD_LIMIT, messagesService,
+    Assert, accountService, dialogService) {
         /** @private {String} */
         $scope.forumId = $stateParams.forumId;
         /** @private {String} */
@@ -15,6 +16,8 @@
         $scope.isSupervisor = $stateParams.isSupervisor === 'true';
         /** @public {Object} */
         $scope.user = accountService.getCurrentUser();
+        /** @public {Object} */
+        $scope.isAdmin = accountService.isAdmin();
         /** @public {Object} */
         $scope.activeForum = {};
         /** @public {Array<Object>} */
@@ -33,7 +36,8 @@
         $scope.loadMore = loadMore;
         $scope.postMessage = postMessage;
         $scope.updateMessage = updateMessage;
-        $scope.deleteMessage = deleteMessage;
+        $scope.confirmDelete = confirmDelete;
+        $scope._deleteMessage = _deleteMessage;
 
         function _getActiveForum() {
             messagesService.getForumById($scope.forumId)
@@ -126,11 +130,23 @@
 
         /**
          * @param {Object} msg
+         * @param {Object} ev
+         */
+        function confirmDelete(msg, ev) {
+            var title = 'Delete this comment?';
+            var message = '';
+            var button = 'DELETE';
+            var callback = $scope._deleteMessage;
+
+            dialogService.confirm(title, message, button, callback, ev, msg);
+        };
+
+        /**
+         * @param {Object} msg
          * @param {Object} e
          */
-        function deleteMessage(msg, e){
+        function _deleteMessage(msg){
             Assert.isObject(msg, 'Invalid "msg" type');
-            e.preventDefault();
 
             var params = {
                 id: msg.id[0]

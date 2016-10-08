@@ -6,7 +6,8 @@
         .controller('AdminProjectsController', AdminProjectsController);
 
     /* ngInject */
-    function AdminProjectsController($scope, adminProjectsService, LOAD_LIMIT, Assert, $mdToast) {
+    function AdminProjectsController($scope, adminProjectsService, LOAD_LIMIT, Assert,
+    $mdToast, dialogService) {
         /** @public {Array<Object>} */
         $scope.projectsList = [];
         /** @public {Boolean} */
@@ -22,7 +23,8 @@
         $scope._init = _init;
         $scope.loadMore = loadMore;
         $scope.search = search;
-        $scope.deleteProject = deleteProject;
+        $scope.confirmDelete = confirmDelete;
+        $scope._deleteProject = _deleteProject;
 
         function loadMore() {
             if($scope.loadMoreAvailable) {
@@ -67,9 +69,22 @@
         };
 
         /**
+         * @param {Object} proj
+         * @param {Object} ev
+         */
+        function confirmDelete(proj, ev) {
+            var title = 'Delete this project?';
+            var message = proj.title;
+            var button = 'DELETE';
+            var callback = $scope._deleteProject;
+
+            dialogService.confirm(title, message, button, callback, ev, proj);
+        };
+
+        /**
          * @param {Object} project
          */
-        function deleteProject(project) {
+        function _deleteProject(project) {
             Assert.isObject(project, 'Invalid "project" type');
 
             adminProjectsService.deleteResearch(project.id)

@@ -9,16 +9,15 @@
     function projectService($http, API_URL, Assert, Type) {
         return {
             getProjectById: getProjectById,
-            update: update,
             sendInvitation: sendInvitation,
-            removeResearcher: removeResearcher,
             getJoinRequests: getJoinRequests,
             joinResearch: joinResearch,
             aproveResearcher: aproveResearcher,
             rejectResearcher: rejectResearcher,
-            getUserProfile: getUserProfile,
             getForums: getForums,
-            createForum: createForum
+            createForum: createForum,
+            updateForum: updateForum,
+            deleteForum: deleteForum
         };
 
         /**
@@ -31,25 +30,9 @@
         /**
          * @param {Object} params
          */
-        function update(params) {
-            Assert.isObject(params, 'Invalid "params" type');
-            return $http.put(API_URL + 'researches/' + params.researchId, params);
-        };
-
-        /**
-         * @param {Object} params
-         */
         function sendInvitation(params) {
             Assert.isObject(params, 'Invalid "params" type');
             return $http.post(API_URL + 'researches/' + params.researchId + '/invites', params);
-        };
-
-        /**
-         * @param {Object} params
-         */
-        function removeResearcher(params) {
-            Assert.isObject(params, 'Invalid "params" type');
-            return $http.delete(API_URL + 'researches/' + params.researchId + '/researchers/' + params.researcherId);
         };
 
         /**
@@ -84,13 +67,6 @@
         };
 
         /**
-         * @param {Number} id
-         */
-        function getUserProfile(id) {
-            return $http.get(API_URL + 'users/' + id);
-        };
-
-        /**
          * @param {Object} params
          */
         function getForums(params) {
@@ -112,6 +88,19 @@
             Assert.isObject(params, 'Invalid "params" type');
             Assert.isString(params.subject, 'Invalid "params.subject" type');
             return $http.post(API_URL + 'researches/' + params.researchId + '/forums', params);
+        };
+
+        /**
+         * @param {Object} params
+         */
+        function updateForum(params) {
+            Assert.isObject(params, 'Invalid "params" type');
+
+            return $http.put(API_URL + 'forums/' + params.id, params);
+        };
+
+        function deleteForum(id) {
+            return $http.delete(API_URL + 'forums/' + id);
         };
     }
 })();

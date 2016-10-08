@@ -6,16 +6,33 @@
         .controller('UpdateController', UpdateController);
 
     /* ngInject */
-    function UpdateController($scope, $state, UpdateResolver, projectService,
-        PROJ_STATUSES, Assert, Type, Upload, API_URL) {
-        /** @public {Object} */
-        $scope.project = UpdateResolver.data;
+    function UpdateController($scope, $state, $stateParams, updateProjectService, accountService,
+        PROJ_STATUSES, Assert, Type, Upload, API_URL, dialogService) {
+        $scope.isAdmin = accountService.isAdmin();
+        /** @public {String} */
+        $scope.projectId = $stateParams.id;
         /** @public {Array<Object>} */
         $scope.statuses = PROJ_STATUSES;
+        /** @public {Object} */
+        $scope.project = {}
 
+        $scope._init = _init; 
         $scope.update = update;
-        $scope.removeResearcher = removeResearcher;
+        $scope.confirmRemove = confirmRemove;
+        $scope._removeResearcher = _removeResearcher;
         $scope.onFileSelect = onFileSelect;
+        $scope.changeSupervisor = changeSupervisor;
+        $scope.addResearcher = addResearcher;
+
+
+        function _init() {
+
+            updateProjectService.getProjectById($scope.projectId).then(function(res) {
+                $scope.project = res.data;
+            }, function(err) {
+                console.log(err);
+            });
+        };
 
         /**
          * @param {Boolean} valid
@@ -39,7 +56,7 @@
                 }
             };
 
-            projectService.update(params)
+            updateProjectService.update(params)
                 .then(function(res) {
                     $state.go('project', {id: $scope.project.id});
                 }, function(err) {
@@ -48,16 +65,28 @@
         };
 
         /**
+         * @param {Object} user
+         * @param {Object} ev
+         */
+        function confirmRemove (user, ev) {
+            var title = 'Remove ' + user.name + ' from the research?';
+            var message = '';
+            var button = 'DELETE USER';
+            var callback = $scope._removeResearcher;
+
+            dialogService.confirm(title, message, button, callback, ev, user);
+        }
+
+        /**
          * @param {Object} researcher
          */
-        function removeResearcher(researcher) {
+        function _removeResearcher(researcher) {
             var params = {
                 researchId: $scope.project.id,
                 researcherId: researcher.id
             };
-            return;
 
-            projectService.removeResearcher(params)
+            updateProjectService.removeResearcher(params)
                 .then(function(res) {
                     _.remove($scope.project.researchers, function(person) {
                         return person.id === researcher.id;
@@ -90,5 +119,41 @@
 
             });
         };
+
+        /**
+         * @param {String} email
+         * @param {Object} e
+         */
+        function changeSupervisor (email, e) {
+            var params = {
+                researchId: $scope.projectId,
+                email: email
+            }
+            updateProjectService.changeSupervisor(params)
+                .then(function() {
+                    $state.go('project', {id: $scope.project.id});
+                }, function(err) {
+                    console.log(err);
+                });
+        };
+
+        /**
+         * @param {String} email
+         * @param {Object} e
+         */
+        function addResearcher (email, e) {
+            var params = {
+                researchId: $scope.projectId,
+                email: email
+            }
+            updateProjectService.addResearcher(params)
+                .then(function() {
+                    $scope._init();
+                }, function(err) {
+                    console.log(err);
+                });
+        }
+
+        $scope._init();
     };
 })();

@@ -7,7 +7,7 @@
 
     /* ngInject */
     function ProjectController($scope, $state, $stateParams, accountService, 
-        projectService, Assert, Type, LOAD_LIMIT) {
+        projectService, Assert, Type, LOAD_LIMIT, dialogService) {
         /** @private {Number} */
         $scope.projectId = $stateParams.id;
         /** @private {Object} */
@@ -43,12 +43,17 @@
         $scope.loadMore = loadMore;
         $scope.edit = edit;
         $scope.join = join;
-        $scope.accept = accept;
-        $scope.ignore = ignore;
+        $scope.confirmAccept = confirmAccept;
+        $scope._accept = _accept;
+        $scope.confirmIgnore = confirmIgnore;
+        $scope._ignore = _ignore;
         $scope.show = show;
         $scope.cancel = cancel;
         $scope.inviteResearcher = inviteResearcher;
         $scope.createForum = createForum;
+        $scope.toggleEditForum = toggleEditForum;
+        $scope.updateForum = updateForum;
+        $scope.confirmDeleteForum = confirmDeleteForum;
 
         function _init() {
             projectService.getProjectById($scope.projectId).then(function(res) {
@@ -112,6 +117,7 @@
                     $scope.forumsCursor = res.data.cursor;
 
                     res.data.forums.forEach(function(forum) {
+                        forum.showEditForum = false;
                         $scope.forums.push(forum);
                     });
                 }, function(err) {
@@ -140,8 +146,21 @@
 
         /**
          * @param {Object} user
+         * @param {Object} ev
          */
-        function accept(user) {
+        function confirmAccept(user, ev) {
+            var title = 'Allow ' + user.name + ' to joint the research?';
+            var message = '';
+            var button = 'ACCEPT USER';
+            var callback = $scope._accept;
+
+            dialogService.confirm(title, message, button, callback, ev, user);
+        };
+
+        /**
+         * @param {Object} user
+         */
+        function _accept(user) {
             Assert.isObject(user, 'Invalid "user" type');
 
             var params = {
@@ -159,8 +178,21 @@
 
         /**
          * @param {Object} user
+         * @param {Object} ev
          */
-        function ignore(user) {
+        function confirmIgnore(user, ev) {
+            var title = 'Ignore ' + user.name + ' request?';
+            var message = '';
+            var button = 'IGNORE USER';
+            var callback = $scope._ignore;
+
+            dialogService.confirm(title, message, button, callback, ev, user);
+        };
+
+        /**
+         * @param {Object} user
+         */
+        function _ignore(user) {
             Assert.isObject(user, 'Invalid "user" type');
 
             var params = {
@@ -232,6 +264,49 @@
                     console.log(err.message);
                 });
         };
+
+        /**
+         * @param {Object} forum
+         */
+        function toggleEditForum(forum) {
+            forum.showEditForum = !forum.showEditForum;
+        }
+
+        /**
+         * @param {Object} forum
+         */
+        function updateForum(forum) {
+
+            projectService.updateForum(forum)
+                .then(function(res) {
+                    $scope.forumsCursor = '';
+                    $scope.forums = [];
+                    $scope._getForums();
+                }, function(err) {
+                    console.log(err);
+                });
+        }
+
+        /**
+         * @param {Object} forum
+         */
+        function confirmDeleteForum(forum , ev) {
+            var title = 'Delete Forum?';
+            var message = '';
+            var button = 'DELETE';
+            var callback = function(forum) {
+
+                projectService.deleteForum(forum.id)
+                        .then(function(res) {
+                            $scope.forumsCursor = '';
+                            $scope.forums = [];
+                            $scope._getForums();
+                        }, function(err) {
+                            console.log(err);
+                        });
+            }
+            dialogService.confirm(title, message, button, callback, ev, forum);
+        };  
 
         $scope._init();
     }

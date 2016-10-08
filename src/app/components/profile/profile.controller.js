@@ -7,7 +7,7 @@
 
     /* ngInject */
     function ProfileController($scope, $state, $stateParams, profileService,
-        accountService, Assert, Type) {
+        accountService, Assert, Type, dialogService) {
         /** @public {Boolean} */
         $scope.isMyProfile = $stateParams.id === 'my' || $stateParams.id == accountService.getCurrentUser()._id;
         /** @private {String} */
@@ -25,8 +25,10 @@
         $scope.getUserProfile = getUserProfile;
         $scope.getInvitations = getInvitations;
         $scope.edit = edit;
-        $scope.accept = accept;
-        $scope.ignore = ignore;
+        $scope.confirmAccept = confirmAccept;
+        $scope._accept = _accept;
+        $scope.confirmIgnore = confirmIgnore;
+        $scope._ignore = _ignore;
 
         $scope.showSupervising = showSupervising;
         $scope.showResearcherIn = showResearcherIn;
@@ -62,8 +64,21 @@
 
         /**
          * @param {Object} proj
+         * @param {Object} ev
          */
-        function accept(proj) {
+        function confirmAccept(proj, ev) {
+            var title = 'Are you sure you want to join the research?';
+            var message = '';
+            var button = 'JOIN';
+            var callback = $scope._accept;
+
+            dialogService.confirm(title, message, button, callback, ev, proj);
+        };
+
+        /**
+         * @param {Object} proj
+         */
+        function _accept(proj) {
             Assert.isObject(proj, 'Invalid "proj" type');
 
             profileService.acceptInvitation(proj.id)
@@ -76,13 +91,26 @@
 
         /**
          * @param {Object} proj
+         * @param {Object} ev
          */
-        function ignore(proj) {
+        function confirmIgnore(proj, ev) {
+            var title = 'Ignore request?';
+            var message = '';
+            var button = 'IGNORE REQUEST';
+            var callback = $scope._ignore;
+
+            dialogService.confirm(title, message, button, callback, ev, proj);
+        };
+
+        /**
+         * @param {Object} proj
+         */
+        function _ignore(proj) {
             Assert.isObject(proj, 'Invalid "proj" type');
 
             profileService.declineInvitation(proj.id)
                 .then(function(res) {
-                    $scope._init();
+                    $scope.getInvitations();
                 }, function(err) {
                     console.log(err.message);
                 });

@@ -5,3 +5,9 @@
 .update-project md-list h3 {
 	margin-bottom: 0;
 }
+.update-project .add-margin-top {
+	margin-top: 36px;
+}
+.update-project .md-list-item-text {
+	cursor: pointer;
+}

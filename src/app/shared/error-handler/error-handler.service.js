@@ -15,7 +15,7 @@
             this.message = errorMessage;
             $mdToast.show( {
                 template: '<md-toast>' + this.message + '</md-toast>',
-                hideDelay: 3000,
+                hideDelay: 1000,
                 position: 'bottom left'
             });
         }

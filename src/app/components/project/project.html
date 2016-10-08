@@ -20,12 +20,12 @@
                         <div class="md-list-item-text">
                             <h3 ui-sref="profile({id: request.id})">{{request.name}}</h3>
                         </div>
-                        <md-button class="md-secondary md-icon-button" ng-click="accept(request)">
+                        <md-button class="md-secondary md-icon-button" ng-click="confirmAccept(request, $event)">
                             <md-icon aria-label="check">
                                 check
                             </md-icon>
                         </md-button>
-                        <md-button class="md-secondary md-icon-button" ng-click="ignore(request)">
+                        <md-button class="md-secondary md-icon-button" ng-click="confirmIgnore(request, $event)">
                             <md-icon aria-label="close">
                                 close
                             </md-icon>
@@ -105,12 +105,36 @@
             <div flex="100" ng-if="forums.length > 0" >
                 <md-card-title layout="row" layout-wrap infinite-scroll="loadMore()" infinite-scroll-distance="1"
                                 infinite-scroll-disabled="!loadMoreAvailable">
-                    <md-card-title-text flex="50" flex-sm="100" flex-xs="100" ng-repeat="forum in forums | orderBy: 'forum.created'" class="forum">
-                        <span class="md-headline" 
+                    <md-card-title-text flex="50" flex-sm="100" flex-xs="100" ng-repeat="forum in forums" class="forum">
+
+                        <div ng-if="isAdmin">
+                            <md-icon aria-label="edit" class="edit" ng-if="!forum.showEditForum"
+                                    ng-click="toggleEditForum(forum)">
+                                edit
+                            </md-icon>
+                            <md-icon aria-label="close" class="delete" ng-if="!forum.showEditForum" 
+                                    ng-click="confirmDeleteForum(forum, $event)">
+                                close
+                            </md-icon>
+                            <md-icon aria-label="check" class="edit" ng-if="forum.showEditForum"
+                                    ng-click="updateForum(forum, $event)">
+                                check
+                            </md-icon>
+                            <md-icon aria-label="close" class="delete" ng-if="forum.showEditForum" 
+                                    ng-click="toggleEditForum(forum)">
+                                close
+                            </md-icon>
+                        </div>
+
+                        <div ng-if="forum.showEditForum" style="padding-right: 60px">
+                                <textarea kendo-editor k-ng-model="forum.subject"></textarea>
+                            </div>
+                        <span class="md-headline" ng-if="!forum.showEditForum"
                                 ui-sref="project-messages({forumId: forum.id, projectId: project.id, isSupervisor: isSupervisor})">
                                 {{forum.subject}}
                         </span>
                         <i class="md-subhead">{{forum.createdBy.name}} on {{forum.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
+                        
                     </md-card-title-text>
                 </md-card-title>
             </div>

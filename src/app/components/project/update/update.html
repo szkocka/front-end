@@ -26,10 +26,10 @@
                 <md-list ng-if="project.researchers.length > 0">
                     <md-subheader class="md-no-sticky">Researchers</md-subheader>
                     <md-list-item class="md-1-line" ng-repeat="researcher in project.researchers">
-                        <div class="md-list-item-text">
-                            <h3> {{researcher.name}} </h3>
+                        <div class="md-list-item-text" >
+                            <h3 ui-sref="profile({id: researcher.id})"> {{researcher.name}} </h3>
                         </div>
-                        <md-button class="md-secondary md-icon-button" ng-click="removeResearcher(researcher)" aria-label="md-close">
+                        <md-button class="md-secondary md-icon-button" ng-click="confirmRemove(researcher, $event)" aria-label="md-close">
                             <md-icon aria-label="lose" class="delete" >
                                 close
                             </md-icon>
@@ -37,9 +37,22 @@
                         <md-divider ></md-divider>
                     </md-list-item>
                 </md-list>
+
+                <md-input-container class="md-block add-margin-top" ng-if="isAdmin">
+                    <label>Change Supervisor (email)</label>
+                    <input type="email" ng-model="newSupervisor">
+                    <md-button class="md-primary md-raised" ng-click ="changeSupervisor(newSupervisor, $event)">CHANGE</md-button>
+                </md-input-container>
+                
+                <md-input-container class="md-block" ng-if="isAdmin">
+                    <label>Add Researcher (email)</label>
+                    <input type="email" ng-model="newResearcher">
+                    <md-button class="md-primary md-raised" ng-click="addResearcher(newResearcher, $event)">ADD</md-button>
+                </md-input-container>
+                
             </div>
             <div flex="50" flex-xs="100">
-                <md-input-container class="md-block">
+                <md-input-container class="md-block" layout-align="end start">
                     <label>Project name</label>
                     <input type="text" name="title" ng-model="project.title" required>
                     <div ng-messages="form.title.$error">
@@ -47,9 +60,9 @@
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label>Shord Description</label>
+                    <label>Shord Description</label layout-align="end start">
                     <textarea name="brief" rows="4" ng-model="project.description.brief" required></textarea>
-                    <div class="help-block" ng-messages="form.brief.$error">
+                    <div ng-messages="form.brief.$error">
                         <div ng-message="required">This field is required</div>
                     </div>
                 </md-input-container>
@@ -57,7 +70,7 @@
                 <md-input-container class="md-block">
                     <label class="detailed-description">Detailed Description</label>
                     <textarea kendo-editor k-ng-model="project.description.detailed" name="detailed" required></textarea>
-                    <div class="help-block" ng-messages="form.detailed.$error">
+                    <div ng-messages="form.detailed.$error">
                         <div ng-message="required">This field is required</div>
                     </div>
                 </md-input-container>
