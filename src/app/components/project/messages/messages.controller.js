@@ -100,8 +100,6 @@
                     $scope.newMessage = '';
                     $scope.cursor = null;
                     $scope._init();
-
-                    
                 }, function(err) {
                     console.log(err.message);
                 });
@@ -116,7 +114,7 @@
             e.preventDefault();
 
             var params = {
-                id: msg.id[0],
+                id: msg.id,
                 message: msg.message
             };
 
@@ -149,7 +147,7 @@
             Assert.isObject(msg, 'Invalid "msg" type');
 
             var params = {
-                id: msg.id[0]
+                id: msg.id
             };
 
             messagesService.deleteMessage(params)

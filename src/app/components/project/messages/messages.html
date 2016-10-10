@@ -22,7 +22,7 @@
                                     ng-repeat="message in activeForumMessages">
 
                         <div class="md-list-item-text">
-                            <h3 ng-if="!message.showEditedTextaria">{{message.createdBy[0].name}} <small> on <i><i>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i></i></small></h3> 
+                            <h3 ng-if="!message.showEditedTextaria">{{message.createdBy.name}} <small> on <i><i>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i></i></small></h3> 
                             <p ng-if="!message.showEditedTextaria" mathjax-bind="message.message"></p>
                             <div ng-if="message.showEditedTextaria">
                                 <textarea kendo-editor k-ng-model="message.message"></textarea>
@@ -30,13 +30,13 @@
                         </div>
 
                         <md-button class="md-secondary md-icon-button"
-                                ng-if="!message.showEditedTextaria && (message.createdBy[0].id === user._id || isSupervisor || isAdmin)"
+                                ng-if="!message.showEditedTextaria && (message.createdBy.id === user._id || isSupervisor || isAdmin)"
                                 ng-click="message.showEditedTextaria = !message.showEditedTextaria"
                                 aria-label="edit">
                             <md-icon>edit</md-icon>
                         </md-button>
                         <md-button class="md-secondary md-icon-button" ng-click="confirmDelete(message, $event)"
-                                ng-if="!message.showEditedTextaria && (message.createdBy[0].id === user._id || isSupervisor || isAdmin)"
+                                ng-if="!message.showEditedTextaria && (message.createdBy.id === user._id || isSupervisor || isAdmin)"
                                 aria-label="close">
                             <md-icon>close</md-icon>
                         </md-button>
