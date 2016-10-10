@@ -84,7 +84,7 @@
             </div>
         </md-card>
 
-        <md-card ng-if="isSupervisor || isResearcher || isAdmin">
+        <md-card ng-if="isSupervisor || isResearcher || isAdmin" class="forums">
             <form class="createForum" ng-submit="createForum(newForum, $event)"
                   ng-if="isSupervisor || isResearcher"
                   name="form" novalidate>
