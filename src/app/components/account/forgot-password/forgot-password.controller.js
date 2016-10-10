@@ -6,7 +6,9 @@
         .controller('ForgotPasswordController', ForgotPasswordController);
 
     /* ngInject */
-    function ForgotPasswordController($scope, $state, forgotPasswordService, Assert, Type, errorService) {
+    function ForgotPasswordController($scope, $state, $stateParams, forgotPasswordService, Assert, Type, errorService) {
+        /** @public {Object} */
+        $scope.token = $stateParams.token;
         /** @public {Object} */
         $scope.password = {};
 
@@ -17,6 +19,7 @@
          * @param {Boolean} valid
          */
         function setPassword(valid, event) {
+            Assert.isBoolean(valid, 'Invalid "valid" type');
             Assert.isObject(event, 'Invalid "event" type');
 
             event.preventDefault();
@@ -25,10 +28,19 @@
                 errorService.showError('Form is not valid');
                 return;
             }
+            if ($scope.password.new !== $scope.password.confirm) {
+                errorService.showError('Password and confirmation must matchs');
+                return;
+            }
 
-            forgotPasswordService.setPassword($scope.password)
+            var params = {
+                newPassword: $scope.password.new,
+                token: $scope.token
+            }
+
+            forgotPasswordService.setPassword(params)
                 .then(function(){
-                    $state.go('sing-in');
+                    $state.go('sign-in');
                 }, function(err){
                     errorService.showError(err.data.message);
                 });

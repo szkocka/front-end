@@ -15,7 +15,9 @@
         }
         // error handling
         $rootScope.$on( 'httpError', function( event, eventData ) {
-            errorService.showError( eventData.response.data.message );
+            if (eventData && eventData.response && eventData.response.data) {
+                errorService.showError( eventData.response.data.message );
+            }
         })
 
         function signOut() {

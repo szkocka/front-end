@@ -39,12 +39,12 @@
     </div>
 
     <md-content layout-padding class="account-container">
-        <form ng-submit="forgotPassword(form.$valid, $event)" name="form" novalidate>
+        <form ng-submit="forgotPassword(email, form.$valid, $event)" name="form" novalidate>
 
             <md-input-container class="md-block">
                 <label>Email</label>
-                <input type="email" ng-model="user.email" name="email" required>
-                <div ng-messages="userForm.email.$error">
+                <input type="email" ng-model="email" name="email" required>
+                <div ng-messages="form.email.$error">
                     <div ng-message="required">This field is required</div>
                     <div ng-message="email">This needs to be a valid email</div>
                 </div>

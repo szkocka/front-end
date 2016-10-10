@@ -127,11 +127,11 @@
         function changeSupervisor (email, e) {
             var params = {
                 researchId: $scope.projectId,
-                email: email
+                new_supervisor: email
             }
             updateProjectService.changeSupervisor(params)
                 .then(function() {
-                    $state.go('project', {id: $scope.project.id});
+                    $state.go('project', {id: $scope.projectId});
                 }, function(err) {
                     console.log(err);
                 });
@@ -144,7 +144,7 @@
         function addResearcher (email, e) {
             var params = {
                 researchId: $scope.projectId,
-                email: email
+                new_researcher: email
             }
             updateProjectService.addResearcher(params)
                 .then(function() {

@@ -38,7 +38,7 @@
             forgotPassword: function(email) {
                 Assert.isString(email, 'Invalid "email" type');
 
-                return $http.put(API_URL + 'users/me/forgotPassword', email);
+                return $http.post(API_URL + 'users/reset-passwords', {email: email});
             }
         };
     }

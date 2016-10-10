@@ -28,7 +28,6 @@
                         //TODO: Show success message in some dialog window or toast
                         console.log('Saved...');
                     }, function(error){
-                        //TODO: Show server error in some dialog window or toast
                         console.log(error.message);
                     });
         }

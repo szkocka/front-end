@@ -48,11 +48,12 @@
         }
 
         /**
-         * @param {Object} event
          * @param {String} email
          * @param {Boolean} valid
+         * @param {Object} event
          */
-        function forgotPassword(valid, email, event) {
+        function forgotPassword(email, valid, event) {
+            Assert.isBoolean(valid, 'Invalid "valid" type');
             Assert.isObject(event, 'Invalid "event" type');
 
             event.preventDefault();
@@ -62,13 +63,9 @@
                 return;
             }
 
-            //remove
-            $state.go('sing-in');
-            return;
-
             signInService.forgotPassword(email)
                 .then(function(){
-                    $state.go('sing-in');
+                    $scope.showForgorPassword = false;
                 }, function(err){
                     errorService.showError(err.data.message);
                 });

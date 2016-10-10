@@ -43,7 +43,7 @@
          */
         function changeSupervisor(params) {
             Assert.isObject(params, 'Invalid "params" type');
-            //return $http.post(API_URL + 'researches/' + params.researchId + '/supervisor/', params);
+            return $http.post(API_URL + 'researches/' + params.researchId + '/supervisor', params);
         };
 
         /**
@@ -51,7 +51,7 @@
          */
         function addResearcher(params) {
             Assert.isObject(params, 'Invalid "params" type');
-            //return $http.delete(API_URL + 'researches/' + params.researchId + '/researchers/', params);
+            return $http.post(API_URL + 'researches/' + params.researchId + '/researchers', params);
         };
 
     }
