@@ -35,7 +35,9 @@
         /** @private {String} */
         $scope.forumsCursor = '';
         /** @public {Boolean} */
-        $scope.loadMoreAvailable = false;
+        $scope.loadMoreAvailable = true;
+        /** @public {Boolean} */
+        $scope.isLoading = false;
 
         $scope._init = _init;
         $scope._getJoinRequests = _getJoinRequests;
@@ -105,9 +107,10 @@
                 researchId: $scope.projectId,
                 cursor: $scope.forumsCursor
             };
-
+            $scope.isLoading = true;
             projectService.getForums(params)
                 .then(function(res) {
+                    $scope.isLoading = false;
                     if ($scope.forumsCursor == res.data.cursor) {
                         return;
                     }
@@ -121,6 +124,7 @@
                         $scope.forums.push(forum);
                     });
                 }, function(err) {
+                    $scope.isLoading = false;
                     $scope.loadMoreAvailable = false;
                 });
         };

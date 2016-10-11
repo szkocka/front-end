@@ -10,7 +10,8 @@
     <md-content class="itemsList md-container md-padding" style="margin-bottom: 100px;"
                 infinite-scroll="loadMore()"
                 infinite-scroll-distance="1"
-                infinite-scroll-disabled="!loadMoreAvailable">
+                infinite-scroll-disabled="!loadMoreAvailable"
+                infinite-scroll-immediate-check="false">
         <div layout="column">
             <md-list flex>
                 <md-list-item class="md-3-line md-long-text" ng-repeat="item in news">

@@ -17,7 +17,8 @@
                 <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
                     <md-nav-item md-nav-click="goto('comments')" name="comments">Comments</md-nav-item>
                 </md-nav-bar>
-                <md-list infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-disabled="!loadMoreAvailable">
+                <md-list infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-disabled="!loadMoreAvailable"
+                    infinite-scroll-immediate-check="false">
                     <md-list-item class="md-2-line md-long-text"
                                     ng-repeat="message in activeForumMessages">
 

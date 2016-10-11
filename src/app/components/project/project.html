@@ -104,7 +104,7 @@
 
             <div flex="100" ng-if="forums.length > 0" >
                 <md-card-title layout="row" layout-wrap infinite-scroll="loadMore()" infinite-scroll-distance="1"
-                                infinite-scroll-disabled="!loadMoreAvailable">
+                                infinite-scroll-disabled="!loadMoreAvailable" infinite-scroll-immediate-check="false">
                     <md-card-title-text flex="50" flex-sm="100" flex-xs="100" ng-repeat="forum in forums" class="forum">
 
                         <div ng-if="isAdmin">
@@ -136,6 +136,9 @@
                         <i class="md-subhead">{{forum.createdBy.name}} on {{forum.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i>
                         
                     </md-card-title-text>
+                    <div layout="row" layout-sm="column" layout-align="space-around" class="progress-circular" ng-if="isLoading">
+                        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                    </div>
                 </md-card-title>
             </div>
         </md-card>

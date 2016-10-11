@@ -26,7 +26,7 @@
         <md-button class="md-mini tag" ng-repeat="tag in ::tags" ng-click="activateTag(tag)" ng-class="{'selected': tag == searchParams.tag}">{{tag}}</md-button>
     </div>
     <md-content layout="row" layout-wrap infinite-scroll="loadMore()" infinite-scroll-distance="1" 
-            infinite-scroll-disabled="!loadMoreAvailable">
+            infinite-scroll-disabled="!loadMoreAvailable" infinite-scroll-immediate-check="false">
         <div flex="33" flex-sm="50" flex-xs="100" ng-repeat="project in projectsList">
             <md-card  ui-sref="project({id: project.id})">
                 <div class="card-image" style="background-image: url({{project.image_url}});"></div>
