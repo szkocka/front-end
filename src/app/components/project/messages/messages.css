@@ -28,3 +28,6 @@
     color: rgb(57,73,171);
     cursor: pointer;
 }
+.messages a:hover {
+    color: #aaa!important;
+}

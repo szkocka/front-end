@@ -8,6 +8,9 @@ body {
 html {
     background-color: #fff;
 }
+a:hover {
+    color: #aaa!important;
+}
 md-content.md-default-theme, md-content {
     background-color: #fff!important;
 }

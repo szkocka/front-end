@@ -1,96 +1,98 @@
-<md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop=""
-            md-whiteframe="4" ng-click="toggleLeft()" >
-    <md-button class="md-button" ui-sref="home">
-        Projects
-    </md-button>
-    <md-button class="md-button" ui-sref="about">
-        About
-    </md-button>
-    <md-button class="md-button" ui-sref="news" ng-if="!showAuth">
-        News
-    </md-button>
-    <md-button class="md-button" ui-sref="admin" ng-if="isAdmin">
-        Admin
-    </md-button>
-  </md-content>
-</md-sidenav>
-
-<md-toolbar class="top-nav-bar">
-    <div class="md-toolbar-tools md-container">
-
-        <md-button class="md-button brand" ui-sref="home">S</md-button>
-        <md-button class="md-icon-button" hide-gt-sm show-sm>
-            <md-icon aria-label="reorder" style="font-size: 26px" ng-click="toggleLeft()">
-              reorder
-            </md-icon>
+<div class="navbar">
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop=""
+                md-whiteframe="4" ng-click="toggleLeft()" >
+        <md-button class="md-button" ui-sref="home">
+            Projects
         </md-button>
+        <md-button class="md-button" ui-sref="about">
+            About
+        </md-button>
+        <md-button class="md-button" ui-sref="news" ng-if="!showAuth">
+            News
+        </md-button>
+        <md-button class="md-button" ui-sref="admin" ng-if="isAdmin">
+            Admin
+        </md-button>
+      </md-content>
+    </md-sidenav>
 
-        <div class="left-part" show-gt-sm hide-sm hide-xs>
-            <md-button class="md-button" ng-class="{active: isActive('/')}" ui-sref="home">
-                Projects
-            </md-button>
-            <md-button class="md-button" ng-class="{active: isActive('/about')}" ui-sref="about">
-                About
-            </md-button>
-            <md-button class="md-button" ng-class="{active: isActive('/news')}" ui-sref="news" ng-if="!showAuth">
-                News
-            </md-button>
-            <md-button class="md-button" ui-sref-active="active" ui-sref="admin" ng-if="isAdmin">
-                Admin
-            </md-button>
-        </div>
+    <md-toolbar class="top-nav-bar">
+        <div class="md-toolbar-tools md-container">
 
-        <md-input-container flex ></md-input-container>
+            <md-button class="md-button brand" ui-sref="home">S</md-button>
+            <md-button class="md-icon-button" hide-gt-sm show-sm>
+                <md-icon aria-label="reorder" style="font-size: 26px" ng-click="toggleLeft()">
+                  reorder
+                </md-icon>
+            </md-button>
 
-        <div class="right-part">
-            <div class="free-area" ng-if="showAuth">
-                <md-button class="md-button" ng-class="{active: isActive('/sign-in')}" ui-sref="sign-in">
-                    Login
+            <div class="left-part" show-gt-sm hide-sm hide-xs>
+                <md-button class="md-button" ng-class="{active: isActive('/')}" ui-sref="home">
+                    Projects
                 </md-button>
-                <md-button class="md-button" ng-class="{active: isActive('/sign-up')}" ui-sref="sign-up">
-                    Sign up
+                <md-button class="md-button" ng-class="{active: isActive('/about')}" ui-sref="about">
+                    About
+                </md-button>
+                <md-button class="md-button" ng-class="{active: isActive('/news')}" ui-sref="news" ng-if="!showAuth">
+                    News
+                </md-button>
+                <md-button class="md-button" ui-sref-active="active" ui-sref="admin" ng-if="isAdmin">
+                    Admin
                 </md-button>
             </div>
 
-            <div class="restricted-area" ng-if="!showAuth">
-                <md-button class="md-button profile" hide-gt-xs show-xs ng-class="{active: isActive('/profile/my')}" ui-sref="profile({id: 'my'})">
-                    {{user.name}}
-                </md-button>
-                <md-button class="md-button profile-wide" hide-xs ng-class="{active: isActive('/profile/my')}" ui-sref="profile({id: 'my'})">
-                    {{user.name}}
-                </md-button>
-                <md-menu>
-                    <md-button aria-label="Open phone interactions menu" class="md-icon-button"
-                               ng-click="openMenu($mdOpenMenu, $event)">
-                        <md-icon aria-label="more_vert" style="font-size: 26px">
-                            more_vert
-                        </md-icon>
+            <md-input-container flex ></md-input-container>
+
+            <div class="right-part">
+                <div class="free-area" ng-if="showAuth">
+                    <md-button class="md-button" ng-class="{active: isActive('/sign-in')}" ui-sref="sign-in">
+                        Login
                     </md-button>
-                    <md-menu-content width="4">
-                        <md-menu-item>
-                            <md-button ui-sref="add">
-                                Add Project
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button ui-sref="profile-edit({id: user._id})">
-                                Edit Profile
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button ui-sref="change-password">
-                                Change password
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-divider></md-menu-divider>
-                        <md-menu-item>
-                            <md-button ng-click="signOut()">
-                                Logout
-                            </md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
+                    <md-button class="md-button" ng-class="{active: isActive('/sign-up')}" ui-sref="sign-up">
+                        Sign up
+                    </md-button>
+                </div>
+
+                <div class="restricted-area" ng-if="!showAuth">
+                    <md-button class="md-button profile" hide-gt-xs show-xs ng-class="{active: isActive('/profile/my')}" ui-sref="profile({id: 'my'})">
+                        {{user.name}}
+                    </md-button>
+                    <md-button class="md-button profile-wide" hide-xs ng-class="{active: isActive('/profile/my')}" ui-sref="profile({id: 'my'})">
+                        {{user.name}}
+                    </md-button>
+                    <md-menu>
+                        <md-button aria-label="Open phone interactions menu" class="md-icon-button"
+                                   ng-click="openMenu($mdOpenMenu, $event)">
+                            <md-icon aria-label="more_vert" style="font-size: 26px">
+                                more_vert
+                            </md-icon>
+                        </md-button>
+                        <md-menu-content width="4">
+                            <md-menu-item>
+                                <md-button ui-sref="add">
+                                    Add Project
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ui-sref="profile-edit({id: user._id})">
+                                    Edit Profile
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ui-sref="change-password">
+                                    Change password
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu-item>
+                                <md-button ng-click="signOut()">
+                                    Logout
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
             </div>
         </div>
-    </div>
-</md-toolbar>
+    </md-toolbar>
+</div>

@@ -31,8 +31,8 @@
 .active {
     background-color:rgba(255,255,255,0.17);
 }
-a:focus,
-a:hover {
+.navbar a:focus,
+.navbar a:hover {
     color: #fff!important;
 }
 .top-nav-bar .md-button.profile,
