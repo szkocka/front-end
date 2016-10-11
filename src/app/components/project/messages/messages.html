@@ -57,6 +57,9 @@
                         </md-button>
                     </md-list-item>
                 </md-list>
+                <div layout="row" layout-sm="column" layout-align="space-around" class="progress-circular" ng-if="isLoading">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
                 <div class="postMessage">
                     <md-input-container class="md-block">
                         <label class="detailed-description">Add Comment</label>

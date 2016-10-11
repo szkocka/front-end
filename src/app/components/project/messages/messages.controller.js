@@ -7,7 +7,7 @@
 
     /* ngInject */
     function ForumMessagesController($scope, $stateParams, LOAD_LIMIT, messagesService,
-    Assert, accountService, dialogService) {
+    Assert, accountService, dialogService, linkify) {
         /** @private {String} */
         $scope.forumId = $stateParams.forumId;
         /** @private {String} */
@@ -25,11 +25,13 @@
         /** @public {String} */
         $scope.newMessage = null;
         /** @public {String} */
-        $scope.cursor = null;
+        $scope.cursor = '';
         /** @public {Boolean} */
         $scope.loadMoreAvailable = true;
         /** @public {String} */
         $scope.currentNavItem = 'comments';
+        /** @public {Boolean} */
+        $scope.isLoading = false;
 
         $scope._getActiveForum = _getActiveForum;
         $scope._init = _init;
@@ -59,9 +61,10 @@
                 cursor: $scope.cursor,
                 forumId: $scope.forumId
             };
-
+            $scope.isLoading = true;
             messagesService.getForumMessages(params)
                 .then(function(res) {
+                    $scope.isLoading = false;
                     if ($scope.cursor == res.data.cursor) {
                         return;
                     }
@@ -89,42 +92,17 @@
             Assert.isString(text, 'Invalid "text" type');
             e.preventDefault();
 
-            function linkify(string) {
-                var missNext = false;
-                var words = string.replace(/</g, " < ").replace(/>/g, " > ").split(' ');
-                var exp1 = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-                var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-                var arr = [];
-                for (var i = 0, l = words.length; i < l; i++) {
-                    if (words[i].indexOf("href") != -1) {
-                        missNext = true;
-                        arr.push(words[i]);
-                    } else if (words[i].indexOf("/a") != -1) {
-                        missNext = false;
-                        arr.push(words[i]);
-                    } else if (words[i].match(exp1) && !missNext) {
-                        var elm = '<a target="_blank" href="' + words[i] + '"> ' + words[i] + '</a>'
-                        arr.push(elm);
-                    } else if (words[i].match(exp2) && !missNext) {
-                        var elm = '<a target="_blank" href="http://' + words[i] + '"> ' + words[i] + '</a>'
-                        arr.push(elm);
-                    } else {
-                        arr.push(words[i]);
-                    }
-                }
-                return arr.join(' ');
-            }
-            var linkified = linkify(text);
             var params = {
                 forumId: $scope.forumId,
-                message: linkified.replace(/< /g, "<").replace(/ >/g, ">")
+                message: linkify.linkifyString(text)
             };
 
             messagesService.createNewMessage(params)
                 .then(function(res) {
                     $scope.activeForumMessages = [];
                     $scope.newMessage = '';
-                    $scope.cursor = null;
+                    $scope.cursor = '';
+                    $scope.loadMoreAvailable = true;
                     $scope._init();
                 }, function(err) {
                     console.log(err.message);
@@ -141,7 +119,7 @@
 
             var params = {
                 id: msg.id,
-                message: msg.message
+                message: linkify.linkifyString(msg.message)
             };
 
             messagesService.updateMessage(params)

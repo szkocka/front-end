@@ -284,6 +284,7 @@
             projectService.updateForum(forum)
                 .then(function(res) {
                     $scope.forumsCursor = '';
+                    $scope.loadMoreAvailable = true;
                     $scope.forums = [];
                     $scope._getForums();
                 }, function(err) {
@@ -303,6 +304,7 @@
                 projectService.deleteForum(forum.id)
                         .then(function(res) {
                             $scope.forumsCursor = '';
+                            $scope.loadMoreAvailable = true;
                             $scope.forums = [];
                             $scope._getForums();
                         }, function(err) {

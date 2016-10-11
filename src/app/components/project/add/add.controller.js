@@ -6,7 +6,8 @@
         .controller('AddController', AddController);
 
     /* ngInject */
-    function AddController($scope, $state, API_URL, addService, Upload, Assert, Type, errorService) {
+    function AddController($scope, $state, API_URL, addService, Upload, Assert, Type,
+    errorService, linkify) {
         /** @public {Object} */
         $scope.project = {
             description: {},
@@ -44,7 +45,7 @@
                 area: 'test area',
                 description: {
                     brief: $scope.project.description.brief,
-                    detailed: $scope.project.description.detailed
+                    detailed: linkify.linkifyString($scope.project.description.detailed)
                 }
             };
 

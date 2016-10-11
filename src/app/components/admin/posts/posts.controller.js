@@ -7,7 +7,7 @@
 
     /* ngInject */
     function PostsController($q, $scope, $stateParams, $state, LOAD_LIMIT, postsService,
-    Assert, Type, dialogService) {
+    Assert, Type, dialogService, linkify) {
         /** @private {String} */
         $scope.userId = $stateParams.userId;
         /** @private {String} */
@@ -223,7 +223,7 @@
 
             var params = {
                 id: post.id,
-                message: post.title
+                message: linkify.linkifyString(post.title)
             };
 
             postsService.updateMessage(params)

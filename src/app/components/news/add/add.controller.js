@@ -6,7 +6,8 @@
         .controller('NewsAddController', NewsAddController);
 
     /* ngInject */
-    function NewsAddController($scope, $state, newsService, Upload, API_URL, Assert, Type, errorService) {
+    function NewsAddController($scope, $state, newsService, Upload, API_URL, Assert, Type,
+    errorService, linkify) {
         /** @public {Object} */
         $scope.newsToAdd = {};
 
@@ -26,6 +27,8 @@
                 errorService.showError('Form is not valid');
                 return;
             }
+
+            $scope.newsToAdd.body = linkify.linkifyString($scope.newsToAdd.body);
 
             newsService.create($scope.newsToAdd)
                 .then(function(res) {

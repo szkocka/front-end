@@ -7,7 +7,7 @@
 
     /* ngInject */
     function UpdateController($scope, $state, $stateParams, updateProjectService, accountService,
-        PROJ_STATUSES, Assert, Type, Upload, API_URL, dialogService) {
+        PROJ_STATUSES, Assert, Type, Upload, API_URL, dialogService, linkify) {
         $scope.isAdmin = accountService.isAdmin();
         /** @public {String} */
         $scope.projectId = $stateParams.id;
@@ -52,7 +52,7 @@
                 status: $scope.project.status,
                 description: {
                     brief: $scope.project.description.brief,
-                    detailed: $scope.project.description.detailed
+                    detailed: linkify.linkifyString($scope.project.description.detailed)
                 }
             };
 

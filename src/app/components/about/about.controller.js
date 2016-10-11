@@ -6,7 +6,7 @@
         .controller('AboutController', AboutController);
 
     /* ngInject */
-    function AboutController($scope, aboutService, accountService, AboutContentResolver) {
+    function AboutController($scope, aboutService, accountService, AboutContentResolver, linkify) {
         $scope.showEditButton = accountService.isAdmin();
         $scope.description = AboutContentResolver.data.content;
         $scope.data = {
@@ -20,6 +20,7 @@
 
         function save(e) {
             e.preventDefault();
+            $scope.data.editedDescription = linkify.linkifyString($scope.data.editedDescription);
             aboutService.update({
                     content: $scope.data.editedDescription
                 }).then(function(response){
