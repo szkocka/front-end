@@ -43,7 +43,7 @@
          */
         function changeSupervisor(params) {
             Assert.isObject(params, 'Invalid "params" type');
-            return $http.post(API_URL + 'researches/' + params.researchId + '/supervisor', params);
+            return $http.put(API_URL + 'researches/' + params.researchId + '/supervisor', params);
         };
 
         /**
