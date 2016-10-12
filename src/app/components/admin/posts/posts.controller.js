@@ -50,10 +50,9 @@
         function _init() {
             $q.all([$scope._getForums(), $scope._getMessages(), $scope._getResearches()])
                 .then(function(){
-                    $scope.posts.sort(function(a, b) {
+                    /*$scope.posts.sort(function(a, b) {
                         return new Date(b.created).getTime() - new Date(a.created).getTime();
-                    });
-
+                    });*/
                 });
         }
 
@@ -110,9 +109,9 @@
                     $scope.cursor.messages = res.data.cursor;
 
                     res.data.messages.forEach(function(message) {
-                        message.created = message.created[0];
+                        message.created = message.created;
                         message.title = message.message;
-                        message.id = message.id[0];
+                        message.id = message.id;
                         message.type = 'MESSAGE';
                         message.isEditing = false;
 

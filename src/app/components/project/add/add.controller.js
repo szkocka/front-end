@@ -68,7 +68,7 @@
 
             addService.createForum(params)
                 .then(function(res) {
-                    $state.go('project.about', {id: id});
+                    $state.go('project', {id: id});
                 }, function(err) {
                     console.log(err.message);
                 });

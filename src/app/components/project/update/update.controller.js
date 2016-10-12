@@ -14,7 +14,12 @@
         /** @public {Array<Object>} */
         $scope.statuses = PROJ_STATUSES;
         /** @public {Object} */
-        $scope.project = {}
+        $scope.project = {};
+        /** @public {Object} */
+        $scope.data = {
+            newSupervisor: null,
+            newResearcher: null
+        };
 
         $scope._init = _init; 
         $scope.update = update;
@@ -120,14 +125,10 @@
             });
         };
 
-        /**
-         * @param {String} email
-         * @param {Object} e
-         */
-        function changeSupervisor (email, e) {
+        function changeSupervisor () {
             var params = {
                 researchId: $scope.projectId,
-                new_supervisor: email
+                new_supervisor: $scope.data.newSupervisor
             }
             updateProjectService.changeSupervisor(params)
                 .then(function() {
@@ -137,17 +138,14 @@
                 });
         };
 
-        /**
-         * @param {String} email
-         * @param {Object} e
-         */
-        function addResearcher (email, e) {
+        function addResearcher () {
             var params = {
                 researchId: $scope.projectId,
-                new_researcher: email
+                new_researcher: $scope.data.newResearcher
             }
             updateProjectService.addResearcher(params)
                 .then(function() {
+                    $scope.data.newResearcher = null;
                     $scope._init();
                 }, function(err) {
                     console.log(err);

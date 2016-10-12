@@ -38,18 +38,24 @@
                     </md-list-item>
                 </md-list>
 
-                <md-input-container class="md-block add-margin-top" ng-if="isAdmin">
-                    <label>Change Supervisor (email)</label>
-                    <input type="email" ng-model="newSupervisor">
-                    <md-button class="md-primary md-raised" ng-click ="changeSupervisor(newSupervisor, $event)">CHANGE</md-button>
-                </md-input-container>
-                
-                <md-input-container class="md-block" ng-if="isAdmin">
-                    <label>Add Researcher (email)</label>
-                    <input type="email" ng-model="newResearcher">
-                    <md-button class="md-primary md-raised" ng-click="addResearcher(newResearcher, $event)">ADD</md-button>
-                </md-input-container>
-                
+                <div layout="row" layout-wrap class=" add-margin-top">
+                    <md-input-container flex="75" ng-if="isAdmin">
+                        <label>Change Supervisor (email)</label>
+                        <input type="email" ng-model="data.newSupervisor">
+                    </md-input-container>
+                    <span flex="25">
+                        <md-button style="width:100%" class="md-primary md-raised" ng-click ="changeSupervisor()">CHANGE</md-button>
+                    </span>
+                </div>
+                <div layout="row" layout-wrap>
+                    <md-input-container flex="75" flex-xs="75" ng-if="isAdmin">
+                        <label>Add Researcher (email)</label>
+                        <input type="email" ng-model="data.newResearcher">
+                    </md-input-container>
+                    <span flex="25" flex-xs="25">
+                        <md-button style="width:100%" class="md-primary md-raised" ng-click="addResearcher()">ADD</md-button>
+                    </span>
+                </div>
             </div>
             <div flex="50" flex-xs="100">
                 <md-input-container class="md-block" layout-align="end start">
