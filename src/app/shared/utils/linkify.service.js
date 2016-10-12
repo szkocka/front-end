@@ -20,7 +20,7 @@
                 var words = string
                             .replace(/</g, " < ")
                             .replace(/>/g, " > ")
-                            .replace(/http/g, " http")
+                            .replace(/http/gi, " http")
                             .split(' ');
                 var exp1 = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
                 var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
