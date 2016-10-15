@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 
 var development = environments.development;
 var production = environments.production;
-//environments.current(production);
+environments.current(production);
 
 var destination = environments.production() ? config.release : config.dev;
 

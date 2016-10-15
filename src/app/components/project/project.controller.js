@@ -310,15 +310,15 @@
             var button = 'DELETE';
             var callback = function(forum) {
 
-                projectService.deleteForum(forum.id)
-                        .then(function(res) {
-                            $scope.forumsCursor = '';
-                            $scope.loadMoreAvailable = true;
-                            $scope.forums = [];
-                            $scope._getForums();
-                        }, function(err) {
-                            console.log(err);
-                        });
+            projectService.deleteForum(forum.id)
+                .then(function(res) {
+                    $scope.forumsCursor = '';
+                    $scope.loadMoreAvailable = true;
+                    $scope.forums = [];
+                    $scope._getForums();
+                }, function(err) {
+                    console.log(err);
+                });
             }
             dialogService.confirm(title, message, button, callback, ev, forum);
         };  

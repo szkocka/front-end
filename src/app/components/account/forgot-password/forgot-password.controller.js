@@ -29,7 +29,7 @@
                 return;
             }
             if ($scope.password.new !== $scope.password.confirm) {
-                errorService.showError('Password and confirmation must matchs');
+                errorService.showError('Password and confirmation must match');
                 return;
             }
 

@@ -38,8 +38,8 @@
                     </md-list-item>
                 </md-list>
 
-                <div layout="row" layout-wrap class=" add-margin-top">
-                    <md-input-container flex="75" ng-if="isAdmin">
+                <div layout="row" layout-wrap class=" add-margin-top" ng-if="isAdmin">
+                    <md-input-container flex="75">
                         <label>Change Supervisor (email)</label>
                         <input type="email" ng-model="data.newSupervisor">
                     </md-input-container>
@@ -47,8 +47,8 @@
                         <md-button style="width:100%" class="md-primary md-raised" ng-click ="changeSupervisor()">CHANGE</md-button>
                     </span>
                 </div>
-                <div layout="row" layout-wrap>
-                    <md-input-container flex="75" flex-xs="75" ng-if="isAdmin">
+                <div layout="row" layout-wrap ng-if="isAdmin">
+                    <md-input-container flex="75" flex-xs="75">
                         <label>Add Researcher (email)</label>
                         <input type="email" ng-model="data.newResearcher">
                     </md-input-container>
