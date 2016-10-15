@@ -35,7 +35,7 @@ md-card md-card-content {
     padding: 0;
 }
 .add-padding-right {
-    padding-right: 20px;
+    padding-right: 0;
 }
 .select-image {
     height: 300px;
@@ -68,6 +68,11 @@ md-card md-card-content {
 @media (min-width: 1200px) {
     .md-container {
         width:70%;
+    }
+}
+@media (min-width: 600px) {
+    .add-padding-right {
+        padding-right: 20px;
     }
 }
 
