@@ -28,6 +28,8 @@
         $scope.cursor = '';
         /** @public {Boolean} */
         $scope.loadMoreAvailable = true;
+        /** @private {Boolean} */
+        $scope._isBusy = false;
         /** @public {String} */
         $scope.currentNavItem = 'comments';
         /** @public {Boolean} */
@@ -62,6 +64,11 @@
                 forumId: $scope.forumId
             };
             $scope.isLoading = true;
+
+            // fix to prevent multiple requests from ngInfinitiveScroll
+            if ($scope._isBusy) return;
+            $scope._isBusy = true;
+
             messagesService.getForumMessages(params)
                 .then(function(res) {
                     $scope.isLoading = false;
@@ -78,9 +85,10 @@
                         msg.showEditedTextaria = false;
                         $scope.activeForumMessages.push(msg);
                     });
+                    $scope._isBusy = false;
                 }, function(err) {
                     $scope.loadMoreAvailable = false;
-                    console.log(err.message);
+                    $scope._isBusy = false;
                 });
         };
 

@@ -36,6 +36,8 @@
         $scope.forumsCursor = '';
         /** @public {Boolean} */
         $scope.loadMoreAvailable = true;
+        /** @private {Boolean} */
+        $scope._isBusy = false;
         /** @public {Boolean} */
         $scope.isLoading = false;
 
@@ -108,6 +110,11 @@
                 cursor: $scope.forumsCursor
             };
             $scope.isLoading = true;
+
+            // fix to prevent multiple requests from ngInfinitiveScroll
+            if ($scope._isBusy) return;
+            $scope._isBusy = true;
+
             projectService.getForums(params)
                 .then(function(res) {
                     $scope.isLoading = false;
@@ -123,9 +130,11 @@
                         forum.showEditForum = false;
                         $scope.forums.push(forum);
                     });
+                    $scope._isBusy = false;
                 }, function(err) {
                     $scope.isLoading = false;
                     $scope.loadMoreAvailable = false;
+                    $scope._isBusy = false;
                 });
         };
 

@@ -26,6 +26,16 @@
             messages: true,
             researches: true
         };
+        /** @private {Object} */
+        // fix to prevent multiple requests from ngInfinitiveScroll
+        $scope._isBusy = {
+            forums: false,
+            messages: false,
+            researches: false
+        };
+
+        /** @private {Boolean} */
+        $scope.isLoading = false;
 
         $scope._init = _init;
         $scope._getForums = _getForums;
@@ -48,11 +58,10 @@
         };
 
         function _init() {
+            $scope.isLoading = true;
             $q.all([$scope._getForums(), $scope._getMessages(), $scope._getResearches()])
                 .then(function(){
-                    /*$scope.posts.sort(function(a, b) {
-                        return new Date(b.created).getTime() - new Date(a.created).getTime();
-                    });*/
+                    $scope.isLoading = false;
                 });
         }
 
@@ -63,6 +72,8 @@
                 defer.resolve();
                 return;
             }
+            if ($scope._isBusy.forums) return;
+            $scope._isBusy.forums = true;
 
             postsService.getForums({ id: $scope.userId, cursor: $scope.cursor.forums })
                 .then(function(res) {
@@ -81,9 +92,11 @@
                         forum.isEditing = false;
                         $scope.posts.push(forum);
                     });
+                    $scope._isBusy.forums = false;
                     defer.resolve();
                 }, function(err) {
                     $scope.loadMoreAvailable.forums = false;
+                    $scope._isBusy.forums = false;
                     defer.reject();
                 });
             return defer.promise;
@@ -96,6 +109,9 @@
                 defer.resolve();
                 return;
             }
+
+            if ($scope._isBusy.messages) return;
+            $scope._isBusy.messages = true;
 
             postsService.getMessages({ id: $scope.userId, cursor: $scope.cursor.messages })
                 .then(function(res) {
@@ -117,9 +133,12 @@
 
                         $scope.posts.push(message);
                     });
+
+                    $scope._isBusy.messages = false;
                     defer.resolve();
                     }, function(err) {
                         $scope.loadMoreAvailable.messages = false;
+                        $scope._isBusy.messages = false;
                         defer.reject();
                     });
 
@@ -133,6 +152,10 @@
                 defer.resolve();
                 return;
             }
+
+            if ($scope._isBusy.researches) return;
+            $scope._isBusy.researches = true;
+
             postsService.getResearches({id: $scope.userId, cursor: $scope.cursor.researches})
                 .then(function(res) {
                     if ($scope.cursor.researches == res.data.cursor) {
@@ -150,9 +173,12 @@
                             $scope.posts.push(research);
                         }
                     });
+
+                    $scope._isBusy.researches = false;
                     defer.resolve();
                     }, function(err) {
                         $scope.loadMoreAvailable.researches = false;
+                        $scope._isBusy.researches = false;
                         defer.reject();
                     });
 

@@ -32,7 +32,7 @@ module.exports = function() {
                 'node_modules/lodash/dist/lodash.min.js',
                 'node_modules/ng-file-upload/dist/ng-file-upload-shim.js',
                 'node_modules/ng-file-upload/dist/ng-file-upload.min.js',
-                'node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js',
+                'node_modules/ng-infinite-scroll/build/ng-infinite-scroll.js',
                 'src/assets/lib/**/*.js'
             ],
             kendoSprite: 'src/assets/lib/kendo/css/Default/**/*.png'

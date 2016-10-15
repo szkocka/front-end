@@ -15,6 +15,8 @@
         $scope.cursor = null;
         /** @private {Boolean} */
         $scope.loadMoreAvailable = true;
+        /** @private {Boolean} */
+        $scope._isBusy = false;
         /** @public {Boolean} */
         $scope.isLoading = true;
 
@@ -30,6 +32,11 @@
 
         function _init() {
             $scope.isLoading = true;
+
+            // fix to prevent multiple requests from ngInfinitiveScroll
+            if ($scope._isBusy) return;
+            $scope._isBusy = true;
+
             newsService.get($scope.cursor)
                 .then(function(res){
                     $scope.isLoading = false;
@@ -49,9 +56,12 @@
 
                         $scope.news.push(tmpObj);
                     });
+
+                    $scope._isBusy = false;
                 }, function(err) {
                     $scope.isLoading = false;
                     $scope.loadMoreAvailable = false;
+                    $scope._isBusy = false;
                 });
 
         };

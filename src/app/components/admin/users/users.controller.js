@@ -22,6 +22,8 @@
         /** @private {Boolean} */
         $scope.loadMoreAvailable = true;
         /** @private {Boolean} */
+        $scope._isBusy = false;
+        /** @private {Boolean} */
         $scope.isLoading = false;
         /** @public {Array<Object>} */
         $scope.actions = ACTIONS;
@@ -38,6 +40,11 @@
 
         function _init() {
             $scope.isLoading = true;
+
+            // fix to prevent multiple requests from ngInfinitiveScroll
+            if ($scope._isBusy) return;
+            $scope._isBusy = true;
+
             usersService.queryUsers($scope.searchParams)
                 .then(function(res) {
                     $scope.isLoading = false;
@@ -52,9 +59,11 @@
                     res.data.users.forEach(function(user) {
                         $scope.users.push(user);
                     });
+                    $scope._isBusy = false;
                 }, function(err) {
                     $scope.isLoading = false;
                     $scope.loadMoreAvailable = false;
+                    $scope._isBusy = false;
                 });
         };
 

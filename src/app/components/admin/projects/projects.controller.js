@@ -19,6 +19,8 @@
         };
         /** @public {Boolean} */
         $scope.isLoading = true;
+        /** @private {Boolean} */
+        $scope._isBusy = false;
 
         $scope._init = _init;
         $scope.loadMore = loadMore;
@@ -34,6 +36,11 @@
 
         function _init() {
             $scope.isLoading = true;
+
+            // fix to prevent multiple requests from ngInfinitiveScroll
+            if ($scope._isBusy) return;
+            $scope._isBusy = true;
+
             adminProjectsService.query($scope.searchParams)
                 .then(function(res) {
                     $scope.isLoading = false;
@@ -52,10 +59,12 @@
                         $scope.projectsList.push(proj);
                     });
                     $scope.searchParams.page = $scope.searchParams.page + 1;
+                    $scope._isBusy = false;
 
                 }, function(err) {
                     $scope.isLoading = false;
                     $scope.loadMoreAvailable = false;
+                    $scope._isBusy = false;
                 });
         };
 
