@@ -68,7 +68,8 @@ md-card md-card-content {
 }
 @media (min-width: 1200px) {
     .md-container {
-        width:70%;
+        width:1170px;
+        /*width:70%;*/
     }
 }
 @media (min-width: 600px) {
