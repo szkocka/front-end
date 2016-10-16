@@ -8,9 +8,6 @@ body {
 html {
     background-color: #fff;
 }
-a:hover {
-    /*color: #aaa!important;*/
-}
 md-content.md-default-theme, md-content {
     background-color: #fff!important;
 }
@@ -33,6 +30,10 @@ md-toast .md-toast-content {
 md-card md-card-title,
 md-card md-card-content {
     padding: 0;
+}
+.md-chip-input-container,
+.md-chip-input-container .md-input {
+    width: 100%;
 }
 .add-padding-right {
     padding-right: 0;
