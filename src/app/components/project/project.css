@@ -24,8 +24,13 @@
 	box-shadow: 2px 1px 21px -4px rgba(0,0,0,1);
 }
 .project .left-side {
-	margin-right: 16px;
+	margin-right: 1px;
 	position: relative;
+}
+@media (min-width: 600px) {
+	.project .left-side {
+		margin-right: 16px;
+	}
 }
 .project .status {
 	position: absolute;
