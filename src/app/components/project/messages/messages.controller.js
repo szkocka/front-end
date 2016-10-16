@@ -83,6 +83,7 @@
                     res.data.messages.forEach(function(msg) {
                         
                         msg.showEditedTextaria = false;
+                        msg.messageToEdit = msg.message;
                         $scope.activeForumMessages.push(msg);
                     });
                     $scope._isBusy = false;
@@ -107,11 +108,16 @@
 
             messagesService.createNewMessage(params)
                 .then(function(res) {
-                    $scope.activeForumMessages = [];
+                    var msg = {
+                        message: text,
+                        createdBy: {name:'You'},
+                        created: new Date(),
+                        messageToEdit: text,
+                        id: [res.data.message_id]
+                    };
+                    $scope.activeForumMessages.push(msg);
                     $scope.newMessage = '';
-                    $scope.cursor = '';
-                    $scope.loadMoreAvailable = true;
-                    $scope._init();
+
                 }, function(err) {
                     console.log(err.message);
                 });
@@ -132,6 +138,7 @@
 
             messagesService.updateMessage(params)
                 .then(function(res) {
+                    msg.message = msg.messageToEdit;
                     msg.showEditedTextaria = false;
                 }, function(err) {
                     console.log(err.message);
@@ -153,7 +160,6 @@
 
         /**
          * @param {Object} msg
-         * @param {Object} e
          */
         function _deleteMessage(msg){
             Assert.isObject(msg, 'Invalid "msg" type');
