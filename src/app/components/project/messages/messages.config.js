@@ -8,7 +8,7 @@
     /* ngInject */
     function config($stateProvider) {
         $stateProvider.state('project-messages', {
-            url: '^/project-messages/:forumId/:projectId/:isSupervisor',
+            url: '^/project-messages/:projectId/:forumId/:isSupervisor',
             parent: 'restricted-area',
             views: {
                 content: {
