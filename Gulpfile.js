@@ -37,10 +37,10 @@ function compile() {
 
 function buildIndex() {
     return gulp.src(config.sources.index)
-        .pipe(inject(buildVendorScripts(), { relative: true, name: 'vendor' }))
-        .pipe(inject(buildScripts(), { relative: true }))
-        .pipe(inject(buildTemplates(), { relative: true, name: 'templates' }))
-        .pipe(inject(buildStyles(), { relative: true }))
+        .pipe(inject(buildVendorScripts(), { ignorePath:destination.index, addRootSlash:false, name: 'vendor'}))
+        .pipe(inject(buildScripts(), { ignorePath:destination.index, addRootSlash:false }))
+        .pipe(inject(buildTemplates(), { ignorePath:destination.index, addRootSlash:false, name: 'templates' }))
+        .pipe(inject(buildStyles(), { ignorePath:destination.index, addRootSlash:false}))
         .pipe(gulp.dest(destination.index));
 }
 
