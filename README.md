@@ -10,9 +10,12 @@ $ gulp - creates "dev" folder<br>
 # Running localy
 
 Install Python<br>
-$ cd front-end/<br>
-$ py http.server [port]<br>
-Open in browser: http://localhost:[port]/dev<br>
+$ cd front-end/dev<br>
+$ py -m http.server [port] (or 'python -m SimpleHTTPServer [port]' - for Mac)<br>
+Run watcher:<br>
+$ cd front-end<br>
+$ gulp watch<br>
+Open in browser: http://localhost:[port]<br>
 
 # Build for production
 
