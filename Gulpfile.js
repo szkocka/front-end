@@ -8,11 +8,12 @@ var gulp = require('gulp'),
     ngHtml2js = require('gulp-ng-html2js'),
     del = require('del'),
     eventStream = require('event-stream'),
-    environments = require('gulp-environments');
+    environments = require('gulp-environments'),
+    watch = require('gulp-watch');
 
 var development = environments.development;
 var production = environments.production;
-environments.current(production);
+//environments.current(production);
 
 var destination = environments.production() ? config.release : config.dev;
 
@@ -21,6 +22,12 @@ gulp.task('compile', compile);
 gulp.task('build', ['clean'], compile);
 
 gulp.task('default', ['build']);
+
+gulp.task('watch', function() {
+    gulp.watch(config.sources.scripts, buildScripts);
+    gulp.watch(config.sources.templates, buildTemplates);
+    gulp.watch(config.sources.stylesheets, buildStyles);
+});
 
 function clean() {
     return del(destination.index);
