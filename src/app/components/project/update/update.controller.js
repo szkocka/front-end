@@ -55,6 +55,7 @@
                 title: $scope.project.title,
                 image_url: $scope.project.image_url,
                 status: $scope.project.status,
+                tags: $scope.project.tags,
                 description: {
                     brief: $scope.project.description.brief,
                     detailed: linkify.linkifyString($scope.project.description.detailed)

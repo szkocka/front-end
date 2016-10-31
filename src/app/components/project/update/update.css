@@ -14,3 +14,6 @@
 .update-project md-list-item {
     padding-right: 0;
 }
+.update-project .detailed-desc {
+    margin-bottom: 0;
+}

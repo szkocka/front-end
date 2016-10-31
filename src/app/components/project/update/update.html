@@ -14,7 +14,6 @@
                 <img class="preview" ng-src="{{project.image_url}}" 
                         ngf-select="onFileSelect($event)" 
                         accept="image/*">
-
                 <md-input-container>
                     <label>Change status</label>
                     <md-select name="favoriteColor" ng-model="project.status">
@@ -73,13 +72,21 @@
                     </div>
                 </md-input-container>
 
-                <md-input-container class="md-block">
+                <md-input-container class="md-block detailed-desc">
                     <label class="detailed-description">Detailed Description</label>
                     <textarea kendo-editor k-ng-model="project.description.detailed" name="detailed" required></textarea>
                     <div ng-messages="form.detailed.$error">
                         <div ng-message="required">This field is required</div>
                     </div>
                 </md-input-container>
+                <md-chips
+                    ng-model="project.tags"
+                    md-removable="true"
+                    placeholder="Enter a tag and press 'Enter'"
+                    delete-button-label="Remove Tag"
+                    delete-hint="Press delete to remove tag"
+                    secondary-placeholder="+Tag">
+                </md-chips>
             </div>
             <md-button type="submit" class="md-primary md-raised">SUBMIT</md-button>
         </form>
