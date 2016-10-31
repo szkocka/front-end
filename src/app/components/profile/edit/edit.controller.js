@@ -7,7 +7,7 @@
 
     /* ngInject */
     function ProfileEditController($scope, $state, $stateParams, profileService, Type,
-        userProfileResolver, accountService, errorService) {
+        userProfileResolver, accountService, errorService, linkify) {
 
         /** @public {Boolean} */
         $scope.isMyProfile = $stateParams.id == accountService.getCurrentUser()._id;
@@ -25,6 +25,7 @@
                 errorService.showError('Form is not valid');
                 return;
             }
+            $scope.user.cv = linkify.linkifyString($scope.user.cv);
             if ($scope.isMyProfile) {
                 profileService.saveMyProfileData($scope.user)
                     .then(function(res) {

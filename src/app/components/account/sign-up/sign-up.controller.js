@@ -6,7 +6,7 @@
         .controller('SignUpController', SignUpController);
 
     /* ngInject */
-    function SignUpController($scope, $state, signUpService, Type, Assert, errorService) {
+    function SignUpController($scope, $state, signUpService, Type, Assert, errorService, linkify) {
         /** @public {Object} */
         $scope.user = {};
 
@@ -25,6 +25,7 @@
                 errorService.showError('Form is not valid');
                 return;
             }
+            $scope.user.cv = linkify.linkifyString($scope.user.cv);
             signUpService.signUp($scope.user)
                 .then(function(){
                         $state.go('home');

@@ -18,6 +18,7 @@
 
                 var missNext = false;
                 var words = string
+                            .replace(/(\r\n|\n|\r)/gm, " <br> ")
                             .replace(/</g, " < ")
                             .replace(/>/g, " > ")
                             .replace(/http/gi, " http")
