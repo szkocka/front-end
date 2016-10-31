@@ -27,10 +27,10 @@
                 var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
                 var arr = [];
                 for (var i = 0, l = words.length; i < l; i++) {
-                    if (words[i].indexOf('href') != -1) {
+                    if (words[i].indexOf('href') != -1 || words[i].indexOf('src') != -1) {
                         missNext = true;
                         arr.push(words[i]);
-                    } else if (words[i] === '/a') {
+                    } else if (words[i] === '/a' || words[i] === '/') {
                         missNext = false;
                         arr.push(words[i]);
                     } else if (words[i].match(exp1) && !missNext) {
