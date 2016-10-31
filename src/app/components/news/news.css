@@ -30,3 +30,11 @@
 	font-size: 12px;
 	left: 282px;
 }
+.news .md-list-item-text h2 {
+    margin-top: 0;
+}
+@media (min-width: 600px) {
+    .news .md-list-item-text h2 {
+        margin-top: 33px;
+    }
+}

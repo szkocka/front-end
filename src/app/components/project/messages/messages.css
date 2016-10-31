@@ -31,3 +31,6 @@
 .messages a:hover {
     color: #aaa!important;
 }
+.messages .md-button.md-icon-button {
+    margin: 0;
+}

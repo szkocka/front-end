@@ -27,11 +27,7 @@
 	margin-right: 1px;
 	position: relative;
 }
-@media (min-width: 600px) {
-	.project .left-side {
-		margin-right: 16px;
-	}
-}
+
 .project .status {
 	position: absolute;
 	background-color: rgb(63,81,181);
@@ -99,7 +95,7 @@
 }
 .project .forum {
     margin-bottom: 30px;
-    padding-right: 20px;
+    padding-right: 0;
     position: relative;
 }
 .project .forum md-icon{
@@ -108,9 +104,44 @@
     cursor: pointer;
 }
 .project .forum .edit{
-    right: 45px;
+    right: 30px;
 }
 
 .project .forum .delete{
-    right: 15px;
+    right: 0;
+}
+.project .md-button.md-icon-button {
+    margin: 0;
+}
+.project md-list-item {
+    padding-right: 0;
+}
+.project .invitation {
+    padding-bottom: 40px;
+}
+.project .invitation md-divider{
+    display: block;
+}
+@media (min-width: 600px) {
+    .project .left-side {
+        margin-right: 16px;
+    }
+    .project .invitation {
+        padding-bottom: 0;
+    }
+    .project .invitation md-divider{
+        display: none;
+    }
+}
+@media (min-width: 768px) {
+    .project .forum {
+        padding-right: 20px;
+    }
+    .project .forum .edit{
+        right: 45px;
+    }
+
+    .project .forum .delete{
+        right: 15px;
+    }
 }

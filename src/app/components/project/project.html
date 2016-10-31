@@ -62,7 +62,7 @@
                             <md-button flex="50" type="submit" class="md-primary md-raised md-block">INVITE</md-button>
                         </section>
                     </form>
-                    <md-divider ></md-divider>
+                    <md-divider></md-divider>
                 </div>
             </div>
             <div flex>
@@ -84,7 +84,7 @@
             </div>
         </md-card>
 
-        <md-card ng-if="isSupervisor || isResearcher || isAdmin" class="forums">
+        <md-card ng-if="isSupervisor || isResearcher || isAdmin" class="forums clearfix" >
             <form class="createForum" ng-submit="createForum(newForum, $event)"
                   ng-if="isSupervisor || isResearcher"
                   name="form" novalidate>
@@ -102,7 +102,7 @@
                 </div>
             </form>
 
-            <div flex="100" ng-if="forums.length > 0" >
+            <div ng-if="forums.length > 0">
                 <md-card-title layout="row" layout-wrap infinite-scroll="loadMore()" infinite-scroll-distance="1"
                                 infinite-scroll-disabled="!loadMoreAvailable" infinite-scroll-immediate-check="false">
                     <md-card-title-text flex="50" flex-sm="100" flex-xs="100" ng-repeat="forum in forums" class="forum">
@@ -127,8 +127,10 @@
                         </div>
 
                         <div ng-if="forum.showEditForum" style="padding-right: 60px">
-                                <textarea kendo-editor k-ng-model="forum.subject"></textarea>
-                            </div>
+                            <md-input-container class="md-block">
+                                <input type="text" ng-model="forum.subject" required>
+                            </md-input-container>
+                        </div>
                         <span class="md-headline" ng-if="!forum.showEditForum"
                                 ui-sref="project-messages({forumId: forum.id, projectId: project.id, isSupervisor: isSupervisor})">
                                 {{forum.subject}}
@@ -144,4 +146,3 @@
         </md-card>
     </md-content>
 </div>
-<footer-section></footer-section>

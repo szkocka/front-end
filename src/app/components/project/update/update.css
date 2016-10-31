@@ -11,3 +11,6 @@
 .update-project .md-list-item-text {
 	cursor: pointer;
 }
+.update-project md-list-item {
+    padding-right: 0;
+}
