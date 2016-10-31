@@ -109,10 +109,10 @@
             messagesService.createNewMessage(params)
                 .then(function(res) {
                     var msg = {
-                        message: text,
+                        message: params.message,
                         createdBy: {name:'You'},
                         created: new Date(),
-                        messageToEdit: text,
+                        messageToEdit: params.message,
                         id: [res.data.message_id]
                     };
                     $scope.activeForumMessages.push(msg);
