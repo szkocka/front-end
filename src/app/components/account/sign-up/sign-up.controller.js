@@ -25,12 +25,14 @@
                 errorService.showError('Form is not valid');
                 return;
             }
-            $scope.user.cv = linkify.linkifyString($scope.user.cv);
+            if (Type.isString ($scope.user.cv)) {
+                $scope.user.cv = linkify.linkifyString($scope.user.cv);
+            }
             signUpService.signUp($scope.user)
                 .then(function(){
                         $state.go('home');
                     }, function(err){
-                        errorService.showError(err.data.message);
+                        console.log(err.data.message);
                     });
             }
     }
