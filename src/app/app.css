@@ -102,6 +102,9 @@ md-card md-card-content {
     font-weight: 300;
     text-shadow: 1px 1px 3px #000000;
 }
+.header .md-list-item-text h3 {
+    text-shadow: none;
+}
 .header md-content.md-default-theme, .header md-content {
     background-color: transparent!important;
 }
