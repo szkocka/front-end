@@ -31,7 +31,7 @@
                     if (words[i].indexOf('href') != -1 || words[i].indexOf('src') != -1) {
                         missNext = true;
                         arr.push(words[i]);
-                    } else if (missNext && (words[i] === '/a' || words[i] === '>')) {
+                    } else if (missNext && (words[i] === '/a' || words[i] === '/')) {
                         missNext = false;
                         arr.push(words[i]);
                     } else if (words[i].match(exp1) && !missNext) {
