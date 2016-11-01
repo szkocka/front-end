@@ -110,7 +110,7 @@
                 .then(function(res) {
                     var msg = {
                         message: params.message,
-                        createdBy: {name:'You'},
+                        createdBy: {name:'You', id: $scope.user._id},
                         created: new Date(),
                         messageToEdit: params.message,
                         id: [res.data.message_id]
@@ -133,12 +133,12 @@
 
             var params = {
                 id: msg.id,
-                message: linkify.linkifyString(msg.message)
+                message: linkify.linkifyString(msg.messageToEdit)
             };
 
             messagesService.updateMessage(params)
                 .then(function(res) {
-                    msg.message = msg.messageToEdit;
+                    msg.message = params.message;
                     msg.showEditedTextaria = false;
                 }, function(err) {
                     console.log(err.message);
