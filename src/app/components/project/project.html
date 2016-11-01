@@ -107,7 +107,7 @@
                                 infinite-scroll-disabled="!loadMoreAvailable" infinite-scroll-immediate-check="false">
                     <md-card-title-text flex="50" flex-sm="100" flex-xs="100" ng-repeat="forum in forums" class="forum">
 
-                        <div ng-if="isAdmin">
+                        <div ng-if="isAdmin || isSupervisor">
                             <md-icon aria-label="edit" class="edit" ng-if="!forum.showEditForum"
                                     ng-click="toggleEditForum(forum)">
                                 edit
@@ -128,7 +128,7 @@
 
                         <div ng-if="forum.showEditForum" style="padding-right: 60px">
                             <md-input-container class="md-block">
-                                <input type="text" ng-model="forum.subject" required>
+                                <input type="text" ng-model="forum.subjectToEdit" required>
                             </md-input-container>
                         </div>
                         <span class="md-headline" ng-if="!forum.showEditForum"

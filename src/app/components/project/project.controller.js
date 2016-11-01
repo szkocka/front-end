@@ -128,6 +128,7 @@
 
                     res.data.forums.forEach(function(forum) {
                         forum.showEditForum = false;
+                        forum.subjectToEdit = forum.subject;
                         $scope.forums.push(forum);
                     });
                     $scope._isBusy = false;
@@ -289,13 +290,14 @@
          * @param {Object} forum
          */
         function updateForum(forum) {
-
-            projectService.updateForum(forum)
+            var params = {
+                id: forum.id,
+                subject: forum.subjectToEdit
+            };
+            projectService.updateForum(params)
                 .then(function(res) {
-                    $scope.forumsCursor = '';
-                    $scope.loadMoreAvailable = true;
-                    $scope.forums = [];
-                    $scope._getForums();
+                    forum.showEditForum = false;
+                    forum.subject = forum.subjectToEdit;
                 }, function(err) {
                     console.log(err);
                 });
