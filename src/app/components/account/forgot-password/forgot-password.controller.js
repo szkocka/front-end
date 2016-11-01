@@ -42,7 +42,7 @@
                 .then(function(){
                     $state.go('sign-in');
                 }, function(err){
-                    errorService.showError(err.data.message);
+                    //errorService.showError(err.data.message);
                 });
         };
     }
