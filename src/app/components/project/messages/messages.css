@@ -8,10 +8,10 @@
 .messages .md-list-item {
     margin-bottom: 20px;
 }
-.messages .postMessage {
-    padding: 16px;
+.messages .post-message {
+    padding: 14px;
 }
-.messages .activeForum h1 {
+.messages .active-forum h1 {
     color: rgb(57,73,171);
     text-transform: none;
     font-size: 20px;
@@ -22,7 +22,7 @@
     text-shadow: none;
     color: #000!important;
 }
-.messages .activeForum .back {
+.messages .active-forum .back {
     font-size: 60px;
     margin: 0 40px 0 0;
     color: rgb(57,73,171);
@@ -33,4 +33,7 @@
 }
 .messages .md-button.md-icon-button {
     margin: 0;
+}
+.messages .post-message .md-button {
+    margin-right: 2px;
 }

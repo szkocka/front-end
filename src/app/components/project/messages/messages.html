@@ -3,7 +3,7 @@
     <md-content class=" md-container">
         <md-card layout="row" layout-wrap>
             <div flex="100">
-                <div class="activeForum">
+                <div class="active-forum">
                     <md-list>
                         <md-list-item class="md-2-line md-long-text">
                             <md-icon class="back" ui-sref="project({id: projectId})">chevron_left</md-icon>
@@ -60,7 +60,7 @@
                 <div layout="row" layout-sm="column" layout-align="space-around" class="progress-circular" ng-if="isLoading">
                     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
                 </div>
-                <div class="postMessage">
+                <div class="post-message">
                     <md-input-container class="md-block">
                         <label class="detailed-description">Add Comment</label>
                         <textarea kendo-editor k-ng-model="newMessage"></textarea>
