@@ -24,8 +24,8 @@
 
                         <div class="md-list-item-text">
                             <h3 ng-if="!message.showEditedTextaria">{{message.createdBy.name}} <small> on <i><i>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i></i></small></h3> 
-                            <p ng-if="!message.showEditedTextaria" mathjax-bind
-                                ng-bind-html="message.message"></p>
+                            <p ng-if="!message.showEditedTextaria"
+                                mathjax-bind="message.message"></p>
                             <div ng-if="message.showEditedTextaria">
                                 <textarea kendo-editor k-ng-model="message.messageToEdit"></textarea>
                             </div>

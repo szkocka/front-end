@@ -15,7 +15,7 @@
         </tr>
         <tr ng-repeat="post in posts">
             <td width="60%">
-                <p ng-if="!post.isEditing" ng-bind-html="post.title"></p>
+                <p ng-if="!post.isEditing" mathjax-bind="post.title"></p>
                 <div ng-if="post.isEditing">
                     <textarea kendo-editor k-ng-model="post.title"></textarea>
                 </div>

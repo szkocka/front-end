@@ -69,7 +69,7 @@
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">{{project.title}}</span>
-                        <span class="md-subhead" ng-bind-html="project.description.detailed"></span>
+                        <span class="md-subhead" mathjax-bind="project.description.detailed"></span>
                         <span class="researchers">
                             <strong>Supevised by: 
                                 <a ui-sref="profile({id: project.supervisor.id})">{{project.supervisor.name}}</a>
